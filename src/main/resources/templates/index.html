@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+</head>
+<body>
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${testcases}" class="container my-5">
+                <form action="#" th:action="@{/add}" method="post">
+                    <button type="submit" name="add" value="" class="btn btn-primary">
+                        Add testing TestCase
+                    </button>
+                </form>
+                <br>
+                <div class="col-md-10">
+                    <h2 th:case="null">No test cases yet!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>UUID</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="testcase : ${testcases}">
+                                <td th:text="${testcase.id}"></td>
+                                <td th:text="${testcase.name}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

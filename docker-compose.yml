@@ -1,0 +1,16 @@
+version: "3"
+services:
+  testcrowd-mssqldb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Test@123456
+    ports:
+      - "1430:1433"
+  testcrowd-app:
+    restart: on-failure
+    image: testcrowd-docker
+    ports:
+      - "8082:8080"
+    depends_on:
+      - testcrowd-mssqldb
