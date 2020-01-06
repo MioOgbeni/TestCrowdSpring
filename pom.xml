@@ -11,7 +11,7 @@
     <groupId>cz.spitsoft</groupId>
     <artifactId>testcrowd</artifactId>
     <version>1.0.0</version>
-    <name>testcrowd</name>
+    <name>TestCrowd</name>
     <description>Application for crowdsourced testing</description>
 
     <properties>

@@ -2,15 +2,27 @@ version: "3"
 services:
   testcrowd-mssqldb:
     image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: testcrowd-mssqldb
+    hostname: testcrowd-mssqldb
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Test@123456
     ports:
-      - "1430:1433"
+      - "1433:1433"
+    volumes:
+      - "./sql-backup:/var/opt/mssql/data"
   testcrowd-app:
-    restart: on-failure
+    build:
+      context: ./
     image: testcrowd-docker
+    container_name: testcrowd-app
+    hostname: testcrowd-app
+    restart: on-failure
     ports:
-      - "8082:8080"
+      - "8080:8080"
     depends_on:
       - testcrowd-mssqldb
+networks:
+  default:
+    external:
+      name: test

@@ -1,4 +1,6 @@
+Set shared drive for docker Hyper-V
+    docker/settings/shared drives (check drive with your project files)
+Build maven project (Execute maven goal)
+    mvn -Dmaven.test.skip=true package
 In powershell run docker
-    docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Test@123456" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
-Check DB connection
-Check "\src\main\resources\application.properties" use local host for now, docker row must be commented
+    docker-compose up -d --build
