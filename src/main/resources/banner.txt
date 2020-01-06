@@ -5,4 +5,4 @@
     \ \ \/\  __//\__, `\\ \ \_\ \ \L\ \ \ \//\ \L\ \ \ \_/ \_/ \/\ \L\ \
      \ \_\ \____\/\____/ \ \__\\ \____/\ \_\\ \____/\ \___x___/'\ \___,_\
       \/_/\/____/\/___/   \/__/ \/___/  \/_/ \/___/  \/__//__/   \/__,_ /
-by SpitSoft
+${application.title} -${application.formatted-version} | Running on Spring Boot${spring-boot.formatted-version}

@@ -11,6 +11,8 @@ services:
       - "1433:1433"
     volumes:
       - "./sql-backup:/var/opt/mssql/data"
+    networks:
+      - default
   testcrowd-app:
     build:
       context: ./
@@ -22,7 +24,7 @@ services:
       - "8080:8080"
     depends_on:
       - testcrowd-mssqldb
+    networks:
+      - default
 networks:
   default:
-    external:
-      name: test
