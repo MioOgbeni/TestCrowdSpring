@@ -5,10 +5,8 @@ public interface TestCase {
     String name = null;
 
     String getId();
-
     void setId(String id);
 
     String getName();
-
     void setName(String name);
 }
