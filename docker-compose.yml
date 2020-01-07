@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 services:
   testcrowd-mssqldb:
     image: mcr.microsoft.com/mssql/server:2017-latest
@@ -28,3 +28,4 @@ services:
       - default
 networks:
   default:
+    name: testcrowd-network
