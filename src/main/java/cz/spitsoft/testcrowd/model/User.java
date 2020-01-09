@@ -8,7 +8,7 @@ public interface User {
     String username = null;
     String password = null;
     String email = null;
-    Set<Role> roles = null;
+    Set<RoleImp> roles = null;
 
     String getFirstName();
 
@@ -30,11 +30,7 @@ public interface User {
 
     void setEmail(String email);
 
-    Set<Role> getRoles();
+    Set<RoleImp> getRoles();
 
-    Role getRole();
-
-    void setRoles(Set<Role> roles);
-
-    void setRole(Role role);
+    void setRoles(Set<RoleImp> roles);
 }

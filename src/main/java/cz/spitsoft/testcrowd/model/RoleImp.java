@@ -2,14 +2,15 @@ package cz.spitsoft.testcrowd.model;
 
 import org.springframework.core.style.ToStringCreator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "TBL_ROLE")
+@AttributeOverrides({
+        @AttributeOverride(name = "ID", column = @Column(name = "ROLE_ID"))
+})
+@Table(name = "TBL_ROLES")
 public class RoleImp extends BaseEntity implements Role {
 
     @Column(name = "NAME")
@@ -31,49 +32,52 @@ public class RoleImp extends BaseEntity implements Role {
         super();
     }
 
-    public RoleImp(String name) {
+    public RoleImp(RoleType roleType, String description, Long createdOn, Long modifiedOn) {
         super();
-
+        this.name = roleType;
+        this.description = description;
+        this.createdOn = createdOn;
+        this.modifiedOn = modifiedOn;
     }
 
     @Override
     public RoleType getName() {
-        return null;
+        return name;
     }
 
     @Override
     public void setName(RoleType roleType) {
-
+        this.name = roleType;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public void setDescription(String description) {
-
+        this.description = description;
     }
 
     @Override
     public Long getCreatedOn() {
-        return null;
+        return createdOn;
     }
 
     @Override
-    public void setCreatedOn(String createdOn) {
-
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
     @Override
     public Long getModifiedOn() {
-        return null;
+        return modifiedOn;
     }
 
     @Override
-    public void setModifiedOn(String modifiedOn) {
-
+    public void setModifiedOn(Long modifiedOn) {
+        this.modifiedOn = modifiedOn;
     }
 
     @Override

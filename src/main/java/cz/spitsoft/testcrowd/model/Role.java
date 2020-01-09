@@ -16,9 +16,9 @@ public interface Role {
 
     Long getCreatedOn();
 
-    void setCreatedOn(String createdOn);
+    void setCreatedOn(Long createdOn);
 
     Long getModifiedOn();
 
-    void setModifiedOn(String modifiedOn);
+    void setModifiedOn(Long modifiedOn);
 }

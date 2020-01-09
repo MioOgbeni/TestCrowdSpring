@@ -2,14 +2,15 @@ package cz.spitsoft.testcrowd.model;
 
 import org.springframework.core.style.ToStringCreator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "TBL_TESTCASE")
+@AttributeOverrides({
+        @AttributeOverride(name = "ID", column = @Column(name = "TESTCASE_ID"))
+})
+@Table(name = "TBL_TESTCASES")
 public class TestCaseImp extends BaseEntity implements TestCase {
 
     @Column(name = "NAME")
