@@ -12,39 +12,40 @@ import java.util.Set;
         @AttributeOverride(name = "ID", column = @Column(name = "USER_ID"))
 })
 @Table(name = "TBL_USERS")
-public class UserImp extends BaseEntity implements User {
+public class UserImp<E> extends BaseEntity implements User<E> {
     @Column(name = "FIRSTNAME")
-    @Size(max = 30, message = "{testcase.name.invalid}")
+    @Size(max = 30, message = "{user.firstName.invalid}")
     private String firstName;
 
     @Column(name = "LASTNAME")
-    @Size(max = 30, message = "{testcase.name.invalid}")
+    @Size(max = 30, message = "{user.lastName.invalid}")
     private String lastName;
 
     @Column(name = "USERNAME")
-    @Size(max = 30, min = 1, message = "{testcase.name.invalid}")
+    @Size(max = 30, min = 1, message = "{user.username.invalid}")
     @NotEmpty
     private String username;
 
     @Column(name = "PASSWORD")
-    @Size(max = 255, min = 1, message = "{testcase.name.invalid}")
+    @Size(max = 255, min = 1, message = "{user.password.invalid}")
     @NotEmpty
     private String password;
 
     @Column(name = "EMAIL")
-    @Size(max = 255, min = 1, message = "{testcase.name.invalid}")
+    @Size(max = 255, min = 1, message = "{user.email.invalid}")
     @NotEmpty
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    private Set<RoleImp> roles;
+    @NotEmpty
+    private Set<E> roles;
 
     public UserImp() {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String email, Set<RoleImp> roles) {
+    public UserImp(String firstName, String lastName, String username, String password, String email, Set<E> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -105,12 +106,12 @@ public class UserImp extends BaseEntity implements User {
     }
 
     @Override
-    public Set<RoleImp> getRoles() {
+    public Set<E> getRoles() {
         return roles;
     }
 
     @Override
-    public void setRoles(Set<RoleImp> roles) {
+    public void setRoles(Set<E> roles) {
         this.roles = roles;
     }
 

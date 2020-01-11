@@ -1,6 +1,6 @@
 package cz.spitsoft.testcrowd.controller;
 
-import cz.spitsoft.testcrowd.model.TestCaseImp;
+import cz.spitsoft.testcrowd.model.testcases.TestCaseImp;
 import cz.spitsoft.testcrowd.repository.TestCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,43 +1,52 @@
 package cz.spitsoft.testcrowd.model;
 
+import org.hibernate.annotations.Target;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @AttributeOverrides({
         @AttributeOverride(name = "ID", column = @Column(name = "ROLE_ID"))
 })
 @Table(name = "TBL_ROLES")
-public class RoleImp extends BaseEntity implements Role {
+public class RoleImp<T> extends BaseEntity implements Role<T> {
 
     @Column(name = "NAME")
-    @Size(max = 20, min = 3, message = "{testcase.name.invalid}")
+    @Size(max = 20, min = 3, message = "{role.name.invalid}")
     @NotEmpty
     private RoleType name;
 
     @Column(name = "DESCRIPTION")
-    @Size(max = 255, message = "{testcase.name.invalid}")
+    @Size(max = 255, message = "{role.description.invalid}")
     private String description;
 
     @Column(name = "CREATED_ON")
-    private Long createdOn;
+    private Date createdOn;
 
     @Column(name = "MODIFIED_ON")
-    private Long modifiedOn;
+    private Date modifiedOn;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MODIFIED_BY")
+    @Target(UserImp.class)
+    @NotEmpty
+    private User<T> modifiedBy;
 
     public RoleImp() {
         super();
     }
 
-    public RoleImp(RoleType roleType, String description, Long createdOn, Long modifiedOn) {
+    public RoleImp(RoleType roleType, String description, Date createdOn, Date modifiedOn, User<T> modifiedBy) {
         super();
         this.name = roleType;
         this.description = description;
         this.createdOn = createdOn;
         this.modifiedOn = modifiedOn;
+        this.modifiedBy = modifiedBy;
     }
 
     @Override
@@ -61,23 +70,33 @@ public class RoleImp extends BaseEntity implements Role {
     }
 
     @Override
-    public Long getCreatedOn() {
+    public Date getCreatedOn() {
         return createdOn;
     }
 
     @Override
-    public void setCreatedOn(Long createdOn) {
+    public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
     @Override
-    public Long getModifiedOn() {
+    public Date getModifiedOn() {
         return modifiedOn;
     }
 
     @Override
-    public void setModifiedOn(Long modifiedOn) {
+    public void setModifiedOn(Date modifiedOn) {
         this.modifiedOn = modifiedOn;
+    }
+
+    @Override
+    public User<T> getModifiedBy() {
+        return modifiedBy;
+    }
+
+    @Override
+    public void setModifiedBy(User<T> modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     @Override

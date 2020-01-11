@@ -1,11 +1,8 @@
 package cz.spitsoft.testcrowd.model;
 
-public interface Role {
-    RoleType name = null;
-    String description = null;
-    Long createdOn = null;
-    Long modifiedOn = null;
+import java.util.Date;
 
+public interface Role<T> {
     RoleType getName();
 
     void setName(RoleType roleType);
@@ -14,11 +11,15 @@ public interface Role {
 
     void setDescription(String description);
 
-    Long getCreatedOn();
+    Date getCreatedOn();
 
-    void setCreatedOn(Long createdOn);
+    void setCreatedOn(Date createdOn);
 
-    Long getModifiedOn();
+    Date getModifiedOn();
 
-    void setModifiedOn(Long modifiedOn);
+    void setModifiedOn(Date modifiedOn);
+
+    User<T> getModifiedBy();
+
+    void setModifiedBy(User<T> modifiedBy);
 }
