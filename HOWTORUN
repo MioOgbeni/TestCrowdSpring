@@ -1,6 +1,0 @@
-Set shared drive for docker Hyper-V
-    docker/settings/shared drives (check drive with your project files)
-Build maven project (Execute maven goal)
-    mvn -Dmaven.test.skip=true package
-In powershell run docker
-    docker-compose up -d --build
