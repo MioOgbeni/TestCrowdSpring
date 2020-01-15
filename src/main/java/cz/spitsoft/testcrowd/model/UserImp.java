@@ -36,6 +36,10 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     @NotEmpty
     private String email;
 
+    @Column(name = "IMAGE_URL")
+    @Size(max = 255, min = 1, message = "{user.imageUrl.invalid}")
+    private String imageUrl;
+
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @NotEmpty
@@ -45,13 +49,14 @@ public class UserImp<E> extends BaseEntity implements User<E> {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String email, Set<E> roles) {
+    public UserImp(String firstName, String lastName, String username, String password, String email, String imageUrl, Set<E> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.imageUrl = imageUrl;
         this.roles = roles;
     }
 
@@ -106,6 +111,16 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     }
 
     @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
     public Set<E> getRoles() {
         return roles;
     }
@@ -118,7 +133,6 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     @Override
     public String toString() {
         return new ToStringCreator(this)
-
                 .append("id", this.getId()).append("new", this.isNew()).append("name", this.getUsername()).toString();
     }
 }
