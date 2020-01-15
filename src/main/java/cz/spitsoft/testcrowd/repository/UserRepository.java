@@ -1,14 +1,14 @@
-//package cz.spitsoft.testcrowd.repository;
+package cz.spitsoft.testcrowd.repository;
 
-//import cz.spitsoft.testcrowd.model.User;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.stereotype.Repository;
+import cz.spitsoft.testcrowd.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-//import java.util.Optional;
+import java.util.Optional;
 
 //@Repository
 //public interface UserRepository extends JpaRepository<User, Long> {
-//    Optional<User> findByEmail(String email);
-//
-//    Boolean existsByEmail(String email);
+    //Optional<User> findByEmail(String email);
+
+    //Boolean existsByEmail(String email);
 //}

@@ -3,6 +3,7 @@ package cz.spitsoft.testcrowd.model;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,7 +13,9 @@ import java.util.Set;
 @AttributeOverrides({
         @AttributeOverride(name = "ID", column = @Column(name = "USER_ID"))
 })
-@Table(name = "TBL_USERS")
+@Table(name = "TBL_USERS", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "EMAIL")
+})
 public class UserImp<E> extends BaseEntity implements User<E> {
     @Column(name = "FIRSTNAME")
     @Size(max = 30, message = "{user.firstName.invalid}")
@@ -32,6 +35,7 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     @NotEmpty
     private String password;
 
+    @Email
     @Column(name = "EMAIL")
     @Size(max = 255, min = 1, message = "{user.email.invalid}")
     @NotEmpty
