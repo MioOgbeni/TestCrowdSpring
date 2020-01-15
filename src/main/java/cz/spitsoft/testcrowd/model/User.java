@@ -23,11 +23,20 @@ public interface User<E> {
 
     void setEmail(String email);
 
+    Set<E> getRoles();
+
+    void setRoles(Set<E> roles);
+
     String getImageUrl();
 
     void setImageUrl(String imageUrl);
 
-    Set<E> getRoles();
+    AuthProvider getProvider();
 
-    void setRoles(Set<E> roles);
+    void setProvider(AuthProvider provider);
+
+    String getProviderId();
+
+    void setProviderId(String providerId);
+
 }

@@ -4,6 +4,7 @@ import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -36,28 +37,38 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     @NotEmpty
     private String email;
 
-    @Column(name = "IMAGE_URL")
-    @Size(max = 255, min = 1, message = "{user.imageUrl.invalid}")
-    private String imageUrl;
-
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @NotEmpty
     private Set<E> roles;
 
+    @Column(name = "IMAGE_URL")
+    @Size(max = 255, min = 1, message = "{user.imageUrl.invalid}")
+    private String imageUrl;
+
+    @Column(name = "PROVIDER")
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    @Column(name = "PROVIDER_ID")
+    private String providerId;
+
     public UserImp() {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String email, String imageUrl, Set<E> roles) {
+    public UserImp(String firstName, String lastName, String username, String password, String email, String imageUrl, AuthProvider provider, String providerId, Set<E> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.imageUrl = imageUrl;
         this.roles = roles;
+        this.imageUrl = imageUrl;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
     @Override
@@ -118,6 +129,26 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     @Override
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public AuthProvider getProvider() {
+        return provider;
+    }
+
+    @Override
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
+    }
+
+    @Override
+    public String getProviderId() {
+        return providerId;
+    }
+
+    @Override
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 
     @Override
