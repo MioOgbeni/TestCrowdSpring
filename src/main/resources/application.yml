@@ -25,12 +25,24 @@ spring:
           google:
             client-id: 563033980736-lrjr9jcduv1mu76sf5cs8j8l41bhocfv.apps.googleusercontent.com
             client-secret: Gta9S6LqagyufErt_zTmVvxC
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
           facebook:
             client-id: 835850046853866
             client-secret: f588bb67a72782a483a94115bd5fb70f
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - public_profile
           github:
             client-id: e85b058350a3596463e6
             client-secret: b5f974d6e28bb72fad28d64914a28413cbd7f6eb
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - user:email
+              - read:user
 
   # Internationalization
   messages:

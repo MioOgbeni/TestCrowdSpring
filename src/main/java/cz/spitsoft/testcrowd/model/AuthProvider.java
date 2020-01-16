@@ -1,3 +1,3 @@
 package cz.spitsoft.testcrowd.model;
 
-public enum AuthProvider {facebook, google, github}
+public enum AuthProvider {facebook, google, github, local}
