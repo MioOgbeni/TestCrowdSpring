@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "TBL_USERS", uniqueConstraints = {
         @UniqueConstraint(columnNames = "EMAIL")
 })
-public class UserImp<E> extends BaseEntity implements User<E> {
+public class UserImp<R> extends BaseEntity implements User<R> {
     @Column(name = "FIRSTNAME")
     @Size(max = 30, message = "{user.firstName.invalid}")
     private String firstName;
@@ -44,7 +44,7 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @NotEmpty
-    private Set<E> roles;
+    private Set<R> roles;
 
     @Column(name = "IMAGE_URL")
     @Size(max = 255, min = 1, message = "{user.imageUrl.invalid}")
@@ -62,7 +62,7 @@ public class UserImp<E> extends BaseEntity implements User<E> {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String email, String imageUrl, AuthProvider provider, String providerId, Set<E> roles) {
+    public UserImp(String firstName, String lastName, String username, String password, String email, String imageUrl, AuthProvider provider, String providerId, Set<R> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -156,12 +156,12 @@ public class UserImp<E> extends BaseEntity implements User<E> {
     }
 
     @Override
-    public Set<E> getRoles() {
+    public Set<R> getRoles() {
         return roles;
     }
 
     @Override
-    public void setRoles(Set<E> roles) {
+    public void setRoles(Set<R> roles) {
         this.roles = roles;
     }
 

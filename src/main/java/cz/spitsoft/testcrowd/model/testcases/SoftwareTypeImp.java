@@ -1,9 +1,9 @@
 package cz.spitsoft.testcrowd.model.testcases;
 
 import cz.spitsoft.testcrowd.model.BaseEntity;
-import cz.spitsoft.testcrowd.model.User;
 import cz.spitsoft.testcrowd.model.UserImp;
 import org.hibernate.annotations.Target;
+import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,7 +15,7 @@ import java.util.Date;
         @AttributeOverride(name = "ID", column = @Column(name = "SW_TYPE_ID"))
 })
 @Table(name = "TBL_SW_TYPES")
-public class SoftwareTypeImp<T> extends BaseEntity implements SoftwareType<T> {
+public class SoftwareTypeImp<U> extends BaseEntity implements SoftwareType<U> {
     @Column(name = "NAME")
     @Size(max = 30, message = "{softwareType.name.invalid}")
     @NotEmpty
@@ -41,13 +41,13 @@ public class SoftwareTypeImp<T> extends BaseEntity implements SoftwareType<T> {
     @JoinColumn(name = "MODIFIED_BY")
     @Target(UserImp.class)
     @NotEmpty
-    private User<T> modifiedBy;
+    private U modifiedBy;
 
     public SoftwareTypeImp() {
         super();
     }
 
-    public SoftwareTypeImp(String name, String description, Boolean valid, Date createdOn, Date modifiedOn, User<T> modifiedBy) {
+    public SoftwareTypeImp(String name, String description, Boolean valid, Date createdOn, Date modifiedOn, U modifiedBy) {
         super();
         this.name = name;
         this.description = description;
@@ -108,12 +108,19 @@ public class SoftwareTypeImp<T> extends BaseEntity implements SoftwareType<T> {
     }
 
     @Override
-    public User<T> getModifiedBy() {
+    public U getModifiedBy() {
         return modifiedBy;
     }
 
     @Override
-    public void setModifiedBy(User<T> modifiedBy) {
+    public void setModifiedBy(U modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringCreator(this)
+
+                .append("id", this.getId()).append("name", this.getName()).toString();
     }
 }

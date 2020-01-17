@@ -13,7 +13,7 @@ import java.util.Date;
         @AttributeOverride(name = "ID", column = @Column(name = "ROLE_ID"))
 })
 @Table(name = "TBL_ROLES")
-public class RoleImp<T> extends BaseEntity implements Role<T> {
+public class RoleImp<U> extends BaseEntity implements Role<U> {
 
     @Column(name = "NAME")
     @Size(max = 20, min = 3, message = "{role.name.invalid}")
@@ -34,13 +34,13 @@ public class RoleImp<T> extends BaseEntity implements Role<T> {
     @JoinColumn(name = "MODIFIED_BY")
     @Target(UserImp.class)
     @NotEmpty
-    private User<T> modifiedBy;
+    private U modifiedBy;
 
     public RoleImp() {
         super();
     }
 
-    public RoleImp(RoleType roleType, String description, Date createdOn, Date modifiedOn, User<T> modifiedBy) {
+    public RoleImp(RoleType roleType, String description, Date createdOn, Date modifiedOn, U modifiedBy) {
         super();
         this.name = roleType;
         this.description = description;
@@ -90,12 +90,12 @@ public class RoleImp<T> extends BaseEntity implements Role<T> {
     }
 
     @Override
-    public User<T> getModifiedBy() {
+    public U getModifiedBy() {
         return modifiedBy;
     }
 
     @Override
-    public void setModifiedBy(User<T> modifiedBy) {
+    public void setModifiedBy(U modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

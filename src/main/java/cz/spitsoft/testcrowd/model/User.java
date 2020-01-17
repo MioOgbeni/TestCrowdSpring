@@ -2,7 +2,7 @@ package cz.spitsoft.testcrowd.model;
 
 import java.util.Set;
 
-public interface User<E> {
+public interface User<R> {
     String getFirstName();
 
     void setFirstName(String firstName);
@@ -23,9 +23,9 @@ public interface User<E> {
 
     void setEmail(String email);
 
-    Set<E> getRoles();
+    Set<R> getRoles();
 
-    void setRoles(Set<E> roles);
+    void setRoles(Set<R> roles);
 
     String getImageUrl();
 

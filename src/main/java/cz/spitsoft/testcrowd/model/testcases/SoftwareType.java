@@ -1,10 +1,8 @@
 package cz.spitsoft.testcrowd.model.testcases;
 
-import cz.spitsoft.testcrowd.model.User;
-
 import java.util.Date;
 
-public interface SoftwareType<T> {
+public interface SoftwareType<U> {
     String getName();
 
     void setName(String name);
@@ -25,7 +23,7 @@ public interface SoftwareType<T> {
 
     void setModifiedOn(Date modifiedOn);
 
-    User<T> getModifiedBy();
+    U getModifiedBy();
 
-    void setModifiedBy(User<T> modifiedBy);
+    void setModifiedBy(U modifiedBy);
 }

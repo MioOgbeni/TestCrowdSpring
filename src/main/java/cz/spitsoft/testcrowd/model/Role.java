@@ -2,7 +2,7 @@ package cz.spitsoft.testcrowd.model;
 
 import java.util.Date;
 
-public interface Role<T> {
+public interface Role<U> {
     RoleType getName();
 
     void setName(RoleType roleType);
@@ -19,7 +19,7 @@ public interface Role<T> {
 
     void setModifiedOn(Date modifiedOn);
 
-    User<T> getModifiedBy();
+    U getModifiedBy();
 
-    void setModifiedBy(User<T> modifiedBy);
+    void setModifiedBy(U modifiedBy);
 }
