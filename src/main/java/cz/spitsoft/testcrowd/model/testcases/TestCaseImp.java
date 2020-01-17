@@ -26,12 +26,12 @@ public class TestCaseImp<C, T, E, U, R> extends BaseEntity implements TestCase<C
     private String name;
 
     @Column(name = "SKILL_DIFFICULTY")
-    @Size(max = 5, min = 1, message = "{testcase.skillDifficulty.invalid}")
+    @Size(max = 5, message = "{testcase.skillDifficulty.invalid}")
     @NotEmpty
     private int skillDifficulty;
 
     @Column(name = "TIME_DIFFICULTY")
-    @Size(max = 5, min = 1, message = "{testcase.timeDifficulty.invalid}")
+    @Size(max = 5, message = "{testcase.timeDifficulty.invalid}")
     @NotEmpty
     private int timeDifficulty;
 
@@ -240,14 +240,14 @@ public class TestCaseImp<C, T, E, U, R> extends BaseEntity implements TestCase<C
 
     @Override
     public void countRating() {
-        if (reviews.size() == 0) {
+        if (reviews.isEmpty()) {
             rating = 0;
         } else {
             int reviewRating = 0;
 
-            for (R review : reviews) reviewRating += ((ReviewImp<U>) review).getRating();
+            for (R review : reviews) reviewRating += ((ReviewImp) review).getRating();
 
-            rating = reviewRating / reviews.size();
+            rating = (int) Math.ceil(reviewRating / reviews.size());
         }
     }
 
