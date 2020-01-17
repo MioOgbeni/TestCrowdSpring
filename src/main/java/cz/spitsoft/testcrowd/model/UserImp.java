@@ -42,7 +42,7 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
-    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    @JoinTable(name = "TBL_USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @NotEmpty
     private Set<R> roles;
 

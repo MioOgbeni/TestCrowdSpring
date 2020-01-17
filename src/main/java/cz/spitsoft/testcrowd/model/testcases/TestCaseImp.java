@@ -56,9 +56,7 @@ public class TestCaseImp<C, T, E, U, R> extends BaseEntity implements TestCase<C
     @NotEmpty
     private int reward;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "EVIDENCES")
-    @Target(EvidenceImp.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = EvidenceImp.class)
     @NotEmpty
     private List<E> evidences;
 
@@ -76,9 +74,7 @@ public class TestCaseImp<C, T, E, U, R> extends BaseEntity implements TestCase<C
     @NotEmpty
     private Date availableTo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "REVIEWS")
-    @Target(ReviewImp.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ReviewImp.class)
     @NotEmpty
     private List<R> reviews;
 
