@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TestCases | TestCrowd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/css/default.css">
+    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/contrib/js/popper.min.js"></script>
+    <script src="/contrib/js/bootstrap.min.js"></script>
+    <script src="/custom/js/default.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <form method="POST" th:action="@{/login}" class="form-signin">
+        <h2 class="form-heading">Log in</h2>
+
+        <div class="form-group ${error != null ? 'has-error' : ''}">
+            <span th:text="${message}"></span>
+            <input name="username" type="text" class="form-control" placeholder="Username"
+                   autofocus="true"/>
+            <input name="password" type="password" class="form-control" placeholder="Password"/>
+            <span th:text="${error}"></span>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+            <h4 class="text-center"><a href="#" th:href="@{/registration}">Create an account</a></h4>
+        </div>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+</body>
+</html>

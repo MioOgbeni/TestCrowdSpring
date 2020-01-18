@@ -19,7 +19,7 @@ public class TestCaseController {
     @GetMapping("list")
     public String testCases(Model model) {
         model.addAttribute("testcases", this.testCaseRepository.findAll());
-        return "index";
+        return "list";
     }
 
     @PostMapping("add")

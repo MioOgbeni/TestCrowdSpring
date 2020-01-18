@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TestCases | TestCrowd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/css/default.css">
+    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/contrib/js/popper.min.js"></script>
+    <script src="/contrib/js/bootstrap.min.js"></script>
+    <script src="/custom/js/default.js"></script>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <th:form method="POST" modelAttribute="userForm" class="form-signin">
+        <h2 class="form-signin-heading">Create your account</h2>
+        <th:bind path="username">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <th:input type="text" path="username" class="form-control" placeholder="Username"
+                          autofocus="true"></th:input>
+                <th:errors path="username"></th:errors>
+            </div>
+        </th:bind>
+
+        <th:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <th:input type="text" path="email" class="form-control" placeholder="Email"
+                          autofocus="true"></th:input>
+                <th:errors path="email"></th:errors>
+            </div>
+        </th:bind>
+
+        <th:bind path="password">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <th:input type="password" path="password" class="form-control" placeholder="Password"></th:input>
+                <th:errors path="password"></th:errors>
+            </div>
+        </th:bind>
+
+        <th:bind path="passwordConfirm">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <th:input type="password" path="passwordConfirm" class="form-control"
+                          placeholder="Confirm your password"></th:input>
+                <th:errors path="passwordConfirm"></th:errors>
+            </div>
+        </th:bind>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </th:form>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -20,7 +20,7 @@ public interface TestCategoryRepository extends JpaRepository<TestCategoryImp, U
     List<SoftwareTypeImp> findByValidFalse();
 
     @Transactional(readOnly = true)
-    SoftwareTypeImp findByName();
+    SoftwareTypeImp findByName(String name);
 
     @Transactional(readOnly = true)
     List<SoftwareTypeImp> findByModifiedBy(UserImp user);

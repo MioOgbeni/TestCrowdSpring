@@ -19,6 +19,10 @@ public interface User<R> {
 
     void setPassword(String password);
 
+    String getPasswordConfirm();
+
+    void setPasswordConfirm(String passwordConfirm);
+
     String getEmail();
 
     void setEmail(String email);
@@ -26,17 +30,4 @@ public interface User<R> {
     Set<R> getRoles();
 
     void setRoles(Set<R> roles);
-
-    String getImageUrl();
-
-    void setImageUrl(String imageUrl);
-
-    AuthProvider getProvider();
-
-    void setProvider(AuthProvider provider);
-
-    String getProviderId();
-
-    void setProviderId(String providerId);
-
 }

@@ -5,7 +5,6 @@ import org.springframework.core.style.ToStringCreator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -26,14 +25,17 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     private String lastName;
 
     @Column(name = "USERNAME")
-    @Size(max = 30, min = 1, message = "{user.username.invalid}")
+    @Size(max = 30, min = 6, message = "{user.username.invalid}")
     @NotEmpty
     private String username;
 
     @Column(name = "PASSWORD")
-    @Size(max = 255, min = 1, message = "{user.password.invalid}")
+    @Size(max = 32, min = 6, message = "{user.password.invalid}")
     @NotEmpty
     private String password;
+
+    @Transient
+    private String passwordConfirm;
 
     @Email
     @Column(name = "EMAIL")
@@ -46,33 +48,19 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @NotEmpty
     private Set<R> roles;
 
-    @Column(name = "IMAGE_URL")
-    @Size(max = 255, min = 1, message = "{user.imageUrl.invalid}")
-    private String imageUrl;
-
-    @Column(name = "PROVIDER")
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private AuthProvider provider;
-
-    @Column(name = "PROVIDER_ID")
-    private String providerId;
-
     public UserImp() {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String email, String imageUrl, AuthProvider provider, String providerId, Set<R> roles) {
+    public UserImp(String firstName, String lastName, String username, String password, String passwordConfirm, String email, String imageUrl, AuthProvider provider, String providerId, Set<R> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+        this.passwordConfirm = passwordConfirm;
         this.email = email;
         this.roles = roles;
-        this.imageUrl = imageUrl;
-        this.provider = provider;
-        this.providerId = providerId;
     }
 
     @Override
@@ -116,6 +104,16 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     }
 
     @Override
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    @Override
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    @Override
     public String getEmail() {
         return email;
     }
@@ -123,36 +121,6 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @Override
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Override
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    @Override
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public AuthProvider getProvider() {
-        return provider;
-    }
-
-    @Override
-    public void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
-
-    @Override
-    public String getProviderId() {
-        return providerId;
-    }
-
-    @Override
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
     }
 
     @Override
@@ -168,6 +136,6 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @Override
     public String toString() {
         return new ToStringCreator(this)
-                .append("id", this.getId()).append("new", this.isNew()).append("name", this.getUsername()).toString();
+                .append("id", this.getId()).append("name", this.getUsername()).toString();
     }
 }

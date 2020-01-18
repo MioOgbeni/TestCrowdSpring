@@ -1,6 +1,5 @@
 package cz.spitsoft.testcrowd.model;
 
-import org.hibernate.annotations.Target;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
@@ -13,10 +12,10 @@ import java.util.Date;
         @AttributeOverride(name = "ID", column = @Column(name = "ROLE_ID"))
 })
 @Table(name = "TBL_ROLES")
-public class RoleImp<U> extends BaseEntity implements Role<U> {
+public class RoleImp extends BaseEntity implements Role {
 
     @Column(name = "NAME")
-    @Size(max = 20, min = 3, message = "{role.name.invalid}")
+    @Enumerated(EnumType.STRING)
     @NotEmpty
     private RoleType name;
 
@@ -27,26 +26,15 @@ public class RoleImp<U> extends BaseEntity implements Role<U> {
     @Column(name = "CREATED_ON")
     private Date createdOn;
 
-    @Column(name = "MODIFIED_ON")
-    private Date modifiedOn;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "MODIFIED_BY")
-    @Target(UserImp.class)
-    @NotEmpty
-    private U modifiedBy;
-
     public RoleImp() {
         super();
     }
 
-    public RoleImp(RoleType roleType, String description, Date createdOn, Date modifiedOn, U modifiedBy) {
+    public RoleImp(RoleType roleType, String description, Date createdOn) {
         super();
         this.name = roleType;
         this.description = description;
         this.createdOn = createdOn;
-        this.modifiedOn = modifiedOn;
-        this.modifiedBy = modifiedBy;
     }
 
     @Override
@@ -80,29 +68,9 @@ public class RoleImp<U> extends BaseEntity implements Role<U> {
     }
 
     @Override
-    public Date getModifiedOn() {
-        return modifiedOn;
-    }
-
-    @Override
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
-
-    @Override
-    public U getModifiedBy() {
-        return modifiedBy;
-    }
-
-    @Override
-    public void setModifiedBy(U modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    @Override
     public String toString() {
         return new ToStringCreator(this)
 
-                .append("id", this.getId()).append("new", this.isNew()).append("name", this.getName()).toString();
+                .append("id", this.getId()).append("name", this.getName()).toString();
     }
 }

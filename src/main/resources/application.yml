@@ -17,21 +17,6 @@ spring:
       hibernate:
         dialect: 'org.hibernate.dialect.SQLServer2012Dialect'
 
-  # Security / OAuth2
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 563033980736-lrjr9jcduv1mu76sf5cs8j8l41bhocfv.apps.googleusercontent.com
-            client-secret: Gta9S6LqagyufErt_zTmVvxC
-          facebook:
-            client-id: 835850046853866
-            client-secret: f588bb67a72782a483a94115bd5fb70f
-          github:
-            client-id: e85b058350a3596463e6
-            client-secret: b5f974d6e28bb72fad28d64914a28413cbd7f6eb
-
   # Internationalization
   messages:
     basename: messages/messages
