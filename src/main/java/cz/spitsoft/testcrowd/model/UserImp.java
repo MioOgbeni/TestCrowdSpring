@@ -17,20 +17,19 @@ import java.util.Set;
 })
 public class UserImp<R> extends BaseEntity implements User<R> {
     @Column(name = "FIRSTNAME")
-    @Size(max = 30, message = "{user.firstName.invalid}")
+    @Size(max = 80, message = "{user.firstName.invalid}")
     private String firstName;
 
     @Column(name = "LASTNAME")
-    @Size(max = 30, message = "{user.lastName.invalid}")
+    @Size(max = 80, message = "{user.lastName.invalid}")
     private String lastName;
 
     @Column(name = "USERNAME")
-    @Size(max = 30, min = 6, message = "{user.username.invalid}")
+    @Size(max = 80, min = 6, message = "{user.username.invalid}")
     @NotEmpty
     private String username;
 
     @Column(name = "PASSWORD")
-    @Size(max = 32, min = 6, message = "{user.password.invalid}")
     @NotEmpty
     private String password;
 

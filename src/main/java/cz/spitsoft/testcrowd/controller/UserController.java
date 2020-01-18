@@ -47,13 +47,11 @@ public class UserController {
             return "registration";
         }
 
-        Set<RoleImp> roleImpSet = new HashSet<>();
-        RoleImp role = roleRepository.findByName(RoleType.ADMIN);
-        roleImpSet.add(role);
+        Set<RoleImp> roles = new HashSet<>();
+        RoleImp adminRole = roleRepository.findByName(RoleType.ADMIN);
+        roles.add(adminRole);
 
-        userForm.setRoles(roleImpSet);
-
-        userService.save(userForm);
+        userService.save(userForm, roles);
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
@@ -61,14 +59,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
+    public String login(Model model) {
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        return "/";
     }
 
     @GetMapping({"/", "/welcome", "/index"})

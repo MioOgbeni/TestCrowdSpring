@@ -4,59 +4,50 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>TestCases | TestCrowd</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/custom/css/default.css">
-    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
-    <script src="/contrib/js/popper.min.js"></script>
-    <script src="/contrib/js/bootstrap.min.js"></script>
-    <script src="/custom/js/default.js"></script>
 </head>
 
 
 <body>
 
 <div class="container">
+    <h1>Registration</h1>
+    <form th:action="@{/registration}" th:object="${userForm}" method="post">
 
-    <th:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
-        <th:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <th:input type="text" path="username" class="form-control" placeholder="Username"
-                          autofocus="true"></th:input>
-                <th:errors path="username"></th:errors>
-            </div>
-        </th:bind>
+        <div class="form-group">
+            <label for="username" class="control-label">Username</label>
+            <input id="username"
+                   class="form-control"
+                   th:field="*{username}"/>
+        </div>
+        <div class="form-group">
+            <label for="email" class="control-label">E-mail</label>
+            <input id="email"
+                   class="form-control"
+                   th:field="*{email}"/>
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">Password</label>
+            <input id="password"
+                   class="form-control"
+                   type="password"
+                   th:field="*{password}"/>
+        </div>
+        <div class="form-group">
+            <label for="passwordConfirm" class="control-label">Confirm password</label>
+            <input id="passwordConfirm"
+                   class="form-control"
+                   type="password"
+                   th:field="*{passwordConfirm}"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Register</button>
+            <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
+        </div>
 
-        <th:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <th:input type="text" path="email" class="form-control" placeholder="Email"
-                          autofocus="true"></th:input>
-                <th:errors path="email"></th:errors>
-            </div>
-        </th:bind>
-
-        <th:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <th:input type="password" path="password" class="form-control" placeholder="Password"></th:input>
-                <th:errors path="password"></th:errors>
-            </div>
-        </th:bind>
-
-        <th:bind path="passwordConfirm">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <th:input type="password" path="passwordConfirm" class="form-control"
-                          placeholder="Confirm your password"></th:input>
-                <th:errors path="passwordConfirm"></th:errors>
-            </div>
-        </th:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </th:form>
+    </form>
 
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

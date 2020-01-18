@@ -1,5 +1,6 @@
 package cz.spitsoft.testcrowd.service;
 
+import cz.spitsoft.testcrowd.model.RoleImp;
 import cz.spitsoft.testcrowd.model.UserImp;
 import cz.spitsoft.testcrowd.repository.UserRepository;
 import cz.spitsoft.testcrowd.repository.testcases.RoleRepository;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -21,9 +22,10 @@ public class UserServiceImp implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(UserImp user) {
+    public void save(UserImp user, Set<RoleImp> roles) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet(roleRepository.findAll()));
+        user.setRoles(roles);
+
         userRepository.save(user);
     }
 

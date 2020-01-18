@@ -5,29 +5,25 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>TestCases | TestCrowd</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/custom/css/default.css">
-    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
-    <script src="/contrib/js/popper.min.js"></script>
-    <script src="/contrib/js/bootstrap.min.js"></script>
-    <script src="/custom/js/default.js"></script>
 </head>
 <body>
 <div class="container">
+    <h1>Index</h1>
     <div th:if="${#authentication.getName()} != 'anonymousUser'">
         <form id="logoutForm" method="POST" th:action="@{/logout}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
-        <h2>Index Now logged: <span th:text="${#authentication.getName()}"></span> | <a
-                onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+        <h2>Now logged: <span th:text="${#authentication.getName()}"></span> | <a href="#"
+                                                                                  onclick="document.forms['logoutForm'].submit()">Logout</a>
+        </h2>
     </div>
     <div th:if="${#authentication.getName()} == 'anonymousUser'">
         <h2>Index | <a th:href="@{/login}">Login</a></h2>
     </div>
+
+    <a href="#" th:href="@{/list}">TestCases listing (only for authenticated)</a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
