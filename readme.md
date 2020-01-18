@@ -23,4 +23,4 @@ docker-compose up -d --build
 - Bc. Libor Plíšek (libor.plisek@uhk.cz)
 
 ## License
-School work
+[a relative link](LICENSE)
