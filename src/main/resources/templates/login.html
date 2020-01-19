@@ -1,50 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>TestCases | TestCrowd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log in | TestCrowd</title>
+    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/css/default.css">
+    <link rel="stylesheet" href="/custom/css/login.css">
+    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/contrib/js/popper.min.js"></script>
+    <script src="/contrib/js/bootstrap.min.js"></script>
+    <script src="/custom/js/default.js"></script>
 </head>
 
-<body>
-
+<body class="login-page">
 <div class="container">
-    <h1>Login page</h1>
-    <form th:action="@{/login}" method="post">
-        <div class="form-group">
-            <label for="username">Username</label>:
-            <input type="text"
-                   id="username"
-                   name="username"
-                   class="form-control"
-                   autofocus="autofocus"
-                   placeholder="Username"/>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>:
-            <input type="password"
-                   id="password"
-                   name="password"
-                   class="form-control"
-                   placeholder="Password"/>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <input type="submit"
-                           name="login-submit"
-                           id="login-submit"
-                           class="form-control btn btn-info"
-                           value="Log In"/>
+    <h1>Log in</h1>
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" id="username" name="username" placeholder="username"/>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" id="password" name="password" placeholder="password"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <p>Not registered? <a th:href="@{/registration}">Create account</a></p>
+            </form>
         </div>
-        <div class="form-group">
-            <span>New user? <a href="/" th:href="@{/registration}">Register here</a></span>
-        </div>
-    </form>
+    </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 </html>
