@@ -1,3 +1,74 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 body {
-  background: #666;
+  font-family: "Roboto", sans-serif;
+
+  a {
+    color: #0066cc;
+
+    &:hover {
+      color: #1a8cff;
+    }
+  }
+
+  form {
+    label {
+      display: none;
+    }
+
+    p, .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-control {
+      height: auto;
+      font-size: 1rem;
+      color: #444;
+      padding: 0.75rem 0.5rem;
+      border: 0;
+      border-radius: 0;
+      background: #eee;
+
+      &:focus {
+        font-size: 1rem;
+        color: #222;
+        background: #f9f9f9;
+        box-shadow: 0 0 0.1rem rgb(0, 0, 0, 0.4);
+      }
+    }
+  }
+
+  .card {
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.5);
+
+    .card-body {
+      padding: 2rem 2rem 1rem;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 0;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover, &:active, &:focus {
+      cursor: pointer;
+    }
+  }
+
+  .btn-primary {
+    color: #fff;
+    background: #0066cc;
+
+    &:hover, &:active, &:focus {
+      background: #1a8cff;
+    }
+  }
 }
