@@ -1,10 +1,12 @@
 # TestCrowd
 
-TestCrowd is a Java application ...TODO...
+TestCrowd is a Java application ...TODO... neco sem dopis Tome. :-D
 
 ## Installation & run
 
-- Set shared drive for docker Hyper-V
+- Start Docker
+
+- Set shared drive for Docker Hyper-V
   - go to Docker > Settings > Shared Drives
   - check drive with your project files
 
