@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html>
-<body>
-<h1>Something went wrong! </h1>
-<h2>Our Engineers are on it</h2>
-<a th:href="@{/}">Go Home</a>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error 500 | TestCrowd</title>
+    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/css/default.css">
+    <link rel="stylesheet" href="/custom/css/error-500.css">
+    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/contrib/js/popper.min.js"></script>
+    <script src="/contrib/js/bootstrap.min.js"></script>
+    <script src="/custom/js/default.js"></script>
+</head>
+
+<body class="error-500-page">
+<div class="container">
+    <h1>500</h1>
+    <p class="subtitle">Internal server error</p>
+    <div class="card">
+        <div class="card-body">
+            <p>Something went wrong! Our engineers are on it.</p>
+            <p><a th:href="@{/}" class="btn btn-primary">Go home</a></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
