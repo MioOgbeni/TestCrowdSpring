@@ -1,8 +1,28 @@
 <!DOCTYPE html>
-<html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<h1>Sorry, we couldn't find the page you were looking for.</h1>
-<a th:href="@{/}">Go Home</a>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error 404 | TestCrowd</title>
+    <link rel="stylesheet" href="/contrib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/css/default.css">
+    <link rel="stylesheet" href="/custom/css/error-404.css">
+    <script src="/contrib/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/contrib/js/popper.min.js"></script>
+    <script src="/contrib/js/bootstrap.min.js"></script>
+    <script src="/custom/js/default.js"></script>
+</head>
+
+<body class="error-404-page">
+<div class="container">
+    <h1>404</h1>
+    <p class="subtitle">Page not found</p>
+    <div class="card">
+        <div class="card-body">
+            <p>Sorry, we couldn't find the page you were looking for.</p>
+            <p><a th:href="@{/}" class="btn btn-primary">Go home</a></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
