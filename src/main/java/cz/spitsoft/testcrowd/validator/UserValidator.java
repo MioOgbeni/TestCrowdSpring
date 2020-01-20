@@ -5,7 +5,6 @@ import cz.spitsoft.testcrowd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
@@ -19,27 +18,41 @@ public class UserValidator implements Validator {
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
-        UserImp user = (UserImp) o;
+    public void validate(Object object, Errors errors) {
+        UserImp user = (UserImp) object;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size");
+        String username = user.getUsername().trim();
+        if (username.length() < 1) {
+            errors.rejectValue("username", "empty");
+        } else if (!username.matches("^[0-9a-zA-Z-._]+$")) {
+            errors.rejectValue("username", "invalid");
+        } else if (username.length() < 6 || username.length() > 32) {
+            errors.rejectValue("username", "length");
+        } else if (userService.findByUsername(username) != null) {
+            errors.rejectValue("username", "duplication");
         }
 
-        if (userService.findByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate");
+        String email = user.getEmail().trim();
+        if (email.length() < 1) {
+            errors.rejectValue("email", "empty");
+        } else if (!email.matches("^[0-9a-zA-Z-._]+@[0-9a-zA-Z-]+.[0-9a-zA-Z-.]+$")) {
+            errors.rejectValue("email", "invalid");
+        } else if (userService.findByEmail(email) != null) {
+            errors.rejectValue("email", "duplication");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-
-        if (user.getPassword().length() < 6 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size");
+        String password = user.getPassword();
+        if (password.length() < 1) {
+            errors.rejectValue("password", "empty");
+        } else if (password.length() < 8 || password.length() > 32) {
+            errors.rejectValue("password", "length");
         }
 
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff");
+        String passwordConfirm = user.getPasswordConfirm();
+        if (passwordConfirm.length() < 1) {
+            errors.rejectValue("passwordConfirm", "empty");
+        } else if (!passwordConfirm.equals(password)) {
+            errors.rejectValue("passwordConfirm", "difference");
         }
     }
 }
