@@ -35,6 +35,7 @@ body h2,
 body h3,
 body h4 {
   font-weight: 300;
+  margin-bottom: 1rem;
 }
 body form label {
   display: none;
