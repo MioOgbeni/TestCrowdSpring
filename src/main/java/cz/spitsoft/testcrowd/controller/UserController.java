@@ -3,6 +3,7 @@ package cz.spitsoft.testcrowd.controller;
 import cz.spitsoft.testcrowd.model.RoleImp;
 import cz.spitsoft.testcrowd.model.RoleType;
 import cz.spitsoft.testcrowd.model.UserImp;
+import cz.spitsoft.testcrowd.repository.UserRepository;
 import cz.spitsoft.testcrowd.repository.testcases.RoleRepository;
 import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.UserService;
@@ -29,6 +30,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -64,7 +68,13 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/user/current")
+    @GetMapping("/users")
+    public String users(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "users";
+    }
+
+    @GetMapping("/user")
     public String user(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("user", userService.findByUsername(username));

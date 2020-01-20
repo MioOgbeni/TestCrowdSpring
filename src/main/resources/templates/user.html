@@ -6,6 +6,7 @@
     <title>User detail | TestCrowd</title>
     <link href="/res/css/contrib/bootstrap.min.css" rel="stylesheet">
     <link href="/res/css/custom/default.css" rel="stylesheet">
+    <link href="/res/css/custom/user.css" rel="stylesheet">
     <script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
     <script src="/res/js/contrib/popper.min.js"></script>
     <script src="/res/js/contrib/bootstrap.min.js"></script>
@@ -18,6 +19,7 @@
     <h1>User detail</h1>
     <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
     <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
+    <div class="action-buttons"><a class="btn btn-primary">Edit</a><a class="btn btn-danger">Delete</a></div>
 </div>
 </body>
 </html>

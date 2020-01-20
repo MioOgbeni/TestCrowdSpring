@@ -22,10 +22,10 @@
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'">
-                <a class="nav-link" th:href="@{/list}">Test cases</a>
+                <a class="nav-link" th:href="@{/users}">Users</a>
             </li>
             <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" th:href="@{/list}">Tests</a>
             </li>
             <li class="nav-item dropdown" th:if="${#authentication.getName()} != 'anonymousUser'">
                 <a class="nav-link dropdown-toggle"
@@ -33,9 +33,8 @@
                    id="dropdown01"
                    data-toggle="dropdown"
                    aria-haspopup="true"
-                   aria-expanded="false">Link</a>
+                   aria-expanded="false">Dropdown</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Link</a>
                     <a class="dropdown-item" href="#">Link</a>
                     <a class="dropdown-item" href="#">Link</a>
                 </div>
@@ -43,7 +42,7 @@
         </ul>
         <ul class="navbar-nav mr-right">
             <li class="nav-item logout" th:if="${#authentication.getName()} != 'anonymousUser'">
-                <a class="text-light" th:href="@{/user/current}" th:text="${#authentication.getName()}">username</a>
+                <a class="text-light" th:href="@{/user}" th:text="${#authentication.getName()}">username</a>
                 <form id="logoutForm" method="POST" th:action="@{/logout}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-light">Logout</button>

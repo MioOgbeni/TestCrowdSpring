@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User list | TestCrowd</title>
+    <link href="/res/css/contrib/bootstrap.min.css" rel="stylesheet">
+    <link href="/res/css/custom/default.css" rel="stylesheet">
+    <link href="/res/css/custom/users.css" rel="stylesheet">
+    <script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
+    <script src="/res/js/contrib/popper.min.js"></script>
+    <script src="/res/js/contrib/bootstrap.min.js"></script>
+    <script src="/res/js/custom/default.js"></script>
+</head>
+
+<body class="users-page">
+<div th:insert="fragments/navbar :: navbar">Navbar</div>
+<div class="container">
+    <h1>User list</h1>
+    <table class="table table-striped" th:switch="${users}">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.id}"></span></td>
+            <td><span th:text="${user.username}"></span></td>
+            <td><span th:text="${user.email}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

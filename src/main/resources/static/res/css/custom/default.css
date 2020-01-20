@@ -22,7 +22,7 @@ body {
 }
 body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(135deg, #f2f2f2, #e6e6e6);
+  background: #fafafa;
 }
 body a {
   color: #0066cc;
@@ -36,6 +36,7 @@ body h3,
 body h4 {
   font-weight: 300;
   margin-bottom: 1rem;
+  color: #0959aa;
 }
 body form label {
   display: none;
@@ -54,7 +55,7 @@ body form .form-control {
   padding: 0.75rem 0.5rem;
   border: 0;
   border-radius: 0;
-  background: #eee;
+  background: #e6e6e6;
 }
 body form .form-control:focus {
   font-size: 1rem;
@@ -64,6 +65,16 @@ body form .form-control:focus {
 }
 body .bg-dark {
   background: linear-gradient(135deg, #0a66c2, #0959aa);
+}
+body .table .thead-dark th {
+  background: #0a66c2;
+  border-color: #0959aa;
+}
+body .table.table-striped tr {
+  background: #ebebeb;
+}
+body .table.table-striped tr:nth-of-type(odd) {
+  background: #dbdbdb;
 }
 body .navbar {
   margin-bottom: 2rem;
@@ -101,15 +112,33 @@ body .btn:focus {
   cursor: pointer;
 }
 body .btn-primary {
-  color: #fff;
+  color: #ffffff;
   background: #0066cc;
 }
 body .btn-primary:hover,
 body .btn-primary:active,
 body .btn-primary:focus {
-  background: #1a8cff;
+  color: #e6e6e6;
+  background: #004080;
+}
+body .btn-danger {
+  color: #ffffff;
+  background: #cc0000;
+}
+body .btn-danger:hover,
+body .btn-danger:active,
+body .btn-danger:focus {
+  color: #e6e6e6;
+  background: #800000;
 }
 body .btn-light {
-  color: #222;
+  color: #1a1a1a;
+  background: #ffffff;
+}
+body .btn-light:hover,
+body .btn-light:active,
+body .btn-light:focus {
+  color: #000000;
+  background: #d9d9d9;
 }
 /*# sourceMappingURL=default.css.map */

@@ -6,7 +6,7 @@ html, body {
 
 body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(135deg, #f2f2f2, #e6e6e6);
+  background: #fafafa;
 
   a {
     color: #0066cc;
@@ -19,6 +19,7 @@ body {
   h1, h2, h3, h4 {
     font-weight: 300;
     margin-bottom: 1rem;
+    color: #0959aa;
   }
 
   form {
@@ -41,7 +42,7 @@ body {
       padding: 0.75rem 0.5rem;
       border: 0;
       border-radius: 0;
-      background: #eee;
+      background: #e6e6e6;
 
       &:focus {
         font-size: 1rem;
@@ -54,6 +55,23 @@ body {
 
   .bg-dark {
     background: linear-gradient(135deg, #0a66c2, #0959aa);
+  }
+
+  .table {
+    .thead-dark th {
+      background: #0a66c2;
+      border-color: #0959aa;
+    }
+
+    &.table-striped {
+      tr {
+        background: #ebebeb;
+
+        &:nth-of-type(odd) {
+          background: #dbdbdb;
+        }
+      }
+    }
   }
 
   .navbar {
@@ -100,15 +118,32 @@ body {
   }
 
   .btn-primary {
-    color: #fff;
+    color: #ffffff;
     background: #0066cc;
 
     &:hover, &:active, &:focus {
-      background: #1a8cff;
+      color: #e6e6e6;
+      background: #004080;
+    }
+  }
+
+  .btn-danger {
+    color: #ffffff;
+    background: #cc0000;
+
+    &:hover, &:active, &:focus {
+      color: #e6e6e6;
+      background: #800000;
     }
   }
 
   .btn-light {
-    color: #222;
+    color: #1a1a1a;
+    background: #ffffff;
+
+    &:hover, &:active, &:focus {
+      color: #000000;
+      background: #d9d9d9;
+    }
   }
 }
