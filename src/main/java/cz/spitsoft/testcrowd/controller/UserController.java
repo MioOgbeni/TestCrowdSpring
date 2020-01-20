@@ -35,7 +35,6 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new UserImp());
-
         return "registration";
     }
 
@@ -62,17 +61,6 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(Model model) {
-        return "index";
-    }
-
-    @PostMapping("/logout")
-    public String logout(BindingResult bindingResult) {
-        System.out.println("logout");
-        return "index";
     }
 
     @GetMapping("/user")

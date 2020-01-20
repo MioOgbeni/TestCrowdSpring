@@ -26,7 +26,6 @@ public class TestCaseController {
     public String addTestCase() {
         TestCaseImp tempTest = new TestCaseImp();
         tempTest.setName("temp");
-
         this.testCaseRepository.save(tempTest);
         return "redirect:list";
     }
