@@ -2,7 +2,7 @@ html, body {
   height: 100%;
 }
 
-body.error-500-page {
+body.error-page {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,16 +18,18 @@ body.error-500-page {
     }
   }
 
-  h1 {
+  h1, p.subtitle {
     color: white;
     margin: 0;
+    font-weight: 300;
+  }
+
+  h1 {
     padding-bottom: 1rem;
     font-size: 8rem;
   }
 
   p.subtitle {
-    color: white;
-    margin: 0;
     padding-bottom: 2rem;
     font-size: 2.5rem;
   }
