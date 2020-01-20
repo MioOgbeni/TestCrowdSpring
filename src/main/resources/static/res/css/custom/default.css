@@ -13,17 +13,28 @@
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: 500;
-  src: local('Roboto Medium'), local('Roboto-Medium'), url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc9.ttf) format('truetype');
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'), url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc9.ttf) format('truetype');
+}
+html,
+body {
+  height: 100%;
 }
 body {
   font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #f2f2f2, #e6e6e6);
 }
 body a {
   color: #0066cc;
 }
 body a:hover {
   color: #1a8cff;
+}
+body h1,
+body h2,
+body h3,
+body h4 {
+  font-weight: 300;
 }
 body form label {
   display: none;
@@ -50,18 +61,33 @@ body form .form-control:focus {
   background: #f9f9f9;
   box-shadow: 0 0 0.1rem #000000;
 }
+body .bg-dark {
+  background: linear-gradient(135deg, #0a66c2, #0959aa);
+}
+body .navbar {
+  margin-bottom: 2rem;
+}
+body .navbar li.nav-item {
+  color: white;
+}
+body .navbar li.nav-item.logout form {
+  display: inline;
+}
+body .navbar li.nav-item.logout form .btn {
+  margin-right: 0;
+}
 body .card {
   border: 0;
   border-radius: 0;
   background: #fff;
-  box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0.2rem 0.2rem 0.8rem 0 rgba(0, 0, 0, 0.4);
 }
 body .card .card-body {
   padding: 2rem 2rem 1rem;
 }
 body .btn {
-  width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
+  margin: 0 1rem;
   border: 0;
   border-radius: 0;
   font-size: 1.25rem;
@@ -81,5 +107,8 @@ body .btn-primary:hover,
 body .btn-primary:active,
 body .btn-primary:focus {
   background: #1a8cff;
+}
+body .btn-light {
+  color: #222;
 }
 /*# sourceMappingURL=default.css.map */
