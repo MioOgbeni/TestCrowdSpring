@@ -44,6 +44,7 @@ public class UserController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult); // TODO: Remove this line in production
             return "registration";
         }
 
@@ -66,6 +67,12 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(Model model) {
         return "/";
+    }
+
+    @GetMapping("/user")
+    public String user(Model model) {
+        model.addAttribute("user", userService.findByUsername("username"));
+        return "user";
     }
 
     @GetMapping({"/", "/welcome", "/index"})
