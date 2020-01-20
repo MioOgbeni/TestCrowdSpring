@@ -66,7 +66,13 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(Model model) {
-        return "/";
+        return "index";
+    }
+
+    @PostMapping("/logout")
+    public String logout(BindingResult bindingResult) {
+        System.out.println("logout");
+        return "index";
     }
 
     @GetMapping("/user")
