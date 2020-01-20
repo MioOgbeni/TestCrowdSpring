@@ -19,9 +19,6 @@
     <div class="card">
         <div class="card-body">
             <form th:action="@{/registration}" th:object="${userForm}" method="post">
-                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-                </div>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input class="form-control"
@@ -29,6 +26,9 @@
                            id="username"
                            placeholder="username"
                            th:field="*{username}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('username')}"
+                           th:errors="*{username}">Error</small>
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail</label>
@@ -37,6 +37,9 @@
                            id="email"
                            placeholder="e-mail"
                            th:field="*{email}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}">Error</small>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -45,6 +48,9 @@
                            id="password"
                            placeholder="password"
                            th:field="*{password}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('password')}"
+                           th:errors="*{password}">Error</small>
                 </div>
                 <div class="form-group">
                     <label for="passwordConfirm">Confirm password</label>
@@ -53,6 +59,9 @@
                            id="passwordConfirm"
                            placeholder="confirm password"
                            th:field="*{passwordConfirm}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('passwordConfirm')}"
+                           th:errors="*{passwordConfirm}">Error</small>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Register</button>
