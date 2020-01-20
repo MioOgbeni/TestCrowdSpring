@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>TestCases | TestCrowd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User detail | TestCrowd</title>
+    <link href="/res/css/contrib/bootstrap.min.css" rel="stylesheet">
+    <link href="/res/css/custom/default.css" rel="stylesheet">
+    <script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
+    <script src="/res/js/contrib/popper.min.js"></script>
+    <script src="/res/js/contrib/bootstrap.min.js"></script>
+    <script src="/res/js/custom/default.js"></script>
 </head>
-<body>
+
+<body class="user-page">
+<div th:insert="fragments/navbar :: navbar">Navbar</div>
 <div class="container">
-    <h1>User</h1>
+    <h1>User detail</h1>
+    <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>
 </html>
