@@ -17,22 +17,27 @@
 <div th:insert="fragments/navbar :: navbar">Navbar</div>
 <div class="container">
     <h1>User list</h1>
-    <table class="table table-striped" th:switch="${users}">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td><span th:text="${user.id}"></span></td>
-            <td><span th:text="${user.username}"></span></td>
-            <td><span th:text="${user.email}"></span></td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:switch="${users}">
+        <div th:case="null">No test cases yet!</div>
+        <div th:case="*">
+            <table class="table table-striped table-responsive-md">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">UUID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td><span th:text="${user.id}"></span></td>
+                    <td><span th:text="${user.username}"></span></td>
+                    <td><span th:text="${user.email}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

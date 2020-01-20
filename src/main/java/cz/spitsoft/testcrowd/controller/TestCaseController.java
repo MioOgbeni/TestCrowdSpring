@@ -16,10 +16,10 @@ public class TestCaseController {
     @Autowired
     private TestCaseRepository testCaseRepository;
 
-    @GetMapping("list")
+    @GetMapping("tests")
     public String testCases(Model model) {
         model.addAttribute("testcases", this.testCaseRepository.findAll());
-        return "list";
+        return "tests";
     }
 
     @PostMapping("add")
@@ -27,6 +27,6 @@ public class TestCaseController {
         TestCaseImp tempTest = new TestCaseImp();
         tempTest.setName("temp");
         this.testCaseRepository.save(tempTest);
-        return "redirect:list";
+        return "redirect:tests";
     }
 }

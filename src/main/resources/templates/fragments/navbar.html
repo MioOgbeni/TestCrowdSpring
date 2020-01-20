@@ -25,7 +25,7 @@
                 <a class="nav-link" th:href="@{/users}">Users</a>
             </li>
             <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'">
-                <a class="nav-link" th:href="@{/list}">Tests</a>
+                <a class="nav-link" th:href="@{/tests}">Tests</a>
             </li>
             <li class="nav-item dropdown" th:if="${#authentication.getName()} != 'anonymousUser'">
                 <a class="nav-link dropdown-toggle"
