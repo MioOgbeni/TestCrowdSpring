@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{/}">TestCrowd</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'">
+                <a class="nav-link" th:href="@{/list}">Test cases</a>
+            </li>
+            <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown" th:if="${#authentication.getName()} != 'anonymousUser'">
+                <a class="nav-link dropdown-toggle"
+                   href="#"
+                   id="dropdown01"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">Link</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Link</a>
+                    <a class="dropdown-item" href="#">Link</a>
+                    <a class="dropdown-item" href="#">Link</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-right">
+            <li class="nav-item logout" th:if="${#authentication.getName()} != 'anonymousUser'">
+                <span th:text="${#authentication.getName()}"></span>
+                <form id="logoutForm" method="POST" th:action="@{/logout}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <button type="submit" class="btn btn-light">Logout</button>
+                </form>
+            </li>
+            <li class="nav-item" th:if="${#authentication.getName()} == 'anonymousUser'">
+                <a class="btn btn-light" th:href="@{/login}">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
