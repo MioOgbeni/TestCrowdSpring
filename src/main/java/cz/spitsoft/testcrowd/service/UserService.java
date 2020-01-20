@@ -9,4 +9,5 @@ public interface UserService {
     void save(UserImp user, Set<RoleImp> roles);
 
     UserImp findByUsername(String username);
+    UserImp findByEmail(String username);
 }
