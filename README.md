@@ -1,6 +1,14 @@
 # TestCrowd
 
-TestCrowd is a Java application ...TODO... neco sem dopis Tome. :-D
+This web application serves as a platform for cooperative testing.
+
+Companies can create some tests here and let users work on them.
+
+Users can perform tests according to test scenarios and then enter test results.
+
+As a result of these tests, users will be paid in the form of credits earned by the company for the test on their account.
+
+There are also reviews of users, tests and companies.
 
 ## Installation & run
 
@@ -19,6 +27,8 @@ mvn -Dmaven.test.skip=true package
 ```
 docker-compose up -d --build
 ```
+
+- Go to [localhost:8080](http://localhost:8080/)
 
 ## Authors
 - Bc. Tomáš Novák (tomas.novak.3@uhk.cz)
