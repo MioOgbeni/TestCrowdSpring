@@ -5,6 +5,7 @@ import cz.spitsoft.testcrowd.model.UserImp;
 import cz.spitsoft.testcrowd.model.evidences.EvidenceImp;
 import cz.spitsoft.testcrowd.model.reviews.ReviewImp;
 import org.hibernate.annotations.Target;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
@@ -26,25 +27,21 @@ public class TestCaseImp<C, T, E, U, R> extends BaseEntity implements TestCase<C
     private String name;
 
     @Column(name = "SKILL_DIFFICULTY")
-    @Size(max = 5, message = "{testcase.skillDifficulty.invalid}")
-    @NotEmpty
+    @Range(max = 5, message = "{testcase.skillDifficulty.invalid}")
     private int skillDifficulty;
 
     @Column(name = "TIME_DIFFICULTY")
-    @Size(max = 5, message = "{testcase.timeDifficulty.invalid}")
-    @NotEmpty
+    @Range(max = 5, message = "{testcase.timeDifficulty.invalid}")
     private int timeDifficulty;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEST_CATEGORY")
     @Target(TestCategoryImp.class)
-    @NotEmpty
     private C testCategory;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SW_TYPE")
     @Target(SoftwareTypeImp.class)
-    @NotEmpty
     private T softwareType;
 
     @Column(name = "DESCRIPTION")
@@ -52,38 +49,30 @@ public class TestCaseImp<C, T, E, U, R> extends BaseEntity implements TestCase<C
     private String description;
 
     @Column(name = "REWARD")
-    @Size(min = 1, message = "{testcase.reward.invalid}")
-    @NotEmpty
+    @Range(min = 1, message = "{testcase.reward.invalid}")
     private int reward;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = EvidenceImp.class)
-    @NotEmpty
     private List<E> evidences;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CREATED_BY")
     @Target(UserImp.class)
-    @NotEmpty
     private U createdBy;
 
     @Column(name = "CREATED_ON")
-    @NotEmpty
     private Date createdOn;
 
     @Column(name = "AVAILABLE_TO")
-    @NotEmpty
     private Date availableTo;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ReviewImp.class)
-    @NotEmpty
     private List<R> reviews;
 
     @Column(name = "RATING")
-    @NotEmpty
     private int rating;
 
     @Column(name = "IN_GROUP")
-    @NotEmpty
     private boolean inGroup;
 
     public TestCaseImp() {
