@@ -70,22 +70,28 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String users(Model model) {
+    public String userList(Model model) {
         model.addAttribute("users", userRepository.findAll());
         return "user/user-list";
     }
 
     @GetMapping("/users/current")
-    public String user(Model model) {
+    public String userDetailCurrent(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("user", userService.findByUsername(username));
         return "user/user-detail";
     }
 
     @GetMapping("/users/{id}")
-    public String userDetail(Model model, @PathVariable(value = "id") String id) {
+    public String userDetailById(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("user", userService.findById(id));
         return "user/user-detail";
+    }
+
+    @GetMapping("/users/{id}/edit")
+    public String userEditForm(Model model, @PathVariable(value = "id") String id) {
+        model.addAttribute("user", userService.findById(id));
+        return "user/user-edit";
     }
 
     @GetMapping({"/", "/welcome", "/index"})
