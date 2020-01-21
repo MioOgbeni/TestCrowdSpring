@@ -1,3 +1,5 @@
-$(document).ready(function () {
-    console.log('default.js');
+jQuery(document).ready(function ($) {
+    $("tr.link").click(function () {
+        window.location = $(this).data('href');
+    });
 });
