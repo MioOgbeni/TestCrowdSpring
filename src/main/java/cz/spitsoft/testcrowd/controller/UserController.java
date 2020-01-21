@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashSet;
@@ -71,14 +72,20 @@ public class UserController {
     @GetMapping("/users")
     public String users(Model model) {
         model.addAttribute("users", userRepository.findAll());
-        return "users";
+        return "user/user-list";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users/current")
     public String user(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("user", userService.findByUsername(username));
-        return "user";
+        return "user/user-detail";
+    }
+
+    @GetMapping("/users/{id}")
+    public String userDetail(Model model, @PathVariable(value = "id") String id) {
+        model.addAttribute("user", userService.findById(id));
+        return "user/user-detail";
     }
 
     @GetMapping({"/", "/welcome", "/index"})

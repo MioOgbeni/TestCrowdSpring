@@ -6,7 +6,6 @@
     <title>User list | TestCrowd</title>
     <link href="/res/css/contrib/bootstrap.min.css" rel="stylesheet">
     <link href="/res/css/custom/default.css" rel="stylesheet">
-    <link href="/res/css/custom/users.css" rel="stylesheet">
     <script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
     <script src="/res/js/contrib/popper.min.js"></script>
     <script src="/res/js/contrib/bootstrap.min.js"></script>
@@ -23,13 +22,13 @@
             <table class="table table-striped table-responsive-md">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">UUID</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${users}">
+                <tr th:each="user : ${users}" class="link" th:data-href="@{'/users/' + ${user.id}}">
                     <td><span th:text="${user.id}"></span></td>
                     <td><span th:text="${user.username}"></span></td>
                     <td><span th:text="${user.email}"></span></td>
