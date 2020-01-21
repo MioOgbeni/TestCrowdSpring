@@ -66,6 +66,9 @@ body form .form-control:focus {
 body .bg-dark {
   background: linear-gradient(135deg, #0a66c2, #0959aa);
 }
+body .link {
+  cursor: pointer;
+}
 body .table .thead-dark th {
   background: #0a66c2;
   border-color: #0959aa;
@@ -73,8 +76,18 @@ body .table .thead-dark th {
 body .table.table-striped tr {
   background: #ebebeb;
 }
+body .table.table-striped tr:hover,
+body .table.table-striped tr:active,
+body .table.table-striped tr:focus {
+  background: #bdbdbd;
+}
 body .table.table-striped tr:nth-of-type(odd) {
   background: #dbdbdb;
+}
+body .table.table-striped tr:nth-of-type(odd):hover,
+body .table.table-striped tr:nth-of-type(odd):active,
+body .table.table-striped tr:nth-of-type(odd):focus {
+  background: #bdbdbd;
 }
 body .navbar {
   margin-bottom: 2rem;
@@ -140,5 +153,8 @@ body .btn-light:active,
 body .btn-light:focus {
   color: #000000;
   background: #d9d9d9;
+}
+body .action-buttons {
+  margin: 2rem -1rem;
 }
 /*# sourceMappingURL=default.css.map */

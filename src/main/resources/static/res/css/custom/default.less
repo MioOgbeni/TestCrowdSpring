@@ -57,6 +57,10 @@ body {
     background: linear-gradient(135deg, #0a66c2, #0959aa);
   }
 
+  .link {
+    cursor: pointer;
+  }
+
   .table {
     .thead-dark th {
       background: #0a66c2;
@@ -67,8 +71,16 @@ body {
       tr {
         background: #ebebeb;
 
+        &:hover, &:active, &:focus {
+          background: #bdbdbd;
+        }
+
         &:nth-of-type(odd) {
           background: #dbdbdb;
+
+          &:hover, &:active, &:focus {
+            background: #bdbdbd;
+          }
         }
       }
     }
@@ -145,5 +157,9 @@ body {
       color: #000000;
       background: #d9d9d9;
     }
+  }
+
+  .action-buttons {
+    margin: 2rem -1rem;
   }
 }
