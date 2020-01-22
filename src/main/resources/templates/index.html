@@ -24,7 +24,8 @@
     <p>There are also reviews of users, tests and companies.</p>
     <div class="action-buttons" th:if="${#authentication.getName()} == 'anonymousUser'">
         <a class="btn btn-primary" th:href="@{/login}">Login</a>
-        <a class="btn btn-primary" th:href="@{/registration}">Create account</a>
+        <a class="btn btn-primary" th:href="@{/registration/reporter}">Create a reporter account</a>
+        <a class="btn btn-primary" th:href="@{/registration/tester}">Create a tester account</a>
     </div>
 </div>
 </body>
