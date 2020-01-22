@@ -1,15 +1,16 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.RoleType;
-
-import java.util.UUID;
+import cz.spitsoft.testcrowd.model.RoleImp;
+import cz.spitsoft.testcrowd.model.UserImp;
 
 public interface SecurityService {
     String findLoggedInUsername();
 
     void autoLogin(String username, String password);
 
-    String getCurrentUserId();
+    UserImp<RoleImp> getCurrentUser();
 
-    RoleType getCurrentUserRoleType();
+    boolean isCurrentUserById(String id);
+
+    boolean isCurrentUserAdmin();
 }

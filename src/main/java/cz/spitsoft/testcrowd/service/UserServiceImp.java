@@ -22,35 +22,34 @@ public class UserServiceImp implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(UserImp user, Set<RoleImp> roles) {
+    public void save(UserImp<RoleImp> user, Set<RoleImp> roles) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(roles);
-
         userRepository.save(user);
     }
 
     @Override
-    public void save(UserImp user) {
+    public void save(UserImp<RoleImp> user) {
         userRepository.save(user);
     }
 
     @Override
-    public void delete(UserImp user) {
+    public void delete(UserImp<RoleImp> user) {
         userRepository.delete(user);
     }
 
     @Override
-    public UserImp findByUsername(String username) {
+    public UserImp<RoleImp> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
-    public UserImp findByEmail(String email) {
+    public UserImp<RoleImp> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public UserImp findById(String id) {
+    public UserImp<RoleImp> findById(String id) {
         return userRepository.findById(id);
     }
 }

@@ -44,12 +44,12 @@ public class UserController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("userForm", new UserImp());
+        model.addAttribute("userForm", new UserImp<RoleImp>());
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") UserImp userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") UserImp<RoleImp> userForm, BindingResult bindingResult) {
         registrationValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -90,15 +90,18 @@ public class UserController {
 
     @GetMapping("/users/{id}/edit")
     public String userEdit(Model model, @PathVariable(value = "id") String id) {
-        model.addAttribute("user", userService.findById(id));
-        return "user/user-edit";
+        if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
+            model.addAttribute("user", userService.findById(id));
+            return "user/user-edit";
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/users/{id}/edit")
-    public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
-        if (securityService.getCurrentUserId().equals(id) || securityService.getCurrentUserRoleType() == RoleType.ADMIN) {
+    public String userEdit(@ModelAttribute("user") UserImp<RoleImp> userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
+        if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
             // load user
-            UserImp user = userService.findById(id);
+            UserImp<RoleImp> user = userService.findById(id);
 
             // edit user posted data
             user.setUsername(userForm.getUsername());
@@ -121,8 +124,8 @@ public class UserController {
 
     @GetMapping("/users/{id}/delete")
     public String userDelete(Model model, @PathVariable(value = "id") String id) {
-        if (securityService.getCurrentUserId().equals(id) || securityService.getCurrentUserRoleType() == RoleType.ADMIN) {
-            UserImp user = userService.findById(id);
+        if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
+            UserImp<RoleImp> user = userService.findById(id);
             // TODO: Add auto logout of this user.
             userService.delete(user);
             return "user/user-list";

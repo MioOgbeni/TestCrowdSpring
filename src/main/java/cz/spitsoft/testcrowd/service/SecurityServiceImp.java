@@ -1,6 +1,6 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.Role;
+import cz.spitsoft.testcrowd.model.RoleImp;
 import cz.spitsoft.testcrowd.model.RoleType;
 import cz.spitsoft.testcrowd.model.UserImp;
 import org.slf4j.Logger;
@@ -13,9 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class SecurityServiceImp implements SecurityService {
@@ -55,27 +52,22 @@ public class SecurityServiceImp implements SecurityService {
     }
 
     @Override
-    public String getCurrentUserId() {
+    public UserImp<RoleImp> getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserImp user = userService.findByUsername(username);
-        return user.getId();
+        return userService.findByUsername(username);
     }
 
-    @Override
-    public RoleType getCurrentUserRoleType() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserImp user = userService.findByUsername(username);
-        Set<Role> roles = user.getRoles();
-        for (Role role : roles) {
-            switch (role.getName()) {
-                case ADMIN:
-                    return RoleType.ADMIN;
-                case COMPANY:
-                    return RoleType.COMPANY;
-                case USER:
-                    return RoleType.USER;
+    public boolean isCurrentUserById(String id) {
+        return this.getCurrentUser().getId().equals(id);
+    }
+
+    public boolean isCurrentUserAdmin() {
+        UserImp<RoleImp> user = this.getCurrentUser();
+        for (RoleImp role : user.getRoles()) {
+            if (role.getName() == RoleType.ADMIN) {
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }
