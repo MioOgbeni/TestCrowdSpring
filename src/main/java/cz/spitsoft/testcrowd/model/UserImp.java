@@ -49,7 +49,7 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
 
     @Column(name = "ROLE_TYPE")
     @NotNull
-    private RoleType roleType = RoleType.USER;
+    private RoleType roleType = RoleType.REPORTER;
 
     /*@ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "TBL_USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))

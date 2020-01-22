@@ -40,14 +40,14 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new UserImp());
-        return "registration";
+        return "entry/registration";
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") UserImp user, BindingResult bindingResult) {
         registrationValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "entry/registration";
         }
 
         // TODO: Add USER and COMPANY role switch.
@@ -60,7 +60,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        return "login";
+        return "entry/login";
     }
 
     @GetMapping("/users")
