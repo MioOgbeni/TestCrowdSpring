@@ -51,20 +51,15 @@ public class UserController {
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") UserImp userForm, BindingResult bindingResult) {
         registrationValidator.validate(userForm, bindingResult);
-
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult); // TODO: Remove this line in production
             return "registration";
         }
 
         Set<RoleImp> roles = new HashSet<>();
         RoleImp adminRole = roleRepository.findByName(RoleType.ADMIN);
         roles.add(adminRole);
-
         userService.save(userForm, roles);
-
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-
         return "redirect:/";
     }
 
@@ -87,7 +82,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public String userDetailById(Model model, @PathVariable(value = "id") String id) {
+    public String userDetail(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("user", userService.findById(id));
         return "user/user-detail";
     }
@@ -99,26 +94,25 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}/edit")
-    public String userEditPost(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
+    public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
         UserImp user = userService.findById(id);
         user.setUsername(userForm.getUsername());
         user.setEmail(userForm.getEmail());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
-        userValidator.validate(user, bindingResult);
 
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult); // TODO: Remove this line in production
             return "user/user-edit";
         }
 
         userService.save(user);
-
         return "user/user-detail";
     }
 
-    @GetMapping({"/", "/welcome", "/index"})
-    public String welcome(Model model) {
-        return "index";
+    @GetMapping("/users/{id}/delete")
+    public String userDelete(Model model, @PathVariable(value = "id") String id) {
+        model.addAttribute("user", userService.findById(id));
+        return "user/user-edit";
     }
 }
