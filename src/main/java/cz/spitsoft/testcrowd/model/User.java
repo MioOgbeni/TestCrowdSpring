@@ -1,19 +1,14 @@
 package cz.spitsoft.testcrowd.model;
 
-import java.util.Set;
-
-public interface User<R> {
-    String getFirstName();
-
-    void setFirstName(String firstName);
-
-    String getLastName();
-
-    void setLastName(String lastName);
+public interface User/*<R>*/ {
 
     String getUsername();
 
     void setUsername(String username);
+
+    String getEmail();
+
+    void setEmail(String email);
 
     String getPassword();
 
@@ -23,11 +18,23 @@ public interface User<R> {
 
     void setPasswordConfirm(String passwordConfirm);
 
-    String getEmail();
+    String getFirstName();
 
-    void setEmail(String email);
+    void setFirstName(String firstName);
 
-    Set<R> getRoles();
+    String getLastName();
 
-    void setRoles(Set<R> roles);
+    void setLastName(String lastName);
+
+    int getAccountBalance();
+
+    void setAccountBalance(int accountBalance);
+
+    RoleType getRoleType();
+
+    void setRoleType(RoleType roleType);
+
+    /*Set<R> getRoles();
+
+    void setRoles(Set<R> roles);*/
 }

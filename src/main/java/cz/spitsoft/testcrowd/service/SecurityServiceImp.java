@@ -1,6 +1,5 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.RoleImp;
 import cz.spitsoft.testcrowd.model.RoleType;
 import cz.spitsoft.testcrowd.model.UserImp;
 import org.slf4j.Logger;
@@ -52,7 +51,7 @@ public class SecurityServiceImp implements SecurityService {
     }
 
     @Override
-    public UserImp<RoleImp> getCurrentUser() {
+    public UserImp getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return userService.findByUsername(username);
     }
@@ -62,12 +61,7 @@ public class SecurityServiceImp implements SecurityService {
     }
 
     public boolean isCurrentUserAdmin() {
-        UserImp<RoleImp> user = this.getCurrentUser();
-        for (RoleImp role : user.getRoles()) {
-            if (role.getName() == RoleType.ADMIN) {
-                return true;
-            }
-        }
-        return false;
+        UserImp user = this.getCurrentUser();
+        return user.getRoleType() == RoleType.ADMIN;
     }
 }

@@ -1,6 +1,5 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.RoleImp;
 import cz.spitsoft.testcrowd.model.UserImp;
 
 public interface SecurityService {
@@ -8,7 +7,7 @@ public interface SecurityService {
 
     void autoLogin(String username, String password);
 
-    UserImp<RoleImp> getCurrentUser();
+    UserImp getCurrentUser();
 
     boolean isCurrentUserById(String id);
 

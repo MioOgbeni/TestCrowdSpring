@@ -1,6 +1,5 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.RoleImp;
 import cz.spitsoft.testcrowd.model.UserImp;
 import cz.spitsoft.testcrowd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,11 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        UserImp<RoleImp> user = userRepository.findByUsername(username);
+        UserImp user = userRepository.findByUsername(username);
         if (user == null) throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (RoleImp role : user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toString()));
-        }
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRoleType().toString()));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }

@@ -5,8 +5,8 @@ import org.springframework.core.style.ToStringCreator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Entity
 @AttributeOverrides({
@@ -16,19 +16,17 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "EMAIL"),
         @UniqueConstraint(columnNames = "USERNAME"),
 })
-public class UserImp<R> extends BaseEntity implements User<R> {
-    @Column(name = "FIRST_NAME")
-    @Size(max = 80, message = "{user.firstName.invalid}")
-    private String firstName;
-
-    @Column(name = "LAST_NAME")
-    @Size(max = 80, message = "{user.lastName.invalid}")
-    private String lastName;
-
+public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
     @Column(name = "USERNAME")
     @Size(max = 40, min = 6, message = "{user.username.invalid}")
     @NotEmpty
     private String username;
+
+    @Email
+    @Column(name = "EMAIL")
+    @Size(max = 160, min = 5, message = "{user.email.invalid}")
+    @NotEmpty
+    private String email;
 
     @Column(name = "PASSWORD")
     @NotEmpty
@@ -37,50 +35,42 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @Transient
     private String passwordConfirm;
 
-    @Email
-    @Column(name = "EMAIL")
-    @Size(max = 160, min = 5, message = "{user.email.invalid}")
-    @NotEmpty
-    private String email;
+    @Column(name = "FIRST_NAME")
+    @Size(max = 80, message = "{user.firstName.invalid}")
+    private String firstName;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
+    @Column(name = "LAST_NAME")
+    @Size(max = 80, message = "{user.lastName.invalid}")
+    private String lastName;
+
+    @Column(name = "ACCOUNT_BALANCE")
+    @NotNull
+    private int accountBalance = 0;
+
+    @Column(name = "ROLE_TYPE")
+    @NotNull
+    private RoleType roleType = RoleType.USER;
+
+    /*@ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "TBL_USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @NotEmpty
-    private Set<R> roles;
+    private Set<R> roles;*/
 
     public UserImp() {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String passwordConfirm, String email, Set<R> roles) {
+    public UserImp(String username, String email, String password, String passwordConfirm, String firstName, String lastName, int accountBalance, RoleType roleType/*, Set<R> roles*/) {
         super();
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.username = username;
+        this.email = email;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
-        this.email = email;
-        this.roles = roles;
-    }
-
-    @Override
-    public String getFirstName() {
-        return firstName;
-    }
-
-    @Override
-    public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    @Override
-    public String getLastName() {
-        return lastName;
-    }
-
-    @Override
-    public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.accountBalance = accountBalance;
+        this.roleType = roleType;
+        /*this.roles = roles;*/
     }
 
     @Override
@@ -91,6 +81,16 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @Override
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -114,16 +114,46 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     }
 
     @Override
-    public String getEmail() {
-        return email;
+    public String getFirstName() {
+        return firstName;
     }
 
     @Override
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     @Override
+    public String getLastName() {
+        return lastName;
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public int getAccountBalance() {
+        return accountBalance;
+    }
+
+    @Override
+    public void setAccountBalance(int accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+    @Override
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    @Override
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+    /*@Override
     public Set<R> getRoles() {
         return roles;
     }
@@ -131,7 +161,7 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @Override
     public void setRoles(Set<R> roles) {
         this.roles = roles;
-    }
+    }*/
 
     @Override
     public String toString() {
