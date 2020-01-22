@@ -38,7 +38,6 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
 
     @Column(name = "FIRST_NAME")
     @Size(max = 80, message = "{user.firstName.invalid}")
-    @NotEmpty
     private String firstName;
 
     @Column(name = "LAST_NAME")

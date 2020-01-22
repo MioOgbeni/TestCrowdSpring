@@ -5,6 +5,8 @@ import cz.spitsoft.testcrowd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
@@ -18,6 +20,11 @@ public class UserServiceImp implements UserService {
     @Override
     public void delete(UserImp user) {
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<UserImp> findAll() {
+        return userRepository.findAll();
     }
 
     @Override
