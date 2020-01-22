@@ -1,5 +1,6 @@
 package cz.spitsoft.testcrowd.controller;
 
+import cz.spitsoft.testcrowd.model.user.RoleType;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.UserRepository;
 import cz.spitsoft.testcrowd.service.SecurityService;
@@ -37,22 +38,45 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new UserImp());
-        return "entry/registration";
+    @GetMapping("/registration/reporter")
+    public String reporterRegistration(Model model) {
+        model.addAttribute("user", new UserImp());
+        return "entry/reporter-registration";
     }
 
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") UserImp user, BindingResult bindingResult) {
+    @PostMapping("/registration/reporter")
+    public String reporterRegistration(@ModelAttribute("user") UserImp user, BindingResult bindingResult) {
         registrationValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "entry/registration";
+            return "entry/reporter-registration";
         }
 
         // TODO: Add USER and COMPANY role switch.
         String password = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(password);
+        user.setRoleType(RoleType.REPORTER);
+        userService.save(user);
+        securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
+        return "redirect:/";
+    }
+
+    @GetMapping("/registration/tester")
+    public String testerRegistration(Model model) {
+        model.addAttribute("user", new UserImp());
+        return "entry/tester-registration";
+    }
+
+    @PostMapping("/registration/tester")
+    public String testerRegistration(@ModelAttribute("user") UserImp user, BindingResult bindingResult) {
+        registrationValidator.validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "entry/tester-registration";
+        }
+
+        // TODO: Add USER and COMPANY role switch.
+        String password = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(password);
+        user.setRoleType(RoleType.TESTER);
         userService.save(user);
         securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
         return "redirect:/";
@@ -98,6 +122,7 @@ public class UserController {
             UserImp user = userService.findById(id);
 
             // edit user posted data
+            // TODO: Automatically logout if username or email of current user is updated.
             user.setUsername(userForm.getUsername());
             user.setEmail(userForm.getEmail());
             user.setFirstName(userForm.getFirstName());
@@ -106,6 +131,7 @@ public class UserController {
             // validate user
             userValidator.validate(user, bindingResult);
             if (bindingResult.hasErrors()) {
+                System.out.println(bindingResult.getAllErrors());
                 return "user/user-edit";
             }
 
@@ -120,7 +146,7 @@ public class UserController {
     public String userDelete(Model model, @PathVariable(value = "id") String id) {
         if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
             UserImp user = userService.findById(id);
-            // TODO: Add auto logout of this user.
+            // TODO: Automatically logout if current user is deleted.
             userService.delete(user);
             return "user/user-list";
         }

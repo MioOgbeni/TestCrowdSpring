@@ -25,6 +25,9 @@
                     <th scope="col">ID</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Role type</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +35,9 @@
                     <td><span th:text="${user.id}"></span></td>
                     <td><span th:text="${user.username}"></span></td>
                     <td><span th:text="${user.email}"></span></td>
+                    <td><span th:text="${user.firstName}"></span></td>
+                    <td><span th:text="${user.lastName}"></span></td>
+                    <td><span th:text="${user.roleType}"></span></td>
                 </tr>
                 </tbody>
             </table>

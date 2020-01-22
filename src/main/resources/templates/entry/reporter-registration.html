@@ -15,10 +15,10 @@
 
 <body class="registration-page">
 <div class="container">
-    <h1>Create account</h1>
+    <h1>Create reporter account</h1>
     <div class="card">
         <div class="card-body">
-            <form th:action="@{/registration}" th:object="${userForm}" method="post">
+            <form th:action="@{/registration/reporter}" th:object="${user}" method="post">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input class="form-control"
@@ -67,6 +67,7 @@
                     <button type="submit" class="btn btn-primary">Register</button>
                 </div>
                 <p>Already registered? <a th:href="@{/login}">Log in</a></p>
+                <p>Or: <a th:href="@{/registration/tester}">Create tester account</a></p>
             </form>
         </div>
     </div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration | TestCrowd</title>
+    <link href="/res/css/contrib/bootstrap.min.css" rel="stylesheet">
+    <link href="/res/css/custom/default.css" rel="stylesheet">
+    <link href="/res/css/custom/entry.css" rel="stylesheet">
+    <script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
+    <script src="/res/js/contrib/popper.min.js"></script>
+    <script src="/res/js/contrib/bootstrap.min.js"></script>
+    <script src="/res/js/custom/default.js"></script>
+</head>
+
+<body class="registration-page">
+<div class="container">
+    <h1>Create tester account</h1>
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/registration/tester}" th:object="${user}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control"
+                           type="text"
+                           id="username"
+                           placeholder="username"
+                           th:field="*{username}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('username')}"
+                           th:errors="*{username}">Error</small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control"
+                           type="text"
+                           id="email"
+                           placeholder="email"
+                           th:field="*{email}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}">Error</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control"
+                           type="password"
+                           id="password"
+                           placeholder="password"
+                           th:field="*{password}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('password')}"
+                           th:errors="*{password}">Error</small>
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirm">Confirm password</label>
+                    <input class="form-control"
+                           type="password"
+                           id="passwordConfirm"
+                           placeholder="confirm password"
+                           th:field="*{passwordConfirm}"/>
+                    <small class="text-danger"
+                           th:if="${#fields.hasErrors('passwordConfirm')}"
+                           th:errors="*{passwordConfirm}">Error</small>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+                <p>Already registered? <a th:href="@{/login}">Log in</a></p>
+                <p>Or: <a th:href="@{/registration/reporter}">Create reporter account</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

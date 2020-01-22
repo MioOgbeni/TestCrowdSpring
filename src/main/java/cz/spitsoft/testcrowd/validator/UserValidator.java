@@ -26,7 +26,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "empty");
         } else if (!username.matches("^[0-9a-zA-Z-._]+$")) {
             errors.rejectValue("username", "invalid");
-        } else if (username.length() < 6 || username.length() > 32) {
+        } else if (username.length() < 4 || username.length() > 32) {
             errors.rejectValue("username", "length");
         } else {
             UserImp userByUsername = userService.findByUsername(username);

@@ -19,13 +19,13 @@ import javax.validation.constraints.Size;
 })
 public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
     @Column(name = "USERNAME")
-    @Size(max = 40, min = 6, message = "{user.username.invalid}")
+    @Size(max = 40, min = 4, message = "{user.username.invalid}")
     @NotEmpty
     private String username;
 
     @Email
     @Column(name = "EMAIL")
-    @Size(max = 160, min = 5, message = "{user.email.invalid}")
+    @Size(max = 160, min = 4, message = "{user.email.invalid}")
     @NotEmpty
     private String email;
 
@@ -38,6 +38,7 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
 
     @Column(name = "FIRST_NAME")
     @Size(max = 80, message = "{user.firstName.invalid}")
+    @NotEmpty
     private String firstName;
 
     @Column(name = "LAST_NAME")
@@ -50,7 +51,7 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
 
     @Column(name = "ROLE_TYPE")
     @NotNull
-    private RoleType roleType = RoleType.REPORTER;
+    private RoleType roleType;
 
     /*@ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "TBL_USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
