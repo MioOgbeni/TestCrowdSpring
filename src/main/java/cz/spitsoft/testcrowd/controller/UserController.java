@@ -55,6 +55,7 @@ public class UserController {
             return "registration";
         }
 
+        // TODO: Add USER and COMPANY role switch.
         Set<RoleImp> roles = new HashSet<>();
         RoleImp adminRole = roleRepository.findByName(RoleType.ADMIN);
         roles.add(adminRole);
@@ -95,24 +96,37 @@ public class UserController {
 
     @PostMapping("/users/{id}/edit")
     public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
-        UserImp user = userService.findById(id);
-        user.setUsername(userForm.getUsername());
-        user.setEmail(userForm.getEmail());
-        user.setFirstName(userForm.getFirstName());
-        user.setLastName(userForm.getLastName());
+        if (securityService.getCurrentUserId().equals(id) || securityService.getCurrentUserRoleType() == RoleType.ADMIN) {
+            // load user
+            UserImp user = userService.findById(id);
 
-        userValidator.validate(user, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "user/user-edit";
+            // edit user posted data
+            user.setUsername(userForm.getUsername());
+            user.setEmail(userForm.getEmail());
+            user.setFirstName(userForm.getFirstName());
+            user.setLastName(userForm.getLastName());
+
+            // validate user
+            userValidator.validate(user, bindingResult);
+            if (bindingResult.hasErrors()) {
+                return "user/user-edit";
+            }
+
+            // save user
+            userService.save(user);
+            return "user/user-detail";
         }
-
-        userService.save(user);
-        return "user/user-detail";
+        return "redirect:/";
     }
 
     @GetMapping("/users/{id}/delete")
     public String userDelete(Model model, @PathVariable(value = "id") String id) {
-        model.addAttribute("user", userService.findById(id));
-        return "user/user-edit";
+        if (securityService.getCurrentUserId().equals(id) || securityService.getCurrentUserRoleType() == RoleType.ADMIN) {
+            UserImp user = userService.findById(id);
+            // TODO: Add auto logout of this user.
+            userService.delete(user);
+            return "user/user-list";
+        }
+        return "redirect:/";
     }
 }

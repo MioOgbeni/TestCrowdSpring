@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -34,6 +32,11 @@ public class UserServiceImp implements UserService {
     @Override
     public void save(UserImp user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public void delete(UserImp user) {
+        userRepository.delete(user);
     }
 
     @Override

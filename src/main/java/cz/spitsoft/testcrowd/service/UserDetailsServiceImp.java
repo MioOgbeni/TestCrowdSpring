@@ -28,7 +28,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (RoleImp role : user.getRoles()) {
-
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toString()));
         }
 

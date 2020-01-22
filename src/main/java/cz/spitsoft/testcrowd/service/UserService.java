@@ -10,6 +10,8 @@ public interface UserService {
 
     void save(UserImp user);
 
+    void delete(UserImp user);
+
     UserImp findByUsername(String username);
 
     UserImp findByEmail(String username);

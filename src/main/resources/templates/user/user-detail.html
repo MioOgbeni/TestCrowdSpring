@@ -22,7 +22,7 @@
     <p><strong>Last name:</strong> <span th:text="${user.lastName} ?: '-'">last name</span></p>
     <div class="action-buttons">
         <a class="btn btn-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
-        <a class="btn btn-danger">Delete</a>
+        <a class="btn btn-danger" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete</a>
     </div>
 </div>
 </body>
