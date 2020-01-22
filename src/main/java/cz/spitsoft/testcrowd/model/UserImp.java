@@ -13,19 +13,20 @@ import java.util.Set;
         @AttributeOverride(name = "ID", column = @Column(name = "USER_ID"))
 })
 @Table(name = "TBL_USERS", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "EMAIL")
+        @UniqueConstraint(columnNames = "EMAIL"),
+        @UniqueConstraint(columnNames = "USERNAME"),
 })
 public class UserImp<R> extends BaseEntity implements User<R> {
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRST_NAME")
     @Size(max = 80, message = "{user.firstName.invalid}")
     private String firstName;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "LAST_NAME")
     @Size(max = 80, message = "{user.lastName.invalid}")
     private String lastName;
 
     @Column(name = "USERNAME")
-    @Size(max = 80, min = 6, message = "{user.username.invalid}")
+    @Size(max = 40, min = 6, message = "{user.username.invalid}")
     @NotEmpty
     private String username;
 
@@ -38,7 +39,7 @@ public class UserImp<R> extends BaseEntity implements User<R> {
 
     @Email
     @Column(name = "EMAIL")
-    @Size(max = 255, min = 1, message = "{user.email.invalid}")
+    @Size(max = 160, min = 5, message = "{user.email.invalid}")
     @NotEmpty
     private String email;
 
@@ -51,7 +52,7 @@ public class UserImp<R> extends BaseEntity implements User<R> {
         super();
     }
 
-    public UserImp(String firstName, String lastName, String username, String password, String passwordConfirm, String email, String imageUrl, AuthProvider provider, String providerId, Set<R> roles) {
+    public UserImp(String firstName, String lastName, String username, String password, String passwordConfirm, String email, Set<R> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -135,6 +136,8 @@ public class UserImp<R> extends BaseEntity implements User<R> {
     @Override
     public String toString() {
         return new ToStringCreator(this)
-                .append("id", this.getId()).append("name", this.getUsername()).toString();
+                .append("id", this.getId())
+                .append("name", this.getUsername())
+                .toString();
     }
 }
