@@ -1,8 +1,6 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.UserImp;
-
-import java.util.Set;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 
 public interface UserService {
     void save(UserImp user);

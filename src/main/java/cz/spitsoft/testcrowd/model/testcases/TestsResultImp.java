@@ -1,7 +1,7 @@
 package cz.spitsoft.testcrowd.model.testcases;
 
 import cz.spitsoft.testcrowd.model.BaseEntity;
-import cz.spitsoft.testcrowd.model.UserImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.model.evidences.EvidenceImp;
 import org.hibernate.annotations.Target;
 

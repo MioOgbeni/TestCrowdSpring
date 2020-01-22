@@ -1,7 +1,7 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.RoleType;
-import cz.spitsoft.testcrowd.model.UserImp;
+import cz.spitsoft.testcrowd.model.user.RoleType;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

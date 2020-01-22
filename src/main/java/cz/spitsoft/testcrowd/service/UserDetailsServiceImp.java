@@ -1,6 +1,6 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.UserImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

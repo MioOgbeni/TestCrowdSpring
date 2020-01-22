@@ -1,4 +1,4 @@
-package cz.spitsoft.testcrowd.model;
+package cz.spitsoft.testcrowd.model.user;
 
 public interface User/*<R>*/ {
 

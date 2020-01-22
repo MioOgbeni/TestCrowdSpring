@@ -1,5 +1,6 @@
-package cz.spitsoft.testcrowd.model;
+package cz.spitsoft.testcrowd.model.user;
 
+import cz.spitsoft.testcrowd.model.BaseEntity;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;

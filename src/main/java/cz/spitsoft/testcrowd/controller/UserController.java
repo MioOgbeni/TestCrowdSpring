@@ -1,6 +1,6 @@
 package cz.spitsoft.testcrowd.controller;
 
-import cz.spitsoft.testcrowd.model.UserImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.UserRepository;
 import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.UserService;

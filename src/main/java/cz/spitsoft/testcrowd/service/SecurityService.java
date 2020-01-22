@@ -1,6 +1,6 @@
 package cz.spitsoft.testcrowd.service;
 
-import cz.spitsoft.testcrowd.model.UserImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 
 public interface SecurityService {
     String findLoggedInUsername();
