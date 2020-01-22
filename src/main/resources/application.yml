@@ -3,8 +3,8 @@ spring:
 
   # Docker
   datasource:
-    # url: 'jdbc:sqlserver://testcrowd-mssqldb:1433'
-    url: 'jdbc:sqlserver://localhost:1433'
+    url: 'jdbc:sqlserver://testcrowd-mssqldb:1433'
+    # url: 'jdbc:sqlserver://localhost:1433'
     username: 'sa'
     password: 'Test@123456'
     driverClassName: 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
