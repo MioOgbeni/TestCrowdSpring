@@ -18,6 +18,11 @@ import javax.validation.constraints.Size;
         @UniqueConstraint(columnNames = "USERNAME"),
 })
 public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
+
+    @Column(name = "ROLE_TYPE")
+    @NotNull
+    private RoleType roleType;
+
     @Column(name = "USERNAME")
     @Size(max = 40, min = 4, message = "{user.username.invalid}")
     @NotEmpty
@@ -48,10 +53,6 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
     @NotNull
     private int accountBalance = 0;
 
-    @Column(name = "ROLE_TYPE")
-    @NotNull
-    private RoleType roleType;
-
     /*@ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
     @JoinTable(name = "TBL_USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     @NotEmpty
@@ -61,8 +62,9 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
         super();
     }
 
-    public UserImp(String username, String email, String password, String passwordConfirm, String firstName, String lastName, int accountBalance, RoleType roleType/*, Set<R> roles*/) {
+    public UserImp(RoleType roleType, String username, String email, String password, String passwordConfirm, String firstName, String lastName, int accountBalance/*, Set<R> roles*/) {
         super();
+        this.roleType = roleType;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -70,8 +72,17 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
         this.firstName = firstName;
         this.lastName = lastName;
         this.accountBalance = accountBalance;
-        this.roleType = roleType;
         /*this.roles = roles;*/
+    }
+
+    @Override
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    @Override
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
     }
 
     @Override
@@ -142,16 +153,6 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
     @Override
     public void setAccountBalance(int accountBalance) {
         this.accountBalance = accountBalance;
-    }
-
-    @Override
-    public RoleType getRoleType() {
-        return roleType;
-    }
-
-    @Override
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
     }
 
     /*@Override

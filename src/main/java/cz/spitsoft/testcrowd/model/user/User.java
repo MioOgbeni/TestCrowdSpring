@@ -2,6 +2,10 @@ package cz.spitsoft.testcrowd.model.user;
 
 public interface User/*<R>*/ {
 
+    RoleType getRoleType();
+
+    void setRoleType(RoleType roleType);
+
     String getUsername();
 
     void setUsername(String username);
@@ -30,11 +34,8 @@ public interface User/*<R>*/ {
 
     void setAccountBalance(int accountBalance);
 
-    RoleType getRoleType();
-
-    void setRoleType(RoleType roleType);
-
     /*Set<R> getRoles();
 
     void setRoles(Set<R> roles);*/
+
 }
