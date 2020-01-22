@@ -16,11 +16,11 @@
 <div th:insert="fragments/navbar :: navbar">Navbar</div>
 <div class="container">
     <h1>User detail</h1>
+    <p><strong>Role type:</strong> <span th:text="${user.roleType}">ROLE</span></p>
     <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
     <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
     <p><strong>First name:</strong> <span th:text="${user.firstName}">first name</span></p>
     <p><strong>Last name:</strong> <span th:text="${user.lastName}">last name</span></p>
-    <p><strong>Role type:</strong> <span th:text="${user.roleType}">ROLE</span></p>
     <div class="action-buttons">
         <a class="btn btn-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
         <a class="btn btn-danger" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete</a>

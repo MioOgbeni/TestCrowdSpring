@@ -33,11 +33,11 @@
                 <tbody>
                 <tr th:each="user : ${users}" class="link" th:data-href="@{'/users/' + ${user.id}}">
                     <td><span th:text="${user.id}"></span></td>
+                    <td><span th:text="${user.roleType}"></span></td>
                     <td><span th:text="${user.username}"></span></td>
                     <td><span th:text="${user.email}"></span></td>
                     <td><span th:text="${user.firstName}"></span></td>
                     <td><span th:text="${user.lastName}"></span></td>
-                    <td><span th:text="${user.roleType}"></span></td>
                 </tr>
                 </tbody>
             </table>
