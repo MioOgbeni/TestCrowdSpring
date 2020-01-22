@@ -8,7 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class UserValidator implements Validator {
+public class RegistrationValidator implements Validator {
     @Autowired
     private UserService userService;
 
@@ -28,11 +28,8 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "invalid");
         } else if (username.length() < 6 || username.length() > 32) {
             errors.rejectValue("username", "length");
-        } else {
-            UserImp userByUsername = userService.findByUsername(username);
-            if (userByUsername != null && !userByUsername.getId().equals(user.getId())) {
-                errors.rejectValue("username", "duplication");
-            }
+        } else if (userService.findByUsername(username) != null) {
+            errors.rejectValue("username", "duplication");
         }
 
         String email = user.getEmail().trim();
@@ -40,11 +37,24 @@ public class UserValidator implements Validator {
             errors.rejectValue("email", "empty");
         } else if (!email.matches("^[0-9a-zA-Z-._]+@[0-9a-zA-Z-]+.[0-9a-zA-Z-.]+$")) {
             errors.rejectValue("email", "invalid");
-        } else {
-            UserImp userByEmail = userService.findByEmail(username);
-            if (userByEmail != null && !userByEmail.getEmail().equals(user.getEmail())) {
-                errors.rejectValue("email", "duplication");
+        } else if (userService.findByEmail(email) != null) {
+            errors.rejectValue("email", "duplication");
+        }
+
+        String password = user.getPassword();
+        if (password.length() < 40) {
+            if (password.length() < 1) {
+                errors.rejectValue("password", "empty");
+            } else if (password.length() < 8 || password.length() > 32) {
+                errors.rejectValue("password", "length");
             }
+        }
+
+        String passwordConfirm = user.getPasswordConfirm();
+        if (passwordConfirm.length() < 1) {
+            errors.rejectValue("passwordConfirm", "empty");
+        } else if (!passwordConfirm.equals(password)) {
+            errors.rejectValue("passwordConfirm", "difference");
         }
     }
 }

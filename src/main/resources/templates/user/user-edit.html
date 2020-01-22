@@ -16,8 +16,53 @@
 <div th:insert="fragments/navbar :: navbar">Navbar</div>
 <div class="container">
     <h1>User edit</h1>
-    <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
-    <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
+    <form th:action="@{'/users/' + ${id} + '/edit'}" th:object="${user}" method="post">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="username">Username</label>
+                <input class="form-control"
+                       type="text"
+                       id="username"
+                       th:field="*{username}"/>
+                <small class="text-danger"
+                       th:if="${#fields.hasErrors('username')}"
+                       th:errors="*{username}">Error</small>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="email">Email</label>
+                <input class="form-control"
+                       type="text"
+                       id="email"
+                       th:field="*{email}"/>
+                <small class="text-danger"
+                       th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}">Error</small>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="email">First name</label>
+                <input class="form-control"
+                       type="text"
+                       id="firstName"
+                       th:field="*{firstName}"/>
+                <small class="text-danger"
+                       th:if="${#fields.hasErrors('firstName')}"
+                       th:errors="*{firstName}">Error</small>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="email">Last name</label>
+                <input class="form-control"
+                       type="text"
+                       id="lastName"
+                       th:field="*{lastName}"/>
+                <small class="text-danger"
+                       th:if="${#fields.hasErrors('lastName')}"
+                       th:errors="*{lastName}">Error</small>
+            </div>
+        </div>
+        <div class="form-group action-buttons">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import cz.spitsoft.testcrowd.repository.UserRepository;
 import cz.spitsoft.testcrowd.repository.testcases.RoleRepository;
 import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.UserService;
+import cz.spitsoft.testcrowd.validator.RegistrationValidator;
 import cz.spitsoft.testcrowd.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +31,9 @@ public class UserController {
     private SecurityService securityService;
 
     @Autowired
+    private RegistrationValidator registrationValidator;
+
+    @Autowired
     private UserValidator userValidator;
 
     @Autowired
@@ -46,7 +50,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") UserImp userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+        registrationValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult); // TODO: Remove this line in production
@@ -76,7 +80,7 @@ public class UserController {
     }
 
     @GetMapping("/users/current")
-    public String userDetailCurrent(Model model) {
+    public String userDetail(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("user", userService.findByUsername(username));
         return "user/user-detail";
@@ -89,9 +93,28 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}/edit")
-    public String userEditForm(Model model, @PathVariable(value = "id") String id) {
+    public String userEdit(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("user", userService.findById(id));
         return "user/user-edit";
+    }
+
+    @PostMapping("/users/{id}/edit")
+    public String userEditPost(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
+        UserImp user = userService.findById(id);
+        user.setUsername(userForm.getUsername());
+        user.setEmail(userForm.getEmail());
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        userValidator.validate(user, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult); // TODO: Remove this line in production
+            return "user/user-edit";
+        }
+
+        userService.save(user);
+
+        return "user/user-detail";
     }
 
     @GetMapping({"/", "/welcome", "/index"})
