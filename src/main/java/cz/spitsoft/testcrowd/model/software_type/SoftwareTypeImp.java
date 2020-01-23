@@ -27,7 +27,7 @@ public class SoftwareTypeImp extends BaseEntity implements SoftwareType {
     @Size(max = 255, message = "{softwareType.description.invalid}")
     private String description;
 
-    @Column(name = "VALID")
+    @Column(name = "ENABLED")
     @NotNull
     private Boolean enabled;
 
