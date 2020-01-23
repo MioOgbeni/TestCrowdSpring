@@ -43,8 +43,8 @@
             </li>
         </ul>
         <ul class="navbar-nav mr-right">
-            <li class="nav-item logout" th:if="${#authentication.getName()} != 'anonymousUser'">
-                <a class="text-light" th:href="@{/users/current}" th:text="${#authentication.getName()}">username</a>
+            <li class="nav-item logout">
+                <a class="text-light" th:href="@{/users/current}">username</a>
             </li>
             <li class="nav-item" th:if="${#authentication.getName()} == 'anonymousUser'">
                 <a class="btn btn-light" th:href="@{/login}">Login</a>
