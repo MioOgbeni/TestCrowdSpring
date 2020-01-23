@@ -1,0 +1,276 @@
+body.login-page,
+body.registration-page {
+  min-width: 320px;
+}
+body.login-page form label,
+body.registration-page form label {
+  display: none;
+}
+body.login-page p,
+body.registration-page p {
+  margin: 0;
+}
+body.login-page .card,
+body.registration-page .card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+body.login-page .btn-google,
+body.registration-page .btn-google {
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-google:focus,
+body.registration-page .btn-google:focus,
+body.login-page .btn-google.focus,
+body.registration-page .btn-google.focus {
+  color: #fff;
+  background-color: #c23321;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-google:hover,
+body.registration-page .btn-google:hover {
+  color: #fff;
+  background-color: #c23321;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-google:active,
+body.registration-page .btn-google:active,
+body.login-page .btn-google.active,
+body.registration-page .btn-google.active,
+body.login-page .open > .dropdown-toggle.btn-google,
+body.registration-page .open > .dropdown-toggle.btn-google {
+  color: #fff;
+  background-color: #c23321;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-google:active:hover,
+body.registration-page .btn-google:active:hover,
+body.login-page .btn-google.active:hover,
+body.registration-page .btn-google.active:hover,
+body.login-page .open > .dropdown-toggle.btn-google:hover,
+body.registration-page .open > .dropdown-toggle.btn-google:hover,
+body.login-page .btn-google:active:focus,
+body.registration-page .btn-google:active:focus,
+body.login-page .btn-google.active:focus,
+body.registration-page .btn-google.active:focus,
+body.login-page .open > .dropdown-toggle.btn-google:focus,
+body.registration-page .open > .dropdown-toggle.btn-google:focus,
+body.login-page .btn-google:active.focus,
+body.registration-page .btn-google:active.focus,
+body.login-page .btn-google.active.focus,
+body.registration-page .btn-google.active.focus,
+body.login-page .open > .dropdown-toggle.btn-google.focus,
+body.registration-page .open > .dropdown-toggle.btn-google.focus {
+  color: #fff;
+  background-color: #a32b1c;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-google:active,
+body.registration-page .btn-google:active,
+body.login-page .btn-google.active,
+body.registration-page .btn-google.active,
+body.login-page .open > .dropdown-toggle.btn-google,
+body.registration-page .open > .dropdown-toggle.btn-google {
+  background-image: none;
+}
+body.login-page .btn-google.disabled:hover,
+body.registration-page .btn-google.disabled:hover,
+body.login-page .btn-google[disabled]:hover,
+body.registration-page .btn-google[disabled]:hover,
+body.login-page fieldset[disabled] .btn-google:hover,
+body.registration-page fieldset[disabled] .btn-google:hover,
+body.login-page .btn-google.disabled:focus,
+body.registration-page .btn-google.disabled:focus,
+body.login-page .btn-google[disabled]:focus,
+body.registration-page .btn-google[disabled]:focus,
+body.login-page fieldset[disabled] .btn-google:focus,
+body.registration-page fieldset[disabled] .btn-google:focus,
+body.login-page .btn-google.disabled.focus,
+body.registration-page .btn-google.disabled.focus,
+body.login-page .btn-google[disabled].focus,
+body.registration-page .btn-google[disabled].focus,
+body.login-page fieldset[disabled] .btn-google.focus,
+body.registration-page fieldset[disabled] .btn-google.focus {
+  background-color: #dd4b39;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-google .badge,
+body.registration-page .btn-google .badge {
+  color: #dd4b39;
+  background-color: #fff;
+}
+body.login-page .btn-facebook,
+body.registration-page .btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-facebook:focus,
+body.registration-page .btn-facebook:focus,
+body.login-page .btn-facebook.focus,
+body.registration-page .btn-facebook.focus {
+  color: #fff;
+  background-color: #2d4373;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-facebook:hover,
+body.registration-page .btn-facebook:hover {
+  color: #fff;
+  background-color: #2d4373;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-facebook:active,
+body.registration-page .btn-facebook:active,
+body.login-page .btn-facebook.active,
+body.registration-page .btn-facebook.active,
+body.login-page .open > .dropdown-toggle.btn-facebook,
+body.registration-page .open > .dropdown-toggle.btn-facebook {
+  color: #fff;
+  background-color: #2d4373;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-facebook:active:hover,
+body.registration-page .btn-facebook:active:hover,
+body.login-page .btn-facebook.active:hover,
+body.registration-page .btn-facebook.active:hover,
+body.login-page .open > .dropdown-toggle.btn-facebook:hover,
+body.registration-page .open > .dropdown-toggle.btn-facebook:hover,
+body.login-page .btn-facebook:active:focus,
+body.registration-page .btn-facebook:active:focus,
+body.login-page .btn-facebook.active:focus,
+body.registration-page .btn-facebook.active:focus,
+body.login-page .open > .dropdown-toggle.btn-facebook:focus,
+body.registration-page .open > .dropdown-toggle.btn-facebook:focus,
+body.login-page .btn-facebook:active.focus,
+body.registration-page .btn-facebook:active.focus,
+body.login-page .btn-facebook.active.focus,
+body.registration-page .btn-facebook.active.focus,
+body.login-page .open > .dropdown-toggle.btn-facebook.focus,
+body.registration-page .open > .dropdown-toggle.btn-facebook.focus {
+  color: #fff;
+  background-color: #23345a;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-facebook:active,
+body.registration-page .btn-facebook:active,
+body.login-page .btn-facebook.active,
+body.registration-page .btn-facebook.active,
+body.login-page .open > .dropdown-toggle.btn-facebook,
+body.registration-page .open > .dropdown-toggle.btn-facebook {
+  background-image: none;
+}
+body.login-page .btn-facebook.disabled:hover,
+body.registration-page .btn-facebook.disabled:hover,
+body.login-page .btn-facebook[disabled]:hover,
+body.registration-page .btn-facebook[disabled]:hover,
+body.login-page fieldset[disabled] .btn-facebook:hover,
+body.registration-page fieldset[disabled] .btn-facebook:hover,
+body.login-page .btn-facebook.disabled:focus,
+body.registration-page .btn-facebook.disabled:focus,
+body.login-page .btn-facebook[disabled]:focus,
+body.registration-page .btn-facebook[disabled]:focus,
+body.login-page fieldset[disabled] .btn-facebook:focus,
+body.registration-page fieldset[disabled] .btn-facebook:focus,
+body.login-page .btn-facebook.disabled.focus,
+body.registration-page .btn-facebook.disabled.focus,
+body.login-page .btn-facebook[disabled].focus,
+body.registration-page .btn-facebook[disabled].focus,
+body.login-page fieldset[disabled] .btn-facebook.focus,
+body.registration-page fieldset[disabled] .btn-facebook.focus {
+  background-color: #3b5998;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-facebook .badge,
+body.registration-page .btn-facebook .badge {
+  color: #3b5998;
+  background-color: #fff;
+}
+body.login-page .btn-github,
+body.registration-page .btn-github {
+  color: #fff;
+  background-color: #444;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-github:focus,
+body.registration-page .btn-github:focus,
+body.login-page .btn-github.focus,
+body.registration-page .btn-github.focus {
+  color: #fff;
+  background-color: #2b2b2b;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-github:hover,
+body.registration-page .btn-github:hover {
+  color: #fff;
+  background-color: #2b2b2b;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-github:active,
+body.registration-page .btn-github:active,
+body.login-page .btn-github.active,
+body.registration-page .btn-github.active,
+body.login-page .open > .dropdown-toggle.btn-github,
+body.registration-page .open > .dropdown-toggle.btn-github {
+  color: #fff;
+  background-color: #2b2b2b;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-github:active:hover,
+body.registration-page .btn-github:active:hover,
+body.login-page .btn-github.active:hover,
+body.registration-page .btn-github.active:hover,
+body.login-page .open > .dropdown-toggle.btn-github:hover,
+body.registration-page .open > .dropdown-toggle.btn-github:hover,
+body.login-page .btn-github:active:focus,
+body.registration-page .btn-github:active:focus,
+body.login-page .btn-github.active:focus,
+body.registration-page .btn-github.active:focus,
+body.login-page .open > .dropdown-toggle.btn-github:focus,
+body.registration-page .open > .dropdown-toggle.btn-github:focus,
+body.login-page .btn-github:active.focus,
+body.registration-page .btn-github:active.focus,
+body.login-page .btn-github.active.focus,
+body.registration-page .btn-github.active.focus,
+body.login-page .open > .dropdown-toggle.btn-github.focus,
+body.registration-page .open > .dropdown-toggle.btn-github.focus {
+  color: #fff;
+  background-color: #191919;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-github:active,
+body.registration-page .btn-github:active,
+body.login-page .btn-github.active,
+body.registration-page .btn-github.active,
+body.login-page .open > .dropdown-toggle.btn-github,
+body.registration-page .open > .dropdown-toggle.btn-github {
+  background-image: none;
+}
+body.login-page .btn-github.disabled:hover,
+body.registration-page .btn-github.disabled:hover,
+body.login-page .btn-github[disabled]:hover,
+body.registration-page .btn-github[disabled]:hover,
+body.login-page fieldset[disabled] .btn-github:hover,
+body.registration-page fieldset[disabled] .btn-github:hover,
+body.login-page .btn-github.disabled:focus,
+body.registration-page .btn-github.disabled:focus,
+body.login-page .btn-github[disabled]:focus,
+body.registration-page .btn-github[disabled]:focus,
+body.login-page fieldset[disabled] .btn-github:focus,
+body.registration-page fieldset[disabled] .btn-github:focus,
+body.login-page .btn-github.disabled.focus,
+body.registration-page .btn-github.disabled.focus,
+body.login-page .btn-github[disabled].focus,
+body.registration-page .btn-github[disabled].focus,
+body.login-page fieldset[disabled] .btn-github.focus,
+body.registration-page fieldset[disabled] .btn-github.focus {
+  background-color: #444;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.login-page .btn-github .badge,
+body.registration-page .btn-github .badge {
+  color: #444;
+  background-color: #fff;
+}
+/*# sourceMappingURL=entry.css.map */

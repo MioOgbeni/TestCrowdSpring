@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Welcome | TestCrowd</title>
-    <link href="/res/css/contrib/bootstrap.min.css" rel="stylesheet">
-    <link href="/res/css/custom/default.css" rel="stylesheet">
-    <script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
-    <script src="/res/js/contrib/bootstrap.min.js"></script>
-    <script src="/res/js/custom/default.js"></script>
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/sb-admin-2.min.css">
 </head>
 
-<body class="welcome-page">
-<div th:insert="fragments/navbar :: navbar">Navbar</div>
-<div class="container">
-    <h1>Welcome</h1>
-    <p>This web application serves as a platform for cooperative testing.</p>
-    <p>Companies can create some tests here and let users work on them.</p>
-    <p>Users can perform tests according to test scenarios and then enter test results.</p>
-    <p>As a result of these tests, users will be paid in the form of credits earned by the company for the test on their
-        account.</p>
-    <p>There are also reviews of users, tests and companies.</p>
-    <div class="action-buttons" th:if="${#authentication.getName()} == 'anonymousUser'">
-        <a class="btn btn-primary" th:href="@{/login}">Login</a>
-        <a class="btn btn-primary" th:href="@{/registration/reporter}">Create a reporter account</a>
-        <a class="btn btn-primary" th:href="@{/registration/tester}">Create a tester account</a>
+<body id="page-top">
+<div id="wrapper">
+    <div th:insert="fragments/sidebar :: sidebar"></div>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div th:insert="fragments/topbar :: topbar"></div>
+            <div class="container-fluid">
+
+                <h1 class="h3 mb-4 text-gray-800">Welcome</h1>
+
+
+            </div>
+        </div>
+        <div th:insert="fragments/footer :: footer"></div>
     </div>
 </div>
+<div th:insert="fragments/scroll-to-top :: scroll-to-top"></div>
+<script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
+<script src="/res/js/contrib/bootstrap.min.js"></script>
+<script src="/res/js/contrib/fontawesome-free.min.js"></script>
+<script src="/res/js/contrib/sb-admin-2.min.js"></script>
 </body>
 </html>

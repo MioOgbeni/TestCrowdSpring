@@ -45,10 +45,6 @@
         <ul class="navbar-nav mr-right">
             <li class="nav-item logout" th:if="${#authentication.getName()} != 'anonymousUser'">
                 <a class="text-light" th:href="@{/users/current}" th:text="${#authentication.getName()}">username</a>
-                <form id="logoutForm" method="POST" th:action="@{/logout}">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <button type="submit" class="btn btn-light">Logout</button>
-                </form>
             </li>
             <li class="nav-item" th:if="${#authentication.getName()} == 'anonymousUser'">
                 <a class="btn btn-light" th:href="@{/login}">Login</a>
