@@ -1,46 +1,6 @@
 body {
   min-width: 360px;
 
-  .navbar {
-    .user-profile-link {
-      text-decoration: none;
-    }
-
-    #logoutForm {
-      margin-left: 1rem;
-      display: inline !important;
-    }
-  }
-
-  .link {
-    cursor: pointer;
-  }
-
-  .table {
-    .thead-dark th {
-      background: #0a66c2;
-      border-color: #0959aa;
-    }
-
-    &.table-striped {
-      tr {
-        background: #ebebeb;
-
-        &:hover, &:active, &:focus {
-          background: #bdbdbd;
-        }
-
-        &:nth-of-type(odd) {
-          background: #dbdbdb;
-
-          &:hover, &:active, &:focus {
-            background: #bdbdbd;
-          }
-        }
-      }
-    }
-  }
-
   form {
     label {
       margin: 0;
@@ -60,6 +20,49 @@ body {
         margin-left: 1.5rem;
       }
     }
+  }
+
+  .navbar {
+    .user-profile-link {
+      text-decoration: none;
+    }
+
+    #logoutForm {
+      margin-left: 1rem;
+      display: inline !important;
+    }
+  }
+
+  .link {
+    cursor: pointer;
+  }
+
+  .table {
+    border-radius: .35rem;
+    overflow: hidden;
+
+    .thead-dark th {
+      background: #4e73df;
+      border-color: #4e73df;
+    }
+
+    tr {
+      background: #fff;
+
+      &:hover, &:active, &:focus {
+        background: #eee;
+      }
+    }
+  }
+
+  .pagination {
+    float: right;
+  }
+
+  .top-right-action-buttons {
+    display: inline-block;
+    float: right;
+    margin-top: -3.2rem;
   }
 
 }

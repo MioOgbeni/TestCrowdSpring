@@ -16,24 +16,24 @@
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
 
-<li class="nav-item" th:classappend="${#httpServletRequest.requestURI == '/users'} ? 'active' : ''"
-    th:if="${#authentication.getName()} != 'anonymousUser'">
+<li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
+    th:classappend="${#httpServletRequest.requestURI == '/users'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/users}">
         <i class="fas fa-fw fa-users"></i>
         <span>Users</span>
     </a>
 </li>
 
-<li class="nav-item" th:classappend="${#httpServletRequest.requestURI == '/software-types'} ? 'active' : ''"
-    th:if="${#authentication.getName()} != 'anonymousUser'">
+<li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
+    th:classappend="${#httpServletRequest.requestURI == '/software-types'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/software-types}">
         <i class="fas fa-fw fa-keyboard"></i>
         <span>Software types</span>
     </a>
 </li>
 
-<li class="nav-item" th:classappend="${#httpServletRequest.requestURI == '/tests'} ? 'active' : ''"
-    th:if="${#authentication.getName()} != 'anonymousUser'">
+<li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
+    th:classappend="${#httpServletRequest.requestURI == '/tests'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/tests}">
         <i class="fas fa-fw fa-keyboard"></i>
         <span>Tests</span>

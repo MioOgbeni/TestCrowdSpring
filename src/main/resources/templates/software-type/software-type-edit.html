@@ -26,7 +26,7 @@
             <div class="container-fluid">
 
                 <h1 class="h3 mb-4 text-gray-800">Edit software type</h1>
-                <form th:action="@{/software-types/add}" th:object="${softwareType}" method="post">
+                <form th:action="@{'/software-types/' + ${id} + '/edit'}" th:object="${softwareType}" method="post">
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="name">Name</label>

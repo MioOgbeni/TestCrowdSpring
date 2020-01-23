@@ -32,10 +32,6 @@ public class SoftwareTypeController {
 
     @GetMapping("/software-types")
     public String softwareTypeList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         Page<SoftwareTypeImp> softwareTypes = softwareTypeService.findAll(PageRequest.of(page, size));
         model.addAttribute("softwareTypes", softwareTypes);
 
@@ -52,10 +48,6 @@ public class SoftwareTypeController {
 
     @GetMapping("/software-types/{id}")
     public String softwareTypeDetail(Model model, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         model.addAttribute("softwareType", softwareTypeService.findById(id));
         return "software-type/software-type-detail";
     }
@@ -125,7 +117,7 @@ public class SoftwareTypeController {
         }
 
         softwareTypeService.save(softwareType);
-        return "software-type/software-type-detail";
+        return "redirect:/software-types/" + softwareType.getId();
     }
 
     @GetMapping("/software-types/{id}/delete")
