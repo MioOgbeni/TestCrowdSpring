@@ -25,7 +25,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">Software type detail</h1>
+                <div class="top-left-action-buttons-with-title">
+                    <a class="btn btn-primary" th:href="@{/software-types}">
+                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
+                    <h1 class="h3 mb-4 text-gray-800">Software type detail</h1>
+                </div>
                 <p><strong>ID:</strong> <span th:text="${softwareType.id}"></span></p>
                 <p><strong>Name:</strong> <span th:text="${softwareType.name}"></span></p>
                 <p><strong>Description:</strong> <span th:text="${softwareType.description}"></span></p>
@@ -34,18 +38,20 @@
                     <span th:text="${#dates.format(softwareType.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Last update by:</strong>
-                    <a th:href="'/users/' + ${softwareType.updatedBy.getId()}"
+                    <a th:href="@{'/users/' + ${softwareType.updatedBy.getId()}}"
                        th:text="${softwareType.updatedBy.getUsername()}"></a>
                 </p>
                 <p><strong>Created at:</strong>
                     <span th:text="${#dates.format(softwareType.createdAt, 'd. M. yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Created by:</strong>
-                    <a th:href="'/users/' + ${softwareType.createdBy.getId()}"
+                    <a th:href="@{'/users/' + ${softwareType.createdBy.getId()}}"
                        th:text="${softwareType.createdBy.getUsername()}"></a>
                 </p>
+                <hr>
                 <div class="action-buttons">
-                    <a class="btn btn-primary" th:href="@{'/software-types/' + ${softwareType.id} + '/edit'}">Edit</a>
+                    <a class="btn btn-primary"
+                       th:href="@{'/software-types/' + ${softwareType.id} + '/edit'}">Edit</a>
                     <a class="btn btn-danger"
                        th:href="@{'/software-types/' + ${softwareType.id} + '/delete'}">Delete</a>
                 </div>

@@ -25,7 +25,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">Edit software type</h1>
+                <div class="top-left-action-buttons-with-title">
+                    <a class="btn btn-primary" th:href="@{'/software-types/' + ${id}}">
+                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
+                    <h1 class="h3 mb-4 text-gray-800">Edit software type</h1>
+                </div>
                 <form th:action="@{'/software-types/' + ${id} + '/edit'}" th:object="${softwareType}" method="post">
                     <div class="row">
                         <div class="col-md-4 form-group">
@@ -56,6 +60,7 @@
                                    th:errors="*{description}">Error</small>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group action-buttons">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>

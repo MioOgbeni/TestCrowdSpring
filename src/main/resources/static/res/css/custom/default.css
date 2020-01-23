@@ -47,9 +47,23 @@ body .table tr:focus {
 body .pagination {
   float: right;
 }
+body .top-left-action-buttons-with-title h1 {
+  margin: 0.2rem 0 0;
+  display: inline-block;
+}
+body .top-left-action-buttons-with-title .btn {
+  float: left;
+  margin-right: 1.2rem;
+}
 body .top-right-action-buttons {
   display: inline-block;
   float: right;
   margin-top: -3.2rem;
+}
+body .action-buttons {
+  margin: 1.5rem 0 0 -1rem;
+}
+body .action-buttons .btn {
+  margin: 0 0 0 1rem;
 }
 /*# sourceMappingURL=default.css.map */
