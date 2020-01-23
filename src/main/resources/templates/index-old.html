@@ -15,17 +15,6 @@
 <div th:insert="fragments/navbar :: navbar">Navbar</div>
 <div class="container">
     <h1>Welcome</h1>
-    <p>This web application serves as a platform for cooperative testing.</p>
-    <p>Companies can create some tests here and let users work on them.</p>
-    <p>Users can perform tests according to test scenarios and then enter test results.</p>
-    <p>As a result of these tests, users will be paid in the form of credits earned by the company for the test on their
-        account.</p>
-    <p>There are also reviews of users, tests and companies.</p>
-    <div class="action-buttons" th:if="${#authentication.getName()} == 'anonymousUser'">
-        <a class="btn btn-primary" th:href="@{/login}">Login</a>
-        <a class="btn btn-primary" th:href="@{/registration/reporter}">Create a reporter account</a>
-        <a class="btn btn-primary" th:href="@{/registration/tester}">Create a tester account</a>
-    </div>
 </div>
 </body>
 </html>
