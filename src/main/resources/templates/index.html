@@ -17,10 +17,12 @@
 
 <body id="page-top">
 <div id="wrapper">
-    <div th:insert="fragments/sidebar :: sidebar"></div>
+    <ul th:insert="fragments/sidebar :: sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <div th:insert="fragments/topbar :: topbar"></div>
+            <nav th:insert="fragments/topbar :: topbar"
+                 class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
                 <h1 class="h3 mb-4 text-gray-800">Welcome</h1>
@@ -38,11 +40,13 @@
 
             </div>
         </div>
-        <div th:insert="fragments/footer :: footer"></div>
+        <footer th:insert="fragments/footer :: footer" class="sticky-footer bg-white"></footer>
     </div>
 </div>
-<div th:insert="fragments/scroll-to-top :: scroll-to-top"></div>
-<script src="/res/js/contrib/jquery-3.4.1.slim.min.js"></script>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="/res/js/contrib/jquery.min.js"></script>
 <script src="/res/js/contrib/bootstrap.min.js"></script>
 <script src="/res/js/contrib/fontawesome-free.min.js"></script>
 <script src="/res/js/contrib/sb-admin-2.min.js"></script>
