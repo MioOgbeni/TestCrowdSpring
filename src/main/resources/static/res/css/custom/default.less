@@ -1,4 +1,5 @@
 body {
+  min-width: 360px;
 
   .navbar {
     .user-profile-link {
@@ -8,6 +9,35 @@ body {
     #logoutForm {
       margin-left: 1rem;
       display: inline !important;
+    }
+  }
+
+  .link {
+    cursor: pointer;
+  }
+
+  .table {
+    .thead-dark th {
+      background: #0a66c2;
+      border-color: #0959aa;
+    }
+
+    &.table-striped {
+      tr {
+        background: #ebebeb;
+
+        &:hover, &:active, &:focus {
+          background: #bdbdbd;
+        }
+
+        &:nth-of-type(odd) {
+          background: #dbdbdb;
+
+          &:hover, &:active, &:focus {
+            background: #bdbdbd;
+          }
+        }
+      }
     }
   }
 

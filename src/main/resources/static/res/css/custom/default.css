@@ -1,8 +1,34 @@
+body {
+  min-width: 360px;
+}
 body .navbar .user-profile-link {
   text-decoration: none;
 }
 body .navbar #logoutForm {
   margin-left: 1rem;
   display: inline !important;
+}
+body .link {
+  cursor: pointer;
+}
+body .table .thead-dark th {
+  background: #0a66c2;
+  border-color: #0959aa;
+}
+body .table.table-striped tr {
+  background: #ebebeb;
+}
+body .table.table-striped tr:hover,
+body .table.table-striped tr:active,
+body .table.table-striped tr:focus {
+  background: #bdbdbd;
+}
+body .table.table-striped tr:nth-of-type(odd) {
+  background: #dbdbdb;
+}
+body .table.table-striped tr:nth-of-type(odd):hover,
+body .table.table-striped tr:nth-of-type(odd):active,
+body .table.table-striped tr:nth-of-type(odd):focus {
+  background: #bdbdbd;
 }
 /*# sourceMappingURL=default.css.map */
