@@ -5,6 +5,7 @@ import cz.spitsoft.testcrowd.model.user.UserImp;
 import java.util.Date;
 
 public interface SoftwareType {
+
     String getName();
 
     void setName(String name);
@@ -17,19 +18,20 @@ public interface SoftwareType {
 
     void setEnabled(Boolean valid);
 
-    Date getCreatedAt();
-
-    void setCreatedAt(Date createdAt);
-
     Date getUpdatedAt();
 
     void setUpdatedAt(Date updatedAt);
+
+    UserImp getUpdatedBy();
+
+    void setUpdatedBy(UserImp updatedBy);
+
+    Date getCreatedAt();
+
+    void setCreatedAt(Date createdAt);
 
     UserImp getCreatedBy();
 
     void setCreatedBy(UserImp cratedBy);
 
-    UserImp getUpdatedBy();
-
-    void setUpdatedBy(UserImp updatedBy);
 }

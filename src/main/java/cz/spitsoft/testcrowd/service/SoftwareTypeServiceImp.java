@@ -62,13 +62,13 @@ public class SoftwareTypeServiceImp implements SoftwareTypeService {
     }
 
     @Override
-    public List<SoftwareTypeImp> findByCreatedBy(UserImp user) {
-        return softwareTypeRepository.findByCreatedBy(user);
+    public List<SoftwareTypeImp> findByUpdatedBy(UserImp user) {
+        return softwareTypeRepository.findByUpdatedBy(user);
     }
 
     @Override
-    public List<SoftwareTypeImp> findByUpdatedBy(UserImp user) {
-        return softwareTypeRepository.findByUpdatedBy(user);
+    public List<SoftwareTypeImp> findByCreatedBy(UserImp user) {
+        return softwareTypeRepository.findByCreatedBy(user);
     }
 
 }

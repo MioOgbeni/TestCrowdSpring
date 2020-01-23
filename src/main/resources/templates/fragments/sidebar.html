@@ -24,6 +24,14 @@
     </a>
 </li>
 
+<li class="nav-item" th:classappend="${#httpServletRequest.requestURI == '/software-types'} ? 'active' : ''"
+    th:if="${#authentication.getName()} != 'anonymousUser'">
+    <a class="nav-link" th:href="@{/software-types}">
+        <i class="fas fa-fw fa-keyboard"></i>
+        <span>Software types</span>
+    </a>
+</li>
+
 <li class="nav-item" th:classappend="${#httpServletRequest.requestURI == '/tests'} ? 'active' : ''"
     th:if="${#authentication.getName()} != 'anonymousUser'">
     <a class="nav-link" th:href="@{/tests}">

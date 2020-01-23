@@ -24,9 +24,9 @@ public interface SoftwareTypeRepository extends JpaRepository<SoftwareTypeImp, U
     List<SoftwareTypeImp> findByEnabledFalse();
 
     @Transactional(readOnly = true)
-    List<SoftwareTypeImp> findByCreatedBy(UserImp user);
+    List<SoftwareTypeImp> findByUpdatedBy(UserImp user);
 
     @Transactional(readOnly = true)
-    List<SoftwareTypeImp> findByUpdatedBy(UserImp user);
+    List<SoftwareTypeImp> findByCreatedBy(UserImp user);
 
 }

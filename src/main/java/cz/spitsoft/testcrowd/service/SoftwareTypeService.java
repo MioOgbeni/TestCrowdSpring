@@ -27,8 +27,8 @@ public interface SoftwareTypeService {
 
     List<SoftwareTypeImp> findByEnabledFalse();
 
-    List<SoftwareTypeImp> findByCreatedBy(UserImp user);
-
     List<SoftwareTypeImp> findByUpdatedBy(UserImp user);
+
+    List<SoftwareTypeImp> findByCreatedBy(UserImp user);
 
 }
