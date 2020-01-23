@@ -25,6 +25,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public long count() {
+        return userRepository.count();
+    }
+
+    @Override
     public List<UserImp> findAll() {
         return userRepository.findAll();
     }

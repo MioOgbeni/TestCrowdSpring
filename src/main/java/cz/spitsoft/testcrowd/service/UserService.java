@@ -11,6 +11,8 @@ public interface UserService {
 
     void delete(UserImp user);
 
+    long count();
+
     List<UserImp> findAll();
 
     Page<UserImp> findAll(Pageable pageable);

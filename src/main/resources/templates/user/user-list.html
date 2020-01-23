@@ -41,6 +41,19 @@
                 </tr>
                 </tbody>
             </table>
+            <ul th:if="${users.totalPages > 0}" class="pagination">
+                <li class="page-item" th:classappend="${users.number + 1 <= 1} ? disabled">
+                    <a class="page-link" th:href="@{/users(size=${users.size}, page=${users.number})}">Previous</a>
+                </li>
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}"
+                    th:classappend="${pageNumber==users.number + 1} ? active">
+                    <a class="page-link" th:href="@{/users(size=${users.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}></a>
+                </li>
+                <li class="page-item" th:classappend="${users.number + 1 >= users.totalPages} ? disabled">
+                    <a class="page-link" th:href="@{/users(size=${users.size}, page=${users.number + 2})}">Next</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
