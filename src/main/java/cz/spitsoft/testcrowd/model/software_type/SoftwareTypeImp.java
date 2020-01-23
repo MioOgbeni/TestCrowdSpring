@@ -13,9 +13,9 @@ import java.util.Date;
 
 @Entity
 @AttributeOverrides({
-        @AttributeOverride(name = "ID", column = @Column(name = "SW_TYPE_ID"))
+        @AttributeOverride(name = "ID", column = @Column(name = "SOFTWARE_TYPE_ID"))
 })
-@Table(name = "TBL_SW_TYPES")
+@Table(name = "TBL_SOFTWARE_TYPES")
 public class SoftwareTypeImp extends BaseEntity implements SoftwareType {
 
     @Column(name = "NAME")
