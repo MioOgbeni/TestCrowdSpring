@@ -11,8 +11,14 @@ import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Override
+    public long count() {
+        return userRepository.count();
+    }
 
     @Override
     public void save(UserImp user) {
@@ -22,11 +28,6 @@ public class UserServiceImp implements UserService {
     @Override
     public void delete(UserImp user) {
         userRepository.delete(user);
-    }
-
-    @Override
-    public long count() {
-        return userRepository.count();
     }
 
     @Override
@@ -40,6 +41,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public UserImp findById(String id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public UserImp findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -49,8 +55,4 @@ public class UserServiceImp implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Override
-    public UserImp findById(String id) {
-        return userRepository.findById(id);
-    }
 }

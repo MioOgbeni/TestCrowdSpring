@@ -13,7 +13,7 @@ public interface SoftwareType {
 
     void setDescription(String description);
 
-    Boolean isEnabled();
+    Boolean getEnabled();
 
     void setEnabled(Boolean valid);
 

@@ -87,7 +87,7 @@ public class SoftwareTypeImp extends BaseEntity implements SoftwareType {
     }
 
     @Override
-    public Boolean isEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 

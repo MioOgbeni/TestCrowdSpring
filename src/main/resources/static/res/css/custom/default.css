@@ -31,4 +31,21 @@ body .table.table-striped tr:nth-of-type(odd):active,
 body .table.table-striped tr:nth-of-type(odd):focus {
   background: #bdbdbd;
 }
+body form label {
+  margin: 0;
+}
+body form .form-check {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+body form .form-check .form-check-input,
+body form .form-check input[type="checkbox"] {
+  margin: 0;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+body form .form-check .form-check-label,
+body form .form-check label {
+  margin-left: 1.5rem;
+}
 /*# sourceMappingURL=default.css.map */
