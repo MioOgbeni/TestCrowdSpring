@@ -27,7 +27,7 @@
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/software-types'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/software-types}">
-        <i class="fas fa-fw fa-keyboard"></i>
+        <i class="fas fa-fw fa-desktop"></i>
         <span>Software types</span>
     </a>
 </li>
@@ -35,7 +35,7 @@
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/test-categories'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/test-categories}">
-        <i class="fas fa-fw fa-keyboard"></i>
+        <i class="fas fa-fw fa-list"></i>
         <span>Test categories</span>
     </a>
 </li>
