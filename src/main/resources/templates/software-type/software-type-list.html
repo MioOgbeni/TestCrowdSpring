@@ -28,7 +28,7 @@
                 <h1 class="h3 mb-4 text-gray-800">Software type list</h1>
                 <p class="top-right-action-buttons">
                     <a class="btn btn-primary" th:href="@{/software-types/add}">
-                        <i class="fas fa-plus fa-sm fa-fw mr-2 text-gray-400"></i> Add software type</a>
+                        <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add software type</a>
                 </p>
                 <div th:switch="${softwareTypes.getNumberOfElements()}">
                     <div th:case="0">There are no software types yet.</div>

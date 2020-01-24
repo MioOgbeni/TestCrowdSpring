@@ -19,7 +19,7 @@
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/users'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/users}">
-        <i class="fas fa-fw fa-users"></i>
+        <i class="fas fa-users fa-fw mr-2"></i>
         <span>Users</span>
     </a>
 </li>
@@ -27,7 +27,7 @@
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/software-types'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/software-types}">
-        <i class="fas fa-fw fa-desktop"></i>
+        <i class="fas fa-desktop fa-fw mr-2"></i>
         <span>Software types</span>
     </a>
 </li>
@@ -35,7 +35,7 @@
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/test-categories'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/test-categories}">
-        <i class="fas fa-fw fa-list"></i>
+        <i class="fas fa-list fa-fw mr-2"></i>
         <span>Test categories</span>
     </a>
 </li>
@@ -43,7 +43,7 @@
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/tests'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/tests}">
-        <i class="fas fa-fw fa-keyboard"></i>
+        <i class="fas fa-keyboard fa-fw mr-2"></i>
         <span>Tests</span>
     </a>
 </li>

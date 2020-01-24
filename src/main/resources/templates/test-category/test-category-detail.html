@@ -51,9 +51,11 @@
                 <hr>
                 <div class="action-buttons">
                     <a class="btn btn-primary"
-                       th:href="@{'/test-categories/' + ${testCategory.id} + '/edit'}">Edit</a>
+                       th:href="@{'/test-categories/' + ${testCategory.id} + '/edit'}">
+                        <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
                     <a class="btn btn-danger"
-                       th:href="@{'/test-categories/' + ${testCategory.id} + '/delete'}">Delete</a>
+                       th:href="@{'/test-categories/' + ${testCategory.id} + '/delete'}">
+                        <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
                 </div>
 
             </div>

@@ -39,16 +39,19 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">First name</th>
                                     <th scope="col">Last name</th>
+                                    <th scope="col" class="text-align-right">Account balance</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="user : ${users}" class="link" th:data-href="@{'/users/' + ${user.id}}">
-                                    <td><span th:text="${user.id}"></span></td>
+                                    <td><span th:text="${#strings.substring(user.id, 28, 32)}"
+                                              th:title="${user.id}"></span></td>
                                     <td><span th:text="${user.roleType}"></span></td>
                                     <td><span th:text="${user.username}"></span></td>
                                     <td><span th:text="${user.email}"></span></td>
                                     <td><span th:text="${user.firstName}"></span></td>
                                     <td><span th:text="${user.lastName}"></span></td>
+                                    <td class="text-align-right"><span th:text="${user.accountBalance}"></span> Kr</td>
                                 </tr>
                                 </tbody>
                             </table>
