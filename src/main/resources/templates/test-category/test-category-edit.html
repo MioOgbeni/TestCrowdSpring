@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Add test category | TestCrowd</title>
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/sb-admin-2.min.css">
+    <link type="text/css" rel="stylesheet" href="/res/css/custom/default.css">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <ul th:insert="fragments/sidebar :: sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav th:insert="fragments/topbar :: topbar"
+                 class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <div class="container-fluid">
+
+                <div class="top-left-action-buttons-with-title">
+                    <a class="btn btn-primary" th:href="@{'/test-categories/' + ${id}}">
+                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
+                    <h1 class="h3 mb-4 text-gray-800">Edit test category</h1>
+                </div>
+                <form th:action="@{'/test-categories/' + ${id} + '/edit'}" th:object="${testCategory}" method="post">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control"
+                                   type="text"
+                                   id="name"
+                                   th:field="*{name}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('name')}"
+                                   th:errors="*{name}">Error</small>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="description">Description</label>
+                            <input class="form-control"
+                                   type="text"
+                                   id="description"
+                                   th:field="*{description}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('description')}"
+                                   th:errors="*{description}">Error</small>
+                        </div>
+                        <div class="col-md-12 form-group form-check">
+                            <input class="form-check-input" type="checkbox" id="enabled" th:field="*{enabled}"/>
+                            <label class="form-check-label" for="enabled">enabled</label>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('enabled')}"
+                                   th:errors="*{description}">Error</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group action-buttons">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <footer th:insert="fragments/footer :: footer" class="sticky-footer bg-white"></footer>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="/res/js/contrib/jquery.min.js"></script>
+<script src="/res/js/contrib/bootstrap.min.js"></script>
+<script src="/res/js/contrib/fontawesome-free.min.js"></script>
+<script src="/res/js/contrib/sb-admin-2.min.js"></script>
+<script src="/res/js/custom/default.js"></script>
+</body>
+</html>

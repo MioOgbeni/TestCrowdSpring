@@ -33,6 +33,14 @@
 </li>
 
 <li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
+    th:classappend="${#httpServletRequest.requestURI == '/test-categories'} ? 'active' : ''">
+    <a class="nav-link" th:href="@{/test-categories}">
+        <i class="fas fa-fw fa-keyboard"></i>
+        <span>Test categories</span>
+    </a>
+</li>
+
+<li class="nav-item" th:if="${#authentication.getName()} != 'anonymousUser'"
     th:classappend="${#httpServletRequest.requestURI == '/tests'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/tests}">
         <i class="fas fa-fw fa-keyboard"></i>
