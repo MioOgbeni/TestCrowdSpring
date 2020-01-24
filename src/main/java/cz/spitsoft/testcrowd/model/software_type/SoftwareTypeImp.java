@@ -35,7 +35,7 @@ public class SoftwareTypeImp extends BaseEntity implements SoftwareType {
     @NotNull
     private Date updatedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "UPDATED_BY")
     @Target(UserImp.class)
     @NotNull
@@ -45,7 +45,7 @@ public class SoftwareTypeImp extends BaseEntity implements SoftwareType {
     @NotNull
     private Date createdAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "CREATED_BY")
     @Target(UserImp.class)
     @NotNull

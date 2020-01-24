@@ -128,6 +128,6 @@ public class SoftwareTypeController {
 
         SoftwareTypeImp softwareType = softwareTypeService.findById(id);
         softwareTypeService.delete(softwareType);
-        return "software-type/software-type-list";
+        return "redirect:/software-types";
     }
 }
