@@ -71,4 +71,7 @@ body .action-buttons {
 body .action-buttons .btn {
   margin: 0 0 0 1rem;
 }
+body .display-block {
+  display: block;
+}
 /*# sourceMappingURL=default.css.map */

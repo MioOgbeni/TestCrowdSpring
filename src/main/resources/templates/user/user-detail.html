@@ -25,12 +25,17 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">User detail</h1>
-                <p><strong>Role type:</strong> <span th:text="${user.roleType}">ROLE</span></p>
-                <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
-                <p><strong>Email:</strong> <span th:text="${user.email}">email</span></p>
-                <p><strong>First name:</strong> <span th:text="${user.firstName}">first name</span></p>
-                <p><strong>Last name:</strong> <span th:text="${user.lastName}">last name</span></p>
+                <div class="top-left-action-buttons-with-title">
+                    <a class="btn btn-primary" th:href="@{/users}">
+                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
+                    <h1 class="h3 mb-4 text-gray-800">User detail</h1>
+                </div>
+                <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
+                <p><strong>Role type:</strong> <span th:text="${user.roleType}"></span></p>
+                <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                <p><strong>First name:</strong> <span th:text="${user.firstName}"></span></p>
+                <p><strong>Last name:</strong> <span th:text="${user.lastName}"></span></p>
                 <div class="action-buttons">
                     <a class="btn btn-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a>
                     <a class="btn btn-danger" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete</a>

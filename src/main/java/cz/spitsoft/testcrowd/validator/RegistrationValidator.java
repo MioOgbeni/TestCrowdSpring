@@ -42,12 +42,10 @@ public class RegistrationValidator implements Validator {
         }
 
         String password = user.getPassword();
-        if (password.length() < 40) {
-            if (password.length() < 1) {
-                errors.rejectValue("password", "empty");
-            } else if (password.length() < 8 || password.length() > 32) {
-                errors.rejectValue("password", "length");
-            }
+        if (password.length() < 1) {
+            errors.rejectValue("password", "empty");
+        } else if (password.length() < 8 || password.length() > 40) {
+            errors.rejectValue("password", "length");
         }
 
         String passwordConfirm = user.getPasswordConfirm();

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/users")
     public String userList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "2") int size) {
@@ -58,49 +62,53 @@ public class UserController {
 
     @GetMapping("/users/{id}/edit")
     public String userEdit(Model model, @PathVariable(value = "id") String id) {
-        if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
-            model.addAttribute("user", userService.findById(id));
-            return "user/user-edit";
+        if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
+            return "redirect:/";
         }
-        return "redirect:/";
+
+        model.addAttribute("user", userService.findById(id));
+        return "user/user-edit";
     }
 
     @PostMapping("/users/{id}/edit")
     public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
-        if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
-            // load user
-            UserImp user = userService.findById(id);
-
-            // edit user posted data
-            // TODO: Edit user password.
-            // TODO: Automatically logout if username, email or password are updated.
-            user.setUsername(userForm.getUsername());
-            user.setEmail(userForm.getEmail());
-            user.setFirstName(userForm.getFirstName());
-            user.setLastName(userForm.getLastName());
-
-            // validate user
-            userValidator.validate(user, bindingResult);
-            if (bindingResult.hasErrors()) {
-                System.out.println(bindingResult.getAllErrors());
-                return "user/user-edit";
-            }
-
-            // save user
-            userService.save(user);
-            return "user/user-detail";
+        if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
+            return "redirect:/";
         }
-        return "redirect:/";
+
+        userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
+            return "user/user-edit";
+        }
+
+        UserImp user = userService.findById(id);
+        user.setUsername(userForm.getUsername());
+        user.setEmail(userForm.getEmail());
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        String password = userForm.getPassword();
+        if (password.length() > 0) {
+            String passwordEncoded = bCryptPasswordEncoder.encode(password);
+            user.setPassword(passwordEncoded);
+        }
+        userService.save(user);
+
+        // TODO: Automatically logout or change session if username is updated.
+
+        return "user/user-detail";
     }
 
     @GetMapping("/users/{id}/delete")
     public String userDelete(Model model, @PathVariable(value = "id") String id) {
-        if (securityService.isCurrentUserById(id) || securityService.isCurrentUserAdmin()) {
-            UserImp user = userService.findById(id);
-            // TODO: Automatically logout deleted user.
-            userService.delete(user);
-            return "user/user-list";
+        if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
+            return "redirect:/";
         }
-        return "redirect:/";
+        UserImp user = userService.findById(id);
+        userService.delete(user);
+
+        // TODO: Automatically logout deleted user.
+
+        return "user/user-list";
     }
 }

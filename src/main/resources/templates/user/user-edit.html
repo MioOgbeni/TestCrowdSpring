@@ -25,7 +25,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">User edit</h1>
+                <div class="top-left-action-buttons-with-title">
+                    <a class="btn btn-primary" th:href="@{'/users/' + ${id}}">
+                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
+                    <h1 class="h3 mb-4 text-gray-800">User edit</h1>
+                </div>
                 <form th:action="@{'/users/' + ${id} + '/edit'}" th:object="${user}" method="post">
                     <div class="row">
                         <div class="col-md-6 form-group">
@@ -49,7 +53,7 @@
                                    th:errors="*{email}">Error</small>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="email">First name</label>
+                            <label for="firstName">First name</label>
                             <input class="form-control"
                                    type="text"
                                    id="firstName"
@@ -59,7 +63,7 @@
                                    th:errors="*{firstName}">Error</small>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="email">Last name</label>
+                            <label for="lastName">Last name</label>
                             <input class="form-control"
                                    type="text"
                                    id="lastName"
@@ -68,7 +72,31 @@
                                    th:if="${#fields.hasErrors('lastName')}"
                                    th:errors="*{lastName}">Error</small>
                         </div>
+                        <div class="col-md-6 form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control form-control-user"
+                                   type="password"
+                                   id="password"
+                                   th:field="*{password}"/>
+                            <small id="passwordHelpInline">
+                                You only need to fill in the password if you want to change it.
+                            </small>
+                            <small class="text-danger display-block"
+                                   th:if="${#fields.hasErrors('password')}"
+                                   th:errors="*{password}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="passwordConfirm">Confirm password</label>
+                            <input class="form-control form-control-user"
+                                   type="password"
+                                   id="passwordConfirm"
+                                   th:field="*{passwordConfirm}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('passwordConfirm')}"
+                                   th:errors="*{passwordConfirm}">Error</small>
+                        </div>
                     </div>
+                    <hr>
                     <div class="form-group action-buttons">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>

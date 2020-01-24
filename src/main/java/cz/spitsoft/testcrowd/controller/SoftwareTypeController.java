@@ -68,18 +68,17 @@ public class SoftwareTypeController {
             return "redirect:/";
         }
 
+        softwareTypeValidator.validate(softwareType, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "software-type/software-type-add";
+        }
+
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
         softwareType.setUpdatedAt(currentDate);
         softwareType.setUpdatedBy(currentUser);
         softwareType.setCreatedAt(currentDate);
         softwareType.setCreatedBy(currentUser);
-
-        softwareTypeValidator.validate(softwareType, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "software-type/software-type-add";
-        }
-
         softwareTypeService.save(softwareType);
         return "redirect:/software-types";
     }
@@ -100,22 +99,19 @@ public class SoftwareTypeController {
             return "redirect:/";
         }
 
-        SoftwareTypeImp softwareType = softwareTypeService.findById(id);
-
-        softwareType.setName(softwareTypeForm.getName());
-        softwareType.setDescription(softwareTypeForm.getDescription());
-        softwareType.setEnabled(softwareTypeForm.getEnabled());
-
-        Date currentDate = new Date();
-        UserImp currentUser = securityService.getCurrentUser();
-        softwareType.setUpdatedAt(currentDate);
-        softwareType.setUpdatedBy(currentUser);
-
-        softwareTypeValidator.validate(softwareType, bindingResult);
+        softwareTypeValidator.validate(softwareTypeForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "software-type/software-type-add";
         }
 
+        SoftwareTypeImp softwareType = softwareTypeService.findById(id);
+        softwareType.setName(softwareTypeForm.getName());
+        softwareType.setDescription(softwareTypeForm.getDescription());
+        softwareType.setEnabled(softwareTypeForm.getEnabled());
+        Date currentDate = new Date();
+        UserImp currentUser = securityService.getCurrentUser();
+        softwareType.setUpdatedAt(currentDate);
+        softwareType.setUpdatedBy(currentUser);
         softwareTypeService.save(softwareType);
         return "redirect:/software-types/" + softwareType.getId();
     }

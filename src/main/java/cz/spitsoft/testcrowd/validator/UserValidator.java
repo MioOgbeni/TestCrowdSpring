@@ -26,7 +26,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "empty");
         } else if (!username.matches("^[0-9a-zA-Z-._]+$")) {
             errors.rejectValue("username", "invalid");
-        } else if (username.length() < 4 || username.length() > 32) {
+        } else if (username.length() < 4 || username.length() > 40) {
             errors.rejectValue("username", "length");
         } else {
             UserImp userByUsername = userService.findByUsername(username);
@@ -44,6 +44,27 @@ public class UserValidator implements Validator {
             UserImp userByEmail = userService.findByEmail(username);
             if (userByEmail != null && !userByEmail.getEmail().equals(user.getEmail())) {
                 errors.rejectValue("email", "duplication");
+            }
+        }
+
+        String firstName = user.getFirstName().trim();
+        if (firstName.length() > 80) {
+            errors.rejectValue("firstName", "length");
+        }
+
+        String lastName = user.getLastName().trim();
+        if (lastName.length() > 80) {
+            errors.rejectValue("lastName", "length");
+        }
+
+        String password = user.getPassword();
+        if (password.length() > 0) {
+            if (password.length() < 8 || password.length() > 40) {
+                errors.rejectValue("password", "length");
+            }
+            String passwordConfirm = user.getPasswordConfirm();
+            if (!passwordConfirm.equals(password)) {
+                errors.rejectValue("passwordConfirm", "difference");
             }
         }
     }

@@ -68,18 +68,17 @@ public class TestCategoryController {
             return "redirect:/";
         }
 
+        testCategoryValidator.validate(testCategory, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "test-category/test-category-add";
+        }
+
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
         testCategory.setUpdatedAt(currentDate);
         testCategory.setUpdatedBy(currentUser);
         testCategory.setCreatedAt(currentDate);
         testCategory.setCreatedBy(currentUser);
-
-        testCategoryValidator.validate(testCategory, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "test-category/test-category-add";
-        }
-
         testCategoryService.save(testCategory);
         return "redirect:/test-categories";
     }
@@ -100,22 +99,19 @@ public class TestCategoryController {
             return "redirect:/";
         }
 
-        TestCategoryImp testCategory = testCategoryService.findById(id);
-
-        testCategory.setName(testCategoryForm.getName());
-        testCategory.setDescription(testCategoryForm.getDescription());
-        testCategory.setEnabled(testCategoryForm.getEnabled());
-
-        Date currentDate = new Date();
-        UserImp currentUser = securityService.getCurrentUser();
-        testCategory.setUpdatedAt(currentDate);
-        testCategory.setUpdatedBy(currentUser);
-
-        testCategoryValidator.validate(testCategory, bindingResult);
+        testCategoryValidator.validate(testCategoryForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "test-category/test-category-add";
         }
 
+        TestCategoryImp testCategory = testCategoryService.findById(id);
+        testCategory.setName(testCategoryForm.getName());
+        testCategory.setDescription(testCategoryForm.getDescription());
+        testCategory.setEnabled(testCategoryForm.getEnabled());
+        Date currentDate = new Date();
+        UserImp currentUser = securityService.getCurrentUser();
+        testCategory.setUpdatedAt(currentDate);
+        testCategory.setUpdatedBy(currentUser);
         testCategoryService.save(testCategory);
         return "redirect:/test-categories/" + testCategory.getId();
     }
