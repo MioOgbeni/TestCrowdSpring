@@ -7,7 +7,6 @@ import cz.spitsoft.testcrowd.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +38,7 @@ public class UserController {
             List<Integer> pageNumbers = IntStream.rangeClosed(0, totalPages - 1)
                     .boxed()
                     .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+            model.addAttribute("pages", pageNumbers);
         }
         return "user/user-list";
     }

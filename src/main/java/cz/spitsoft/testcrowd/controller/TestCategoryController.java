@@ -40,7 +40,7 @@ public class TestCategoryController {
             List<Integer> pageNumbers = IntStream.rangeClosed(0, totalPages - 1)
                     .boxed()
                     .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+            model.addAttribute("pages", pageNumbers);
         }
 
         return "test-category/test-category-list";

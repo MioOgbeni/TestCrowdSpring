@@ -64,11 +64,11 @@
                                 <a class="page-link"
                                    th:href="@{/software-types(size=${softwareTypes.size}, page=${softwareTypes.number - 1})}">Previous</a>
                             </li>
-                            <li class="page-item" th:each="pageNumber : ${pageNumbers}"
-                                th:classappend="${pageNumber==softwareTypes.number} ? active">
+                            <li class="page-item" th:each="page : ${pages}"
+                                th:classappend="${page==softwareTypes.number} ? active">
                                 <a class="page-link"
-                                   th:href="@{/software-types(size=${softwareTypes.size}, page=${pageNumber})}"
-                                   th:text="${pageNumber} + 1"></a>
+                                   th:href="@{/software-types(size=${softwareTypes.size}, page=${page})}"
+                                   th:text="${page} + 1"></a>
                             </li>
                             <li class="page-item"
                                 th:classappend="${softwareTypes.number >= softwareTypes.totalPages - 1} ? disabled">
