@@ -7,6 +7,7 @@ import cz.spitsoft.testcrowd.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -33,6 +36,7 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users")
     public String userList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "2") int size) {
         Page<UserImp> users = userService.findAll(PageRequest.of(page, size));
@@ -47,6 +51,7 @@ public class UserController {
         return "user/user-list";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/current")
     public String userDetail(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -54,12 +59,14 @@ public class UserController {
         return "user/user-detail";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}")
     public String userDetail(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("user", userService.findById(id));
         return "user/user-detail";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}/edit")
     public String userEdit(Model model, @PathVariable(value = "id") String id) {
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
@@ -70,6 +77,7 @@ public class UserController {
         return "user/user-edit";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @PostMapping("/users/{id}/edit")
     public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
@@ -99,16 +107,21 @@ public class UserController {
         return "user/user-detail";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}/delete")
-    public String userDelete(Model model, @PathVariable(value = "id") String id) {
+    public String userDelete(Model model, @PathVariable(value = "id") String id, HttpServletRequest request) {
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
             return "redirect:/";
         }
         UserImp user = userService.findById(id);
         userService.delete(user);
 
-        // TODO: Automatically logout deleted user.
+        HttpSession session = request.getSession();
+        SecurityContextHolder.clearContext();
+        if (session == null) {
+            session.invalidate();
+        }
 
-        return "user/user-list";
+        return "redirect:/login";
     }
 }

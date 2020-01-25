@@ -28,13 +28,13 @@ body {
     text-align: center;
 }
 
-.error .error-404, .error .error-500 {
+.error .error-404, .error .error-500, .error .error-401 {
     height: 280px;
     position: relative;
     z-index: -1;
 }
 
-.error .error-404 h1, .error .error-500 h1 {
+.error .error-404 h1, .error .error-500 h1, .error .error-401 h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 230px;
     margin: 0px;
@@ -87,11 +87,11 @@ body {
 
 
 @media only screen and (max-width: 767px) {
-    .error .error-404, .error .error-500 {
+    .error .error-404, .error .error-500, .error .error-401 {
         height: 142px;
     }
 
-    .error .error-404 h1, .error .error-500 h1 {
+    .error .error-404 h1, .error .error-500 h1, .error-401 h1 {
         font-size: 112px;
     }
 }

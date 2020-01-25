@@ -20,6 +20,8 @@ public class MyErrorController implements ErrorController {
                 return "error/error-404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "error/error-500";
+            } else if (statusCode == HttpStatus.UNAUTHORIZED.value() || statusCode == HttpStatus.FORBIDDEN.value()) {
+                return "error/error-401";
             }
         }
         return "error/error-500";
