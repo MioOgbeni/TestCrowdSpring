@@ -13,16 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/payment")
 public class PaymentController {
-    public static final String PAYPAL_SUCCESS_URL = "pay/success";
-    public static final String PAYPAL_CANCEL_URL = "pay/cancel";
+    public static final String PAYPAL_SUCCESS_URL = "/pay/success";
+    public static final String PAYPAL_CANCEL_URL = "/pay/cancel";
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -30,9 +28,12 @@ public class PaymentController {
     private PayPalService paypalService;
 
     @PostMapping("/pay")
-    public String pay(HttpServletRequest request, @RequestParam(value = "sum", defaultValue = "0") Double sum) {
-        String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
-        String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
+    public String pay(HttpServletRequest request, @RequestParam Double sum) {
+        String cancelUrl = URLUtils.getBaseURl(request) + PAYPAL_CANCEL_URL;
+        String successUrl = URLUtils.getBaseURl(request) + PAYPAL_SUCCESS_URL;
+
+        sum = sum / 100; // 100 credits = 1 USD
+
         try {
             Payment payment = paypalService.createPayment(
                     sum,
@@ -54,12 +55,12 @@ public class PaymentController {
     }
 
     @GetMapping(PAYPAL_CANCEL_URL)
-    public String cancelPay() {
+    public String cancel() {
         return "cancel";
     }
 
     @GetMapping(PAYPAL_SUCCESS_URL)
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+    public String success(@RequestParam("paymentId") String paymentId, @RequestParam("token") String token, @RequestParam("PayerID") String payerId) {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
