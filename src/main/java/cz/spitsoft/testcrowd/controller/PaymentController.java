@@ -2,14 +2,18 @@ package cz.spitsoft.testcrowd.controller;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.PayPalService;
+import cz.spitsoft.testcrowd.service.UserService;
 import cz.spitsoft.testcrowd.utils.PayPalPaymentIntent;
 import cz.spitsoft.testcrowd.utils.PayPalPaymentMethod;
 import cz.spitsoft.testcrowd.utils.URLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +27,9 @@ public class PaymentController {
     public static final String PAYPAL_CANCEL_URL = "/pay/cancel";
 
     private Logger log = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private PayPalService paypalService;
@@ -65,7 +72,17 @@ public class PaymentController {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
 
-                //TODO gain credits to user
+                for (Transaction transaction : payment.getTransactions()) {
+                    double total = Double.valueOf(transaction.getAmount().getTotal());
+                    int credits = (int) (total * 100); // 100 credits = 1 USD
+
+                    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                    UserImp user = userService.findByUsername(username);
+
+                    user.setAccountBalance(user.getAccountBalance() + credits);
+
+                    userService.save(user);
+                }
 
                 return "success";
             }
