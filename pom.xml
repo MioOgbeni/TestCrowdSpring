@@ -83,7 +83,11 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>5.1.7.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.14.0</version>
+        </dependency>
     </dependencies>
 
     <build>

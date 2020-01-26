@@ -59,3 +59,10 @@ server:
     include-exception: true
     whitelabel:
       enabled: false
+
+## PayPal
+payPal:
+  mode: 'sandbox'
+  client:
+    id: 'AfszrU41imldmUDZJp_5zyJDiD9N61N_GRlpJSzftPbiA0zIoOH2r7UzXe0re7TBudZl3ngQktCOOfnU'
+    secret: 'EMvVxXesBEcz1bIsJT8mjVR_M8NNRJXXNfP04fm8AyyU3V7VSqqNwNsZyCKU9_j6PacrOTtZjQRUCl4r'
