@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SecurityServiceImp implements SecurityService {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -56,12 +57,27 @@ public class SecurityServiceImp implements SecurityService {
         return userService.findByUsername(username);
     }
 
+    @Override
     public boolean isCurrentUserById(String id) {
         return this.getCurrentUser().getId().equals(id);
     }
 
+    @Override
     public boolean isCurrentUserAdmin() {
         UserImp user = this.getCurrentUser();
         return user.getRoleType() == RoleType.ADMIN;
     }
+
+    @Override
+    public boolean isCurrentUserReporter() {
+        UserImp user = this.getCurrentUser();
+        return user.getRoleType() == RoleType.REPORTER || user.getRoleType() == RoleType.ADMIN;
+    }
+
+    @Override
+    public boolean isCurrentUserTester() {
+        UserImp user = this.getCurrentUser();
+        return user.getRoleType() == RoleType.TESTER || user.getRoleType() == RoleType.ADMIN;
+    }
+
 }

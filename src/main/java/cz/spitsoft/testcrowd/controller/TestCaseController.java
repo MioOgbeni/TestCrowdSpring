@@ -1,12 +1,12 @@
 package cz.spitsoft.testcrowd.controller;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
-import cz.spitsoft.testcrowd.repository.TestCaseRepository;
+import cz.spitsoft.testcrowd.service.SecurityService;
+import cz.spitsoft.testcrowd.service.test_case.TestCaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,19 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestCaseController {
 
     @Autowired
-    private TestCaseRepository testCaseRepository;
+    private SecurityService securityService;
 
-    @GetMapping("tests")
-    public String testCases(Model model) {
-        model.addAttribute("testcases", this.testCaseRepository.findAll());
-        return "tests";
+    //@Autowired
+    //private TestCaseValidator testCaseValidator;
+
+    @Autowired
+    private TestCaseService testCaseService;
+
+    @GetMapping("/test-cases/add")
+    public String testCategoryAdd(Model model) {
+        if (!securityService.isCurrentUserReporter()) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("testCase", new TestCaseImp());
+        return "test-case/test-case-add";
     }
 
-    @PostMapping("add")
-    public String addTestCase() {
-        TestCaseImp tempTest = new TestCaseImp();
-        tempTest.setName("temp");
-        this.testCaseRepository.save(tempTest);
-        return "redirect:tests";
-    }
 }
