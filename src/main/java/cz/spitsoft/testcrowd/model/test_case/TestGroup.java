@@ -1,40 +1,43 @@
-package cz.spitsoft.testcrowd.model.testcases;
+package cz.spitsoft.testcrowd.model.test_case;
+
+import cz.spitsoft.testcrowd.model.user.UserImp;
 
 import java.util.Date;
 import java.util.List;
 
-public interface TestGroup<T, U> {
+public interface TestGroup {
+
     String getName();
 
     void setName(String name);
+
+    String getDescription();
+
+    void setDescription(String description);
 
     int getSkillDifficulty();
 
     void setSkillDifficulty(int skillDifficulty);
 
-    void countSkillDifficulty();
-
     int getTimeDifficulty();
 
     void setTimeDifficulty(int timeDifficulty);
 
-    void countTimeDifficulty();
+    List<TestCaseImp> getTestCases();
 
-    List<T> getTestCases();
-
-    void setTestCases(List<T> testCases);
+    void setTestCases(List<TestCaseImp> testCases);
 
     double getRewardMultiplier();
 
     void setRewardMultiplier(double rewardMultiplier);
 
-    U getCreatedBy();
+    Date getCreatedAt();
 
-    void setCreatedBy(U createdBy);
+    void setCreatedAt(Date createdAt);
 
-    Date getCreatedOn();
+    UserImp getCreatedBy();
 
-    void setCreatedOn(Date createdOn);
+    void setCreatedBy(UserImp createdBy);
 
     Date getAvailableTo();
 
@@ -44,5 +47,4 @@ public interface TestGroup<T, U> {
 
     void setRating(int rating);
 
-    void countRating();
 }

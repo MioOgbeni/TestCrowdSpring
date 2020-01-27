@@ -1,5 +1,8 @@
 package cz.spitsoft.testcrowd.model.user;
 
 public enum AuthProvider {
-    FACEBOOK, GOOGLE, GITHUB
+    LOCAL,    // username and password
+    FACEBOOK,
+    GOOGLE,
+    GITHUB,
 }

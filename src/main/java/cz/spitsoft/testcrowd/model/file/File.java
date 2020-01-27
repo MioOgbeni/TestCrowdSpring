@@ -1,8 +1,9 @@
-package cz.spitsoft.testcrowd.model.evidences;
+package cz.spitsoft.testcrowd.model.file;
 
 import java.util.Date;
 
-public interface Evidence {
+public interface File {
+
     String getName();
 
     void setName(String name);
@@ -15,7 +16,8 @@ public interface Evidence {
 
     void setExtension(String extension);
 
-    Date getAttachedOn();
+    Date getCreatedAt();
 
-    void setAttachedOn(Date attachedOn);
+    void setCreatedAt(Date createdAt);
+
 }

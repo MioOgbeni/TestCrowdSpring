@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
         @UniqueConstraint(columnNames = "EMAIL"),
         @UniqueConstraint(columnNames = "USERNAME"),
 })
-public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
+public class UserImp extends BaseEntity implements User {
 
     @Column(name = "ROLE_TYPE")
     @NotNull
@@ -53,16 +53,11 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
     @NotNull
     private int accountBalance = 0;
 
-    /*@ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleImp.class)
-    @JoinTable(name = "TBL_USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    @NotEmpty
-    private Set<R> roles;*/
-
     public UserImp() {
         super();
     }
 
-    public UserImp(RoleType roleType, String username, String email, String password, String passwordConfirm, String firstName, String lastName, int accountBalance/*, Set<R> roles*/) {
+    public UserImp(RoleType roleType, String username, String email, String password, String passwordConfirm, String firstName, String lastName, int accountBalance) {
         super();
         this.roleType = roleType;
         this.username = username;
@@ -72,7 +67,6 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
         this.firstName = firstName;
         this.lastName = lastName;
         this.accountBalance = accountBalance;
-        /*this.roles = roles;*/
     }
 
     @Override
@@ -155,16 +149,6 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
         this.accountBalance = accountBalance;
     }
 
-    /*@Override
-    public Set<R> getRoles() {
-        return roles;
-    }
-
-    @Override
-    public void setRoles(Set<R> roles) {
-        this.roles = roles;
-    }*/
-
     @Override
     public String toString() {
         return new ToStringCreator(this)
@@ -172,4 +156,5 @@ public class UserImp/*<R>*/ extends BaseEntity implements User/*<R>*/ {
                 .append("name", this.getUsername())
                 .toString();
     }
+
 }

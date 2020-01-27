@@ -1,4 +1,4 @@
-package cz.spitsoft.testcrowd.model.reviews;
+package cz.spitsoft.testcrowd.model.review;
 
 import cz.spitsoft.testcrowd.model.BaseEntity;
 import cz.spitsoft.testcrowd.model.user.UserImp;
@@ -7,6 +7,7 @@ import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -15,9 +16,10 @@ import java.util.Date;
         @AttributeOverride(name = "ID", column = @Column(name = "REVIEW_ID"))
 })
 @Table(name = "TBL_REVIEWS")
-public class ReviewImp<U> extends BaseEntity implements Review<U> {
+public class ReviewImp extends BaseEntity implements Review {
+
     @Column(name = "CONTENT")
-    @Size(max = 255, message = "{review.content.invalid}")
+    @Size(max = 240, message = "{review.content.invalid}")
     private String content;
 
     @Column(name = "RATING")
@@ -25,25 +27,25 @@ public class ReviewImp<U> extends BaseEntity implements Review<U> {
     @NotEmpty
     private int rating;
 
-    @Column(name = "CREATED_ON")
-    @NotEmpty
-    private Date createdOn;
+    @Column(name = "CREATED_AT")
+    @NotNull
+    private Date createdAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CREATED_BY")
     @Target(UserImp.class)
-    @NotEmpty
-    private U createdBy;
+    @NotNull
+    private UserImp createdBy;
 
     public ReviewImp() {
         super();
     }
 
-    public ReviewImp(String content, int rating, Date createdOn, U createdBy) {
+    public ReviewImp(String content, int rating, Date createdAt, UserImp createdBy) {
         super();
         this.content = content;
         this.rating = rating;
-        this.createdOn = createdOn;
+        this.createdAt = createdAt;
         this.createdBy = createdBy;
     }
 
@@ -68,29 +70,31 @@ public class ReviewImp<U> extends BaseEntity implements Review<U> {
     }
 
     @Override
-    public Date getCreatedOn() {
-        return createdOn;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     @Override
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
-    public U getCreatedBy() {
+    public UserImp getCreatedBy() {
         return createdBy;
     }
 
     @Override
-    public void setCreatedBy(U createdBy) {
+    public void setCreatedBy(UserImp createdBy) {
         this.createdBy = createdBy;
     }
 
     @Override
     public String toString() {
         return new ToStringCreator(this)
-
-                .append("id", this.getId()).append("createdOn", this.getCreatedOn()).toString();
+                .append("id", this.getId())
+                .append("createdAt", this.getCreatedAt())
+                .toString();
     }
+
 }

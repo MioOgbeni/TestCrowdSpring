@@ -1,47 +1,50 @@
-package cz.spitsoft.testcrowd.model.evidences;
+package cz.spitsoft.testcrowd.model.file;
 
 import cz.spitsoft.testcrowd.model.BaseEntity;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @AttributeOverrides({
-        @AttributeOverride(name = "ID", column = @Column(name = "EVIDENCE_ID"))
+        @AttributeOverride(name = "ID", column = @Column(name = "FILE_ID"))
 })
-@Table(name = "TBL_EVIDENCES")
-public class EvidenceImp extends BaseEntity implements Evidence {
+@Table(name = "TBL_FILES")
+public class FileImp extends BaseEntity implements File {
+
     @Column(name = "NAME")
-    @Size(max = 255, message = "{evidence.name.invalid}")
+    @Size(max = 80, message = "{evidence.name.invalid}")
     @NotEmpty
     private String name;
 
     @Column(name = "FILE_NAME")
-    @Size(max = 255, message = "{evidence.fileName.invalid}")
+    @Size(max = 240, message = "{evidence.fileName.invalid}")
     @NotEmpty
     private String fileName;
 
     @Column(name = "EXTENSION")
+    @Size(max = 20, message = "{evidence.extension.invalid}")
     @NotEmpty
     private String extension;
 
-    @Column(name = "ATTACHED_ON")
-    @NotEmpty
-    private Date attachedOn;
+    @Column(name = "CREATED_AT")
+    @NotNull
+    private Date createdAt;
 
-    public EvidenceImp() {
+    public FileImp() {
         super();
     }
 
-    public EvidenceImp(String name, String fileName, String extension, Date attachedOn) {
+    public FileImp(String name, String fileName, String extension, Date createdAt) {
         super();
         this.name = name;
         this.fileName = fileName;
         this.extension = extension;
-        this.attachedOn = attachedOn;
+        this.createdAt = createdAt;
     }
 
     @Override
@@ -74,20 +77,20 @@ public class EvidenceImp extends BaseEntity implements Evidence {
         this.extension = extension;
     }
 
-    @Override
-    public Date getAttachedOn() {
-        return attachedOn;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    @Override
-    public void setAttachedOn(Date attachedOn) {
-        this.attachedOn = attachedOn;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
     public String toString() {
         return new ToStringCreator(this)
-
-                .append("id", this.getId()).append("name", this.getName()).toString();
+                .append("id", this.getId())
+                .append("name", this.getName())
+                .toString();
     }
+
 }

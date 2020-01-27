@@ -1,11 +1,14 @@
-package cz.spitsoft.testcrowd.model.testcases;
+package cz.spitsoft.testcrowd.model.test_case;
 
 import cz.spitsoft.testcrowd.model.BaseEntity;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.hibernate.annotations.Target;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -15,42 +18,46 @@ import java.util.List;
         @AttributeOverride(name = "ID", column = @Column(name = "TEST_GROUP_ID"))
 })
 @Table(name = "TBL_TEST_GROUPS")
-public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
+public class TestGroupImp extends BaseEntity implements TestGroup {
+
     @Column(name = "NAME")
-    @Size(max = 20, min = 3, message = "{testcase.name.invalid}")
+    @Size(max = 80, message = "{testGroup.name.invalid}")
     @NotEmpty
     private String name;
 
+    @Column(name = "DESCRIPTION")
+    @Size(max = 240, message = "{testGroup.description.invalid}")
+    private String description;
+
     @Column(name = "SKILL_DIFFICULTY")
-    @Size(max = 5, message = "{testcase.skillDifficulty.invalid}")
-    @NotEmpty
+    @Range(min = 1, max = 5, message = "{testGroup.skillDifficulty.invalid}")
+    @NotNull
     private int skillDifficulty;
 
     @Column(name = "TIME_DIFFICULTY")
-    @Size(max = 5, message = "{testcase.timeDifficulty.invalid}")
-    @NotEmpty
+    @Range(min = 1, max = 5, message = "{testGroup.timeDifficulty.invalid}")
+    @NotNull
     private int timeDifficulty;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = TestCaseImp.class)
     @NotEmpty
-    private List<T> testCases;
+    private List<TestCaseImp> testCases;
 
     @Column(name = "REWARD_MULTIPLIER")
     @NotEmpty
     private double rewardMultiplier;
 
+    @Column(name = "CREATED_AT")
+    @NotNull
+    private Date createdAt;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CREATED_BY")
     @Target(UserImp.class)
-    @NotEmpty
-    private U createdBy;
-
-    @Column(name = "CREATED_ON")
-    @NotEmpty
-    private Date createdOn;
+    @NotNull
+    private UserImp createdBy;
 
     @Column(name = "AVAILABLE_TO")
-    @NotEmpty
     private Date availableTo;
 
     @Column(name = "RATING")
@@ -61,15 +68,16 @@ public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
         super();
     }
 
-    public TestGroupImp(String name, int skillDifficulty, int timeDifficulty, List<T> testCases, double rewardMultiplier, U createdBy, Date createdOn, Date availableTo, int rating) {
+    public TestGroupImp(String name, String description, int skillDifficulty, int timeDifficulty, List<TestCaseImp> testCases, double rewardMultiplier, Date createdAt, UserImp createdBy, Date availableTo, int rating) {
         super();
         this.name = name;
+        this.description = description;
         this.skillDifficulty = skillDifficulty;
         this.timeDifficulty = timeDifficulty;
         this.testCases = testCases;
         this.rewardMultiplier = rewardMultiplier;
+        this.createdAt = createdAt;
         this.createdBy = createdBy;
-        this.createdOn = createdOn;
         this.availableTo = availableTo;
         this.rating = rating;
     }
@@ -85,6 +93,16 @@ public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
     }
 
     @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
     public int getSkillDifficulty() {
         return skillDifficulty;
     }
@@ -92,19 +110,6 @@ public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
     @Override
     public void setSkillDifficulty(int skillDifficulty) {
         this.skillDifficulty = skillDifficulty;
-    }
-
-    @Override
-    public void countSkillDifficulty() {
-        if (testCases.isEmpty()) {
-            skillDifficulty = 0;
-        } else {
-            int groupSkillDifficulty = 0;
-
-            for (T testCase : testCases) groupSkillDifficulty += ((TestCaseImp) testCase).getSkillDifficulty();
-
-            skillDifficulty = (int) Math.ceil(groupSkillDifficulty / testCases.size());
-        }
     }
 
     @Override
@@ -118,25 +123,12 @@ public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
     }
 
     @Override
-    public void countTimeDifficulty() {
-        if (testCases.isEmpty()) {
-            timeDifficulty = 0;
-        } else {
-            int groupTimeDifficulty = 0;
-
-            for (T testCase : testCases) groupTimeDifficulty += ((TestCaseImp) testCase).getTimeDifficulty();
-
-            timeDifficulty = (int) Math.ceil(groupTimeDifficulty / testCases.size());
-        }
-    }
-
-    @Override
-    public List<T> getTestCases() {
+    public List<TestCaseImp> getTestCases() {
         return testCases;
     }
 
     @Override
-    public void setTestCases(List<T> testCases) {
+    public void setTestCases(List<TestCaseImp> testCases) {
         this.testCases = testCases;
     }
 
@@ -151,23 +143,23 @@ public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
     }
 
     @Override
-    public U getCreatedBy() {
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public UserImp getCreatedBy() {
         return createdBy;
     }
 
     @Override
-    public void setCreatedBy(U createdBy) {
+    public void setCreatedBy(UserImp createdBy) {
         this.createdBy = createdBy;
-    }
-
-    @Override
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    @Override
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
     }
 
     @Override
@@ -191,15 +183,11 @@ public class TestGroupImp<T, U> extends BaseEntity implements TestGroup<T, U> {
     }
 
     @Override
-    public void countRating() {
-        if (testCases.isEmpty()) {
-            rating = 0;
-        } else {
-            int groupRating = 0;
-
-            for (T testCase : testCases) groupRating += ((TestCaseImp) testCase).getRating();
-
-            rating = (int) Math.ceil(groupRating / testCases.size());
-        }
+    public String toString() {
+        return new ToStringCreator(this)
+                .append("id", this.getId())
+                .append("name", this.getName())
+                .toString();
     }
+
 }
