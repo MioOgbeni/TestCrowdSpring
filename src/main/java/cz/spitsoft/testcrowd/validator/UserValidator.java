@@ -29,7 +29,13 @@ public class UserValidator implements Validator {
         } else if (username.length() < 4 || username.length() > 40) {
             errors.rejectValue("username", "length");
         } else {
-            UserImp userByUsername = userService.findByUsername(username);
+            UserImp userByUsername;
+            try {
+                userByUsername = userService.findByUsername(username);
+            } catch (Exception e) {
+                userByUsername = null;
+            }
+
             if (userByUsername != null && !userByUsername.getId().equals(user.getId())) {
                 errors.rejectValue("username", "duplication");
             }
@@ -41,7 +47,13 @@ public class UserValidator implements Validator {
         } else if (!email.matches("^[0-9a-zA-Z-._]+@[0-9a-zA-Z-]+.[0-9a-zA-Z-.]+$")) {
             errors.rejectValue("email", "invalid");
         } else {
-            UserImp userByEmail = userService.findByEmail(username);
+            UserImp userByEmail;
+            try {
+                userByEmail = userService.findByEmail(username);
+            } catch (Exception e) {
+                userByEmail = null;
+            }
+
             if (userByEmail != null && !userByEmail.getEmail().equals(user.getEmail())) {
                 errors.rejectValue("email", "duplication");
             }
