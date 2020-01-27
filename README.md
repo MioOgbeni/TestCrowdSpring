@@ -19,9 +19,14 @@ There are also reviews of users, tests and companies.
   - check drive with your project files
 
 - Build Maven project (Execute Maven Goal)
-```
-mvn -Dmaven.test.skip=true package
-```
+    - With tests
+        ```
+        mvn package
+        ```
+    - Without tests
+       ```
+       mvn -Dmaven.test.skip=true package
+       ```
 
 - In terminal run
 ```
