@@ -8,6 +8,7 @@ import cz.spitsoft.testcrowd.validator.SoftwareTypeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ public class SoftwareTypeController {
     @Autowired
     private SoftwareTypeService softwareTypeService;
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/software-types")
     public String softwareTypeList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         Page<SoftwareTypeImp> softwareTypes = softwareTypeService.findAll(PageRequest.of(page, size));
@@ -46,12 +48,14 @@ public class SoftwareTypeController {
         return "software-type/software-type-list";
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/software-types/{id}")
     public String softwareTypeDetail(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("softwareType", softwareTypeService.findById(id));
         return "software-type/software-type-detail";
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/software-types/add")
     public String softwareTypeAdd(Model model) {
         if (!securityService.isCurrentUserAdmin()) {
@@ -62,6 +66,7 @@ public class SoftwareTypeController {
         return "software-type/software-type-add";
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @PostMapping("/software-types/add")
     public String softwareTypeAdd(@ModelAttribute("softwareType") SoftwareTypeImp softwareType, BindingResult bindingResult) {
         if (!securityService.isCurrentUserAdmin()) {
@@ -83,6 +88,7 @@ public class SoftwareTypeController {
         return "redirect:/software-types";
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/software-types/{id}/edit")
     public String softwareTypeEdit(Model model, @PathVariable(value = "id") String id) {
         if (!securityService.isCurrentUserAdmin()) {
@@ -93,6 +99,7 @@ public class SoftwareTypeController {
         return "software-type/software-type-edit";
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @PostMapping("/software-types/{id}/edit")
     public String softwareTypeEdit(@ModelAttribute("softwareType") SoftwareTypeImp softwareTypeForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
         if (!securityService.isCurrentUserAdmin()) {
@@ -116,6 +123,7 @@ public class SoftwareTypeController {
         return "redirect:/software-types/" + softwareType.getId();
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/software-types/{id}/delete")
     public String softwareTypeDelete(Model model, @PathVariable(value = "id") String id) {
         if (!securityService.isCurrentUserAdmin()) {

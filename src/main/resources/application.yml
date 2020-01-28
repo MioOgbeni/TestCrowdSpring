@@ -66,3 +66,19 @@ payPal:
   client:
     id: 'AfszrU41imldmUDZJp_5zyJDiD9N61N_GRlpJSzftPbiA0zIoOH2r7UzXe0re7TBudZl3ngQktCOOfnU'
     secret: 'EMvVxXesBEcz1bIsJT8mjVR_M8NNRJXXNfP04fm8AyyU3V7VSqqNwNsZyCKU9_j6PacrOTtZjQRUCl4r'
+
+
+## MULTIPART (MultipartProperties)
+servlet:
+  multipart:
+    # Enable multipart uploads
+    enabled: true
+
+    # Threshold after which files are written to disk.
+    file-size-threshold: 2KB
+
+    # Max file size.
+    max-file-size: 200MB
+
+    # Max Request Size
+    max-request-size: 215MB
