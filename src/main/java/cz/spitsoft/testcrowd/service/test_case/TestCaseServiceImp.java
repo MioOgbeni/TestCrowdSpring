@@ -1,12 +1,14 @@
 package cz.spitsoft.testcrowd.service.test_case;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.TestCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,13 +23,13 @@ public class TestCaseServiceImp implements TestCaseService {
     }
 
     @Override
-    public void save(TestCaseImp testCategory) {
-        testCaseRepository.save(testCategory);
+    public void save(TestCaseImp testCase) {
+        testCaseRepository.save(testCase);
     }
 
     @Override
-    public void delete(TestCaseImp testCategory) {
-        testCaseRepository.delete(testCategory);
+    public void delete(TestCaseImp testCase) {
+        testCaseRepository.delete(testCase);
     }
 
     @Override
@@ -38,6 +40,26 @@ public class TestCaseServiceImp implements TestCaseService {
     @Override
     public Page<TestCaseImp> findAll(Pageable pageable) {
         return testCaseRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy) {
+        return testCaseRepository.findAllAvailableToBeforeAndCreatedBy(availableTo, createdBy);
+    }
+
+    @Override
+    public Page<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy, Pageable pageable) {
+        return testCaseRepository.findAllAvailableToBeforeAndCreatedBy(availableTo, createdBy, pageable);
+    }
+
+    @Override
+    public List<TestCaseImp> findAllAvailableToBefore(Date availableTo) {
+        return testCaseRepository.findAllAvailableToBefore(availableTo);
+    }
+
+    @Override
+    public Page<TestCaseImp> findAllAvailableToBefore(Date availableTo, Pageable pageable) {
+        return testCaseRepository.findAllAvailableToBefore(availableTo, pageable);
     }
 
     @Override
