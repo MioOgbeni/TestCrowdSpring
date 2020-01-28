@@ -52,6 +52,50 @@
                                    th:if="${#fields.hasErrors('description')}"
                                    th:errors="*{description}">Error</small>
                         </div>
+                        <div class="col-md-6 form-group">
+                            <label for="skillDifficulty">Skill difficulty</label>
+                            <input class="form-control"
+                                   type="number"
+                                   min="1"
+                                   max="5"
+                                   id="skillDifficulty"
+                                   th:field="*{skillDifficulty}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('skillDifficulty')}"
+                                   th:errors="*{skillDifficulty}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="timeDifficulty">Time difficulty</label>
+                            <input class="form-control"
+                                   type="number"
+                                   min="1"
+                                   max="5"
+                                   id="timeDifficulty"
+                                   th:field="*{timeDifficulty}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('timeDifficulty')}"
+                                   th:errors="*{timeDifficulty}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="reward">Reward</label>
+                            <input class="form-control"
+                                   type="number"
+                                   id="reward"
+                                   th:field="*{reward}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('reward')}"
+                                   th:errors="*{reward}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="availableTo">Available to</label>
+                            <input class="form-control datepicker"
+                                   type="text"
+                                   id="availableTo"
+                                   th:field="*{availableTo}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('availableTo')}"
+                                   th:errors="*{availableTo}">Error</small>
+                        </div>
                     </div>
                     <hr>
                     <div class="form-group action-buttons">
