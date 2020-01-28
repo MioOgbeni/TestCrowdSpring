@@ -26,6 +26,10 @@ public class FileImp extends BaseEntity implements File {
     @NotEmpty
     private String fileName;
 
+    @Column(name = "FILE_BLOB", columnDefinition = "BLOB")
+    @Lob
+    private byte[] data;
+
     @Column(name = "EXTENSION")
     @Size(max = 20, message = "{evidence.extension.invalid}")
     @NotEmpty
@@ -39,10 +43,11 @@ public class FileImp extends BaseEntity implements File {
         super();
     }
 
-    public FileImp(String name, String fileName, String extension, Date createdAt) {
+    public FileImp(String name, String fileName, byte[] data, String extension, Date createdAt) {
         super();
         this.name = name;
         this.fileName = fileName;
+        this.data = data;
         this.extension = extension;
         this.createdAt = createdAt;
     }
@@ -68,6 +73,16 @@ public class FileImp extends BaseEntity implements File {
     }
 
     @Override
+    public byte[] getData() {
+        return data;
+    }
+
+    @Override
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    @Override
     public String getExtension() {
         return extension;
     }
@@ -77,10 +92,12 @@ public class FileImp extends BaseEntity implements File {
         this.extension = extension;
     }
 
+    @Override
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    @Override
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }

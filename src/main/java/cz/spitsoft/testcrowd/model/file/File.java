@@ -12,6 +12,10 @@ public interface File {
 
     void setFileName(String fileName);
 
+    byte[] getData();
+
+    void setData(byte[] data);
+
     String getExtension();
 
     void setExtension(String extension);
