@@ -78,10 +78,6 @@ public class TestCaseController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @GetMapping("/test-cases/add")
     public String testCaseAdd(Model model) {
-        if (!securityService.isCurrentUserReporter()) {
-            return "redirect:/";
-        }
-
         model.addAttribute("testCase", new TestCaseImp());
         return "test-case/test-case-add";
     }
@@ -89,10 +85,6 @@ public class TestCaseController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @PostMapping("/test-cases/add")
     public String testCaseAdd(@ModelAttribute("testCase") TestCaseImp testCase, BindingResult bindingResult) {
-        if (!securityService.isCurrentUserReporter()) {
-            return "redirect:/";
-        }
-
         testCaseValidator.validate(testCase, bindingResult);
         if (bindingResult.hasErrors()) {
             return "test-case/test-case-add";
@@ -100,9 +92,6 @@ public class TestCaseController {
 
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
-
-        // TODO je to jen hodně nahrubo, doplnit zbytek
-
         testCase.setTestStatus(TestStatus.AVAILABLE);
         testCase.setCreatedAt(currentDate);
         testCase.setCreatedBy(currentUser);
@@ -110,18 +99,22 @@ public class TestCaseController {
         return "redirect:/test-cases";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
+    @GetMapping("/test-cases/{id}/edit")
+    public String testCaseEdit(Model model, @PathVariable(value = "id") String id) {
+        model.addAttribute("testCase", testCaseService.findById(id));
+        return "test-case/test-case-edit";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @PostMapping("/test-cases/{id}/edit")
     public String testCaseEdit(@ModelAttribute("testCase") TestCaseImp testCaseForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserReporter()) {
-            return "redirect:/";
-        }
-
         testCaseValidator.validate(testCaseForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "test-cases/test-case-add";
         }
 
+        // TODO
         TestCaseImp testCase = testCaseService.findById(id);
         testCase.setName(testCaseForm.getName());
         testCase.setDescription(testCaseForm.getDescription());
@@ -136,9 +129,6 @@ public class TestCaseController {
         testCase.setSkillDifficulty(testCaseForm.getSkillDifficulty());
         testCase.setTimeDifficulty(testCaseForm.getTimeDifficulty());
         testCase.setTestStatus(testCaseForm.getTestStatus());
-
-        // TODO je to jen hodně nahrubo, musí se jinak přistupovat k file, inGroup, reviews, testStatus a rating (ten se musí vypočítávat s reviews, tahle metoda z modelu zmizela)
-
         testCaseService.save(testCase);
         return "redirect:/test-case/" + testCase.getId();
     }
