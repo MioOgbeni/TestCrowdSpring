@@ -73,7 +73,7 @@ public class PaymentController {
     @GetMapping(PAYPAL_SUCCESS_URL)
     public String success(@RequestParam("paymentId") String paymentId, @RequestParam("token") String token, @RequestParam("PayerID") String payerId) {
 
-        // TODO: add a condition to avoid recharging the last amount
+        // TODO: kdyz uzivatel po platbe klikne v prohlizeci na tlacitko zpet, kredit se mu znovu pricte na ucet, coz je spatne
 
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);

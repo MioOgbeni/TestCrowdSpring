@@ -105,7 +105,7 @@ public class UserController {
         }
         userService.save(user);
 
-        // TODO: automatically logout or change session if username is updated
+        // TODO: automaticky upravit session (nebo provest logout), pokud se zmenil username
 
         return "user/user-detail";
     }
