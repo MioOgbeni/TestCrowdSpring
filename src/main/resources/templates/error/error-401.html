@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
 
     <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
     <link type="text/css" rel="stylesheet" href="/res/css/contrib/colorlib-error-page-style.css"/>
     <link type="text/css" rel="stylesheet" href="/res/css/custom/error.css"/>
 
@@ -31,12 +32,11 @@
             <h1>Oops!</h1>
         </div>
         <h2>401 - Unauthorized</h2>
-        <p>TODO</p>
-        <a class="btn btn-primary" th:href="@{/}">Go home</a>
-        or
-        <a class="btn btn-primary" th:href="@{/login}">Login</a>
+        <p>You do not have permission to access this page.</p>
+        <a class="btn btn-primary" th:href="@{/}"><i class="fas fa-home"></i> Go home</a>
     </div>
 </div>
+<script src="/res/js/contrib/fontawesome-free.min.js"></script>
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 

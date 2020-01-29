@@ -1,6 +1,9 @@
 #error h1 {
   margin-top: -2rem;
 }
+#error .error {
+  font-size: 1rem;
+}
 #error .error a.btn {
   text-decoration: none;
   display: inline-block;
@@ -22,6 +25,11 @@
   margin-top: 1rem;
   text-transform: none;
   box-shadow: 0 0;
+}
+#error .error a.btn svg {
+  display: inline-block;
+  margin-right: 2px;
+  color: #ddd;
 }
 #error .error a.btn.btn-primary {
   color: #fff;
