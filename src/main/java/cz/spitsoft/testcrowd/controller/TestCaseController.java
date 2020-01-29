@@ -205,6 +205,7 @@ public class TestCaseController {
         testCase.setSoftwareType(testCaseForm.getSoftwareType());
         // TODO: zpracovat odeslany soubor
         UserImp currentUser = securityService.getCurrentUser();
+        currentUser.setAccountBalance(currentUser.getAccountBalance() + testCase.getReward());
         currentUser.setAccountBalance(currentUser.getAccountBalance() - testCaseForm.getReward());
         userService.save(currentUser);
         testCase.setReward(testCaseForm.getReward());
