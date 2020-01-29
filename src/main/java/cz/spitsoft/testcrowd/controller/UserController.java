@@ -5,10 +5,14 @@ import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.UserService;
 import cz.spitsoft.testcrowd.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +27,10 @@ import java.util.stream.IntStream;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    @Qualifier("sessionRegistry")
+    private SessionRegistry sessionRegistry;
 
     @Autowired
     private SecurityService securityService;
@@ -90,7 +98,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @PostMapping("/users/{id}/edit")
-    public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
+    public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id, HttpServletRequest request) {
 
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
             return "error/error-401";
@@ -103,7 +111,6 @@ public class UserController {
         }
 
         UserImp user = userService.findById(id);
-        user.setUsername(userForm.getUsername());
         user.setEmail(userForm.getEmail());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
@@ -112,33 +119,74 @@ public class UserController {
             String passwordEncoded = bCryptPasswordEncoder.encode(password);
             user.setPassword(passwordEncoded);
         }
-        userService.save(user);
 
-        // TODO: automaticky upravit session (nebo provest logout), pokud se zmenil username
+        if (user.getUsername().equals(userForm.getUsername())) {
+            user.setUsername(userForm.getUsername());
+            userService.save(user);
 
-        return "user/user-detail";
+            return "user/user-detail";
+        } else {
+            user.setUsername(userForm.getUsername());
 
+            if (user.getId().equals(securityService.getCurrentUser().getId())) {
+                HttpSession session = request.getSession();
+                SecurityContextHolder.clearContext();
+                if (session != null) {
+                    session.invalidate();
+                }
+
+                userService.save(user);
+
+                return "redirect:/login";
+            } else {
+                deleteAnotherUserSession(user);
+
+                userService.save(user);
+
+                return "user/user-detail";
+            }
+        }
+    }
+
+    private void deleteAnotherUserSession(UserImp user) {
+        List<Object> usersPrincipals = sessionRegistry.getAllPrincipals();
+
+        for (Object userPrincipal : usersPrincipals) {
+            UserImp tempUser = userService.findByUsername(((User) userPrincipal).getUsername());
+
+            if (tempUser.equals(user)) {
+                List<SessionInformation> sessions = sessionRegistry.getAllSessions(userPrincipal, false);
+                sessionRegistry.getSessionInformation(sessions.get(0).getSessionId()).expireNow();
+            }
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}/delete")
     public String userDelete(Model model, @PathVariable(value = "id") String id, HttpServletRequest request) {
-
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
             return "error/error-401";
         }
 
         UserImp user = userService.findById(id);
-        userService.delete(user);
 
-        HttpSession session = request.getSession();
-        SecurityContextHolder.clearContext();
-        if (session != null) {
-            session.invalidate();
+        if (user.getId().equals(securityService.getCurrentUser().getId())) {
+            HttpSession session = request.getSession();
+            SecurityContextHolder.clearContext();
+            if (session != null) {
+                session.invalidate();
+            }
+
+            userService.delete(user);
+
+            return "redirect:/login";
+        } else {
+            deleteAnotherUserSession(user);
+
+            userService.delete(user);
+
+            return "redirect:/users";
         }
-
-        return "redirect:/login";
-
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")

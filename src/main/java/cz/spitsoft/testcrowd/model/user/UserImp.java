@@ -1,13 +1,13 @@
 package cz.spitsoft.testcrowd.model.user;
 
 import cz.spitsoft.testcrowd.model.BaseEntity;
-import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @AttributeOverrides({
@@ -152,10 +152,36 @@ public class UserImp extends BaseEntity implements User {
 
     @Override
     public String toString() {
-        return new ToStringCreator(this)
-                .append("id", this.getId())
-                .append("name", this.getUsername())
-                .toString();
+        return "UserImp{" +
+                "roleType=" + roleType +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", accountBalance=" + accountBalance +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        UserImp userImp = (UserImp) o;
+        return accountBalance == userImp.accountBalance &&
+                roleType == userImp.roleType &&
+                Objects.equals(username, userImp.username) &&
+                Objects.equals(email, userImp.email) &&
+                Objects.equals(password, userImp.password) &&
+                Objects.equals(passwordConfirm, userImp.passwordConfirm) &&
+                Objects.equals(firstName, userImp.firstName) &&
+                Objects.equals(lastName, userImp.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), roleType, username, email, password, passwordConfirm, firstName, lastName, accountBalance);
+    }
 }
