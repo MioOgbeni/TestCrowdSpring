@@ -31,7 +31,7 @@ public class SoftwareTypeController {
     @Autowired
     private SoftwareTypeService softwareTypeService;
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/software-types")
     public String softwareTypeList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         Page<SoftwareTypeImp> softwareTypes = softwareTypeService.findAll(PageRequest.of(page, size));
@@ -48,31 +48,23 @@ public class SoftwareTypeController {
         return "software-type/software-type-list";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/software-types/{id}")
     public String softwareTypeDetail(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("softwareType", softwareTypeService.findById(id));
         return "software-type/software-type-detail";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/software-types/add")
     public String softwareTypeAdd(Model model) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         model.addAttribute("softwareType", new SoftwareTypeImp());
         return "software-type/software-type-add";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/software-types/add")
     public String softwareTypeAdd(@ModelAttribute("softwareType") SoftwareTypeImp softwareType, BindingResult bindingResult) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         softwareTypeValidator.validate(softwareType, bindingResult);
         if (bindingResult.hasErrors()) {
             return "software-type/software-type-add";
@@ -88,24 +80,16 @@ public class SoftwareTypeController {
         return "redirect:/software-types";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/software-types/{id}/edit")
     public String softwareTypeEdit(Model model, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         model.addAttribute("softwareType", softwareTypeService.findById(id));
         return "software-type/software-type-edit";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/software-types/{id}/edit")
     public String softwareTypeEdit(@ModelAttribute("softwareType") SoftwareTypeImp softwareTypeForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         softwareTypeValidator.validate(softwareTypeForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "software-type/software-type-add";
@@ -115,6 +99,7 @@ public class SoftwareTypeController {
         softwareType.setName(softwareTypeForm.getName());
         softwareType.setDescription(softwareTypeForm.getDescription());
         softwareType.setEnabled(softwareTypeForm.getEnabled());
+
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
         softwareType.setUpdatedAt(currentDate);
@@ -123,13 +108,9 @@ public class SoftwareTypeController {
         return "redirect:/software-types/" + softwareType.getId();
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/software-types/{id}/delete")
     public String softwareTypeDelete(Model model, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         SoftwareTypeImp softwareType = softwareTypeService.findById(id);
         softwareTypeService.delete(softwareType);
         return "redirect:/software-types";
