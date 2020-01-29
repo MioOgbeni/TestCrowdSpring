@@ -4,6 +4,7 @@ import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.SecurityService;
+import cz.spitsoft.testcrowd.service.UserService;
 import cz.spitsoft.testcrowd.service.software_type.SoftwareTypeService;
 import cz.spitsoft.testcrowd.service.test_case.TestCaseService;
 import cz.spitsoft.testcrowd.service.test_category.TestCategoryService;
@@ -39,6 +40,9 @@ public class TestCaseController {
 
     @Autowired
     private SoftwareTypeService softwareTypeService;
+
+    @Autowired
+    private UserService userService;
 
     /*@PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/test-cases")
@@ -139,7 +143,9 @@ public class TestCaseController {
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
         testCase.setTestStatus(TestStatus.AVAILABLE);
-        // TODO: odecist reward od account balance u profilu autora
+        // TODO: zpracovat odeslany soubor
+        currentUser.setAccountBalance(currentUser.getAccountBalance() - testCase.getReward());
+        userService.save(currentUser);
         testCase.setCreatedAt(currentDate);
         testCase.setCreatedBy(currentUser);
         testCaseService.save(testCase);
@@ -190,7 +196,6 @@ public class TestCaseController {
             return "test-case/test-case-edit";
         }
 
-        // TODO
         // save test case and return test case detail
         testCase.setName(testCaseForm.getName());
         testCase.setDescription(testCaseForm.getDescription());
@@ -198,7 +203,10 @@ public class TestCaseController {
         testCase.setTimeDifficulty(testCaseForm.getTimeDifficulty());
         testCase.setTestCategory(testCaseForm.getTestCategory());
         testCase.setSoftwareType(testCaseForm.getSoftwareType());
-        // TODO: odecist reward od account balance u profilu autora
+        // TODO: zpracovat odeslany soubor
+        UserImp currentUser = securityService.getCurrentUser();
+        currentUser.setAccountBalance(currentUser.getAccountBalance() - testCaseForm.getReward());
+        userService.save(currentUser);
         testCase.setReward(testCaseForm.getReward());
         testCase.setAvailableTo(testCaseForm.getAvailableTo());
         testCaseService.save(testCase);

@@ -79,26 +79,6 @@
                                    th:errors="*{timeDifficulty}">Error</small>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="reward">Reward</label>
-                            <input class="form-control"
-                                   type="number"
-                                   id="reward"
-                                   th:field="*{reward}"/>
-                            <small class="text-danger"
-                                   th:if="${#fields.hasErrors('reward')}"
-                                   th:errors="*{reward}">Error</small>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="availableTo">Available to</label>
-                            <input class="form-control datepicker"
-                                   type="text"
-                                   id="availableTo"
-                                   th:field="*{availableTo}"/>
-                            <small class="text-danger"
-                                   th:if="${#fields.hasErrors('availableTo')}"
-                                   th:errors="*{availableTo}">Error</small>
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label for="testCategory">Test category</label>
                             <select class="form-control"
                                     id="testCategory"
@@ -125,6 +105,26 @@
                             <small class="text-danger"
                                    th:if="${#fields.hasErrors('softwareType.id')}"
                                    th:errors="*{softwareType.id}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="reward">Reward</label>
+                            <input class="form-control"
+                                   type="number"
+                                   id="reward"
+                                   th:field="*{reward}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('reward')}"
+                                   th:errors="*{reward}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="availableTo">Available to</label>
+                            <input class="form-control datepicker"
+                                   type="text"
+                                   id="availableTo"
+                                   th:field="*{availableTo}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('availableTo')}"
+                                   th:errors="*{availableTo}">Error</small>
                         </div>
                         <div class="col-md-6 form-group custom-file">
                             <input type="file" class="custom-file-input" id="file">
