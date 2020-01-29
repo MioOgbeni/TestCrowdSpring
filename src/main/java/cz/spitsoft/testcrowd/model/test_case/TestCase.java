@@ -67,8 +67,4 @@ public interface TestCase {
 
     void setRating(int rating);
 
-    boolean isInGroup();
-
-    void setInGroup(boolean inGroup);
-
 }

@@ -86,15 +86,11 @@ public class TestCaseImp extends BaseEntity implements TestCase {
     @Column(name = "RATING")
     private int rating;
 
-    @Column(name = "IN_GROUP")
-    @NotNull
-    private boolean inGroup;
-
     public TestCaseImp() {
         super();
     }
 
-    public TestCaseImp(String name, String description, int skillDifficulty, int timeDifficulty, TestStatus testStatus, TestCategoryImp testCategory, SoftwareTypeImp softwareType, int reward, List<FileImp> files, Date createdAt, UserImp createdBy, Date availableTo, List<ReviewImp> reviews, int rating, boolean inGroup) {
+    public TestCaseImp(String name, String description, int skillDifficulty, int timeDifficulty, TestStatus testStatus, TestCategoryImp testCategory, SoftwareTypeImp softwareType, int reward, List<FileImp> files, Date createdAt, UserImp createdBy, Date availableTo, List<ReviewImp> reviews, int rating) {
         super();
         this.name = name;
         this.description = description;
@@ -110,7 +106,6 @@ public class TestCaseImp extends BaseEntity implements TestCase {
         this.availableTo = availableTo;
         this.reviews = reviews;
         this.rating = rating;
-        this.inGroup = inGroup;
     }
 
     @Override
@@ -251,15 +246,6 @@ public class TestCaseImp extends BaseEntity implements TestCase {
     @Override
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public boolean isInGroup() {
-        return inGroup;
-    }
-
-    @Override
-    public void setInGroup(boolean inGroup) {
-        this.inGroup = inGroup;
     }
 
     @Override
