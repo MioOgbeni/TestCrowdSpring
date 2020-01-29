@@ -42,25 +42,25 @@ public class TestCaseServiceImp implements TestCaseService {
         return testCaseRepository.findAll(pageable);
     }
 
-    @Override
+    /*@Override
     public List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy) {
         return testCaseRepository.findAllAvailableToBeforeAndCreatedBy(availableTo, createdBy);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Page<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy, Pageable pageable) {
         return testCaseRepository.findAllAvailableToBeforeAndCreatedBy(availableTo, createdBy, pageable);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public List<TestCaseImp> findAllAvailableToBefore(Date availableTo) {
         return testCaseRepository.findAllAvailableToBefore(availableTo);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Page<TestCaseImp> findAllAvailableToBefore(Date availableTo, Pageable pageable) {
         return testCaseRepository.findAllAvailableToBefore(availableTo, pageable);
-    }
+    }*/
 
     @Override
     public TestCaseImp findById(String id) {

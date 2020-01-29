@@ -26,8 +26,8 @@ public class FileImp extends BaseEntity implements File {
     @NotEmpty
     private String fileName;
 
-    @Column(name = "FILE_BLOB", columnDefinition = "BLOB")
     @Lob
+    @Column(name = "DTA_BLOB")
     private byte[] data;
 
     @Column(name = "EXTENSION")

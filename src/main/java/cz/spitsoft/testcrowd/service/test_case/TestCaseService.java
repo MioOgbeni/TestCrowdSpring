@@ -20,13 +20,13 @@ public interface TestCaseService {
 
     Page<TestCaseImp> findAll(Pageable pageable);
 
-    List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
+    //List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
 
-    Page<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy, Pageable pageable);
+    //Page<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy, Pageable pageable);
 
-    List<TestCaseImp> findAllAvailableToBefore(Date availableTo);
+    //List<TestCaseImp> findAllAvailableToBefore(Date availableTo);
 
-    Page<TestCaseImp> findAllAvailableToBefore(Date availableTo, Pageable pageable);
+    //Page<TestCaseImp> findAllAvailableToBefore(Date availableTo, Pageable pageable);
 
     TestCaseImp findById(String id);
 

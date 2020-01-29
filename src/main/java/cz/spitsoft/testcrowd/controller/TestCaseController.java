@@ -1,18 +1,21 @@
 package cz.spitsoft.testcrowd.controller;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
+import cz.spitsoft.testcrowd.model.test_case.TestStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.test_case.TestCaseService;
 import cz.spitsoft.testcrowd.validator.TestCaseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
 import java.util.List;
@@ -31,18 +34,18 @@ public class TestCaseController {
     @Autowired
     private TestCaseService testCaseService;
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    /*@PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/test-cases")
     public String testCaseListForReporter(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         // TODO dodělat nějaké vyhledávání a filtrování, alespon vyhledávání podle jména a filtrování podle time a skill difficulty
 
-        Page<TestCaseImp> testCases = testCaseService.findAllAvailableToBeforeAndCreatedBy(new Date(), securityService.getCurrentUser(), PageRequest.of(page, size));
-        MakePagedTestCases(model, testCases);
+        //Page<TestCaseImp> testCases = testCaseService.findAllAvailableToBeforeAndCreatedBy(new Date(), securityService.getCurrentUser(), PageRequest.of(page, size));
+        //MakePagedTestCases(model, testCases);
 
         return "test-case/test-case-list";
-    }
+    }*/
 
-    @PreAuthorize("hasAuthority('TESTER')")
+    /*@PreAuthorize("hasAuthority('TESTER')")
     @GetMapping("/test-cases")
     public String testCaseListForTester(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         // TODO dodělat nějaké vyhledávání a filtrování, alespon vyhledávání podle jména a filtrování podle time a skill difficulty
@@ -51,7 +54,7 @@ public class TestCaseController {
         MakePagedTestCases(model, testCases);
 
         return "test-case/test-case-list";
-    }
+    }*/
 
     private void MakePagedTestCases(Model model, Page<TestCaseImp> testCases) {
         model.addAttribute("testCases", testCases);
@@ -72,7 +75,7 @@ public class TestCaseController {
         return "test-case/test-case-detail";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @GetMapping("/test-cases/add")
     public String testCaseAdd(Model model) {
         if (!securityService.isCurrentUserReporter()) {
@@ -83,7 +86,7 @@ public class TestCaseController {
         return "test-case/test-case-add";
     }
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @PostMapping("/test-cases/add")
     public String testCaseAdd(@ModelAttribute("testCase") TestCaseImp testCase, BindingResult bindingResult) {
         if (!securityService.isCurrentUserReporter()) {
@@ -100,6 +103,7 @@ public class TestCaseController {
 
         // TODO je to jen hodně nahrubo, doplnit zbytek
 
+        testCase.setTestStatus(TestStatus.AVAILABLE);
         testCase.setCreatedAt(currentDate);
         testCase.setCreatedBy(currentUser);
         testCaseService.save(testCase);
