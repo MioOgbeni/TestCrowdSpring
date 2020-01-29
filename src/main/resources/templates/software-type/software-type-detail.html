@@ -35,14 +35,14 @@
                 <p><strong>Description:</strong> <span th:text="${softwareType.description}"></span></p>
                 <p><strong>Enabled:</strong> <span th:text="${softwareType.enabled}"></span></p>
                 <p><strong>Last update at:</strong>
-                    <span th:text="${#dates.format(softwareType.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                    <span th:text="${#dates.format(softwareType.updatedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Last update by:</strong>
                     <a th:href="@{'/users/' + ${softwareType.updatedBy.getId()}}"
                        th:text="${softwareType.updatedBy.getUsername()}"></a>
                 </p>
                 <p><strong>Created at:</strong>
-                    <span th:text="${#dates.format(softwareType.createdAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                    <span th:text="${#dates.format(softwareType.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Created by:</strong>
                     <a th:href="@{'/users/' + ${softwareType.createdBy.getId()}}"

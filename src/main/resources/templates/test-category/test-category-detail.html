@@ -35,14 +35,14 @@
                 <p><strong>Description:</strong> <span th:text="${testCategory.description}"></span></p>
                 <p><strong>Enabled:</strong> <span th:text="${testCategory.enabled}"></span></p>
                 <p><strong>Last update at:</strong>
-                    <span th:text="${#dates.format(testCategory.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                    <span th:text="${#dates.format(testCategory.updatedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Last update by:</strong>
                     <a th:href="@{'/users/' + ${testCategory.updatedBy.getId()}}"
                        th:text="${testCategory.updatedBy.getUsername()}"></a>
                 </p>
                 <p><strong>Created at:</strong>
-                    <span th:text="${#dates.format(testCategory.createdAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                    <span th:text="${#dates.format(testCategory.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Created by:</strong>
                     <a th:href="@{'/users/' + ${testCategory.createdBy.getId()}}"

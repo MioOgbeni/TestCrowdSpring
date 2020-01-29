@@ -51,8 +51,8 @@
                                               th:title="${softwareType.id}"></span></td>
                                     <td><span th:text="${softwareType.name}"></span></td>
                                     <td><span th:text="${softwareType.enabled}"></span></td>
-                                    <td><span th:text="${#dates.format(softwareType.updatedAt, 'd. M. yyyy')}"
-                                              th:title="${#dates.format(softwareType.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                                    <td><span th:text="${#dates.format(softwareType.updatedAt, 'MM/dd/yyyy')}"
+                                              th:title="${#dates.format(softwareType.updatedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                                     </td>
                                     <td><span th:text="${softwareType.updatedBy.getUsername()}"></span></td>
                                 </tr>

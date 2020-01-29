@@ -51,8 +51,8 @@
                                               th:title="${testCategory.id}"></span></td>
                                     <td><span th:text="${testCategory.name}"></span></td>
                                     <td><span th:text="${testCategory.enabled}"></span></td>
-                                    <td><span th:text="${#dates.format(testCategory.updatedAt, 'd. M. yyyy')}"
-                                              th:title="${#dates.format(testCategory.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                                    <td><span th:text="${#dates.format(testCategory.updatedAt, 'MM/dd/yyyy')}"
+                                              th:title="${#dates.format(testCategory.updatedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                                     </td>
                                     <td><span th:text="${testCategory.updatedBy.getUsername()}"></span></td>
                                 </tr>
