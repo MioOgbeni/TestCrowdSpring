@@ -78,6 +78,15 @@
                                    th:if="${#fields.hasErrors('timeDifficulty')}"
                                    th:errors="*{timeDifficulty}">Error</small>
                         </div>
+                        <!--<div class="col-md-6 form-group">
+                            <label for="testCategory">Test category</label>
+                            <select class="form-control" id="testCategory" th:field="*{testCategory}">
+                                <option>Default</option>
+                            </select>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('testCategory')}"
+                                   th:errors="*{testCategory}">Error</small>
+                        </div>-->
                         <div class="col-md-6 form-group">
                             <label for="reward">Reward</label>
                             <input class="form-control"

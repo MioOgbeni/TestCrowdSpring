@@ -4,7 +4,9 @@ import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.SecurityService;
+import cz.spitsoft.testcrowd.service.software_type.SoftwareTypeService;
 import cz.spitsoft.testcrowd.service.test_case.TestCaseService;
+import cz.spitsoft.testcrowd.service.test_category.TestCategoryService;
 import cz.spitsoft.testcrowd.validator.TestCaseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,12 @@ public class TestCaseController {
 
     @Autowired
     private TestCaseService testCaseService;
+
+    @Autowired
+    private TestCategoryService testCategoryService;
+
+    @Autowired
+    private SoftwareTypeService softwareTypeService;
 
     /*@PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/test-cases")
@@ -103,6 +111,8 @@ public class TestCaseController {
 
         // create new empty test case object and return add form
         model.addAttribute("testCase", new TestCaseImp());
+        model.addAttribute("testCategories", testCategoryService.findAll());
+        model.addAttribute("softwareTypes", softwareTypeService.findAll());
         return "test-case/test-case-add";
 
     }
@@ -122,6 +132,7 @@ public class TestCaseController {
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
         testCase.setTestStatus(TestStatus.AVAILABLE);
+        // TODO: odecist reward od account balance u profilu autora
         testCase.setCreatedAt(currentDate);
         testCase.setCreatedBy(currentUser);
         testCaseService.save(testCase);
@@ -171,6 +182,7 @@ public class TestCaseController {
         testCase.setDescription(testCaseForm.getDescription());
         testCase.setSkillDifficulty(testCaseForm.getSkillDifficulty());
         testCase.setTimeDifficulty(testCaseForm.getTimeDifficulty());
+        // TODO: odecist reward od account balance u profilu autora
         testCase.setReward(testCaseForm.getReward());
         testCase.setAvailableTo(testCaseForm.getAvailableTo());
         testCaseService.save(testCase);

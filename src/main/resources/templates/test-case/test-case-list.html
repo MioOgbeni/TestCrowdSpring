@@ -39,6 +39,9 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col" class="text-align-right">Time difficulty</th>
+                                    <th scope="col" class="text-align-right">Skill difficulty</th>
+                                    <th scope="col" class="text-align-right">Reward</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -47,6 +50,15 @@
                                     <td><span th:text="${#strings.substring(testCase.id, 28, 32)}"
                                               th:title="${testCase.id}"></span></td>
                                     <td><span th:text="${testCase.name}"></span></td>
+                                    <td class="text-align-right">
+                                        <span th:text="${testCase.timeDifficulty}"></span>/5
+                                    </td>
+                                    <td class="text-align-right">
+                                        <span th:text="${testCase.skillDifficulty}"></span>/5
+                                    </td>
+                                    <td class="text-align-right">
+                                        <span th:text="${testCase.reward}"></span> Kr
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

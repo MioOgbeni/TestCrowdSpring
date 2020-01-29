@@ -33,6 +33,9 @@
                 <p><strong>ID:</strong> <span th:text="${testCase.id}"></span></p>
                 <p><strong>Name:</strong> <span th:text="${testCase.name}"></span></p>
                 <p><strong>Description:</strong> <span th:text="${testCase.description}"></span></p>
+                <p><strong>Time difficulty:</strong> <span th:text="${testCase.timeDifficulty}"></span>/5</p>
+                <p><strong>Skill difficulty:</strong> <span th:text="${testCase.skillDifficulty}"></span>/5</p>
+                <p><strong>Reward:</strong> <span th:text="${testCase.reward}"></span> Kr</p>
                 <p><strong>Created at:</strong>
                     <span th:text="${#dates.format(testCase.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
