@@ -83,7 +83,12 @@ public class TestCaseController {
     public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
 
         UserImp currentUser = securityService.getCurrentUser();
-        Page<TestCaseImp> testCases = testCaseService.findByCreatedBy(currentUser, PageRequest.of(page, size));
+        Page<TestCaseImp> testCases;
+        if (securityService.isCurrentUserReporter()) {
+            testCases = testCaseService.findByCreatedBy(currentUser, PageRequest.of(page, size));
+        } else {
+            testCases = testCaseService.findAll(PageRequest.of(page, size));
+        }
         MakePagedTestCases(model, testCases);
 
         return "test-case/test-case-list";
