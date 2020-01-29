@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
 </head>
@@ -17,7 +16,7 @@
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
 
-<li class="nav-item" sec:authorize="hasAuthority('ADMIN')" th:if="${#authentication.getName()} != 'anonymousUser'"
+<li class="nav-item" sec:authorize="${hasAuthority('ADMIN')}"
     th:classappend="${#httpServletRequest.requestURI == '/users'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/users}">
         <i class="fas fa-users fa-fw mr-2"></i>
@@ -25,7 +24,7 @@
     </a>
 </li>
 
-<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"
+<li class="nav-item" sec:authorize="${hasAuthority('ADMIN')}"
     th:classappend="${#httpServletRequest.requestURI == '/software-types'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/software-types}">
         <i class="fas fa-desktop fa-fw mr-2"></i>
@@ -33,7 +32,7 @@
     </a>
 </li>
 
-<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"
+<li class="nav-item" sec:authorize="${hasAuthority('ADMIN')}"
     th:classappend="${#httpServletRequest.requestURI == '/test-categories'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/test-categories}">
         <i class="fas fa-list fa-fw mr-2"></i>
@@ -41,11 +40,11 @@
     </a>
 </li>
 
-<li class="nav-item" sec:authorize="hasAnyAuthority('TESTER','REPORTER')"
-    th:classappend="${#httpServletRequest.requestURI == '/tests'} ? 'active' : ''">
-    <a class="nav-link" th:href="@{/tests}">
+<li class="nav-item" sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')}"
+    th:classappend="${#httpServletRequest.requestURI == '/test-cases'} ? 'active' : ''">
+    <a class="nav-link" th:href="@{/test-cases}">
         <i class="fas fa-keyboard fa-fw mr-2"></i>
-        <span>Tests</span>
+        <span>Test cases</span>
     </a>
 </li>
 
