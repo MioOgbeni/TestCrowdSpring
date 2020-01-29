@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class TestGroupServiceImp implements TestGroupService {
 
-    @Autowired
+    /*@Autowired
     private TestGroupRepository testGroupRepository;
 
     @Override
@@ -70,5 +70,5 @@ public class TestGroupServiceImp implements TestGroupService {
     @Override
     public TestGroupImp findByName(String name) {
         return testGroupRepository.findByName(name);
-    }
+    }*/
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface TestGroupRepository extends JpaRepository<TestGroupImp, UUID> {
 
-    List<TestGroupImp> findAll();
+    /*List<TestGroupImp> findAll();
 
     Page<TestGroupImp> findAll(Pageable pageable);
 
@@ -30,5 +30,5 @@ public interface TestGroupRepository extends JpaRepository<TestGroupImp, UUID> {
     TestGroupImp findById(String id);
 
     @Transactional(readOnly = true)
-    TestGroupImp findByName(String name);
+    TestGroupImp findByName(String name);*/
 }

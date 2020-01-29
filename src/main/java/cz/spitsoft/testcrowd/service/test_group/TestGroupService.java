@@ -9,7 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface TestGroupService {
-    long count();
+
+    /*long count();
 
     void save(TestGroupImp testGroup);
 
@@ -19,15 +20,16 @@ public interface TestGroupService {
 
     Page<TestGroupImp> findAll(Pageable pageable);
 
-    List<TestGroupImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
+    //List<TestGroupImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
 
-    Page<TestGroupImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy, Pageable pageable);
+    //Page<TestGroupImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy, Pageable pageable);
 
-    List<TestGroupImp> findAllAvailableToBefore(Date availableTo);
+    //List<TestGroupImp> findAllAvailableToBefore(Date availableTo);
 
-    Page<TestGroupImp> findAllAvailableToBefore(Date availableTo, Pageable pageable);
+    //Page<TestGroupImp> findAllAvailableToBefore(Date availableTo, Pageable pageable);
 
     TestGroupImp findById(String id);
 
-    TestGroupImp findByName(String name);
+    TestGroupImp findByName(String name); */
+
 }

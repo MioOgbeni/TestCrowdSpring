@@ -7,12 +7,14 @@ import cz.spitsoft.testcrowd.service.test_group.TestGroupService;
 import cz.spitsoft.testcrowd.validator.TestGroupValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
 import java.util.List;
@@ -31,7 +33,7 @@ public class TestGroupController {
     @Autowired
     private TestGroupService testGroupService;
 
-    @PreAuthorize("hasAuthority('REPORTER')")
+    /*@PreAuthorize("hasAuthority('REPORTER')")
     @GetMapping("/test-groups")
     public String testGroupListForReporter(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         // TODO dodělat nějaké vyhledávání a filtrování, alespon vyhledávání podle jména a filtrování podle time a skill difficulty
@@ -130,5 +132,5 @@ public class TestGroupController {
 
         testGroupService.save(testGroup);
         return "redirect:/test-group/" + testGroup.getId();
-    }
+    }*/
 }
