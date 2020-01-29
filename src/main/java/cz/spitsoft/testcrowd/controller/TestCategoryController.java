@@ -92,7 +92,7 @@ public class TestCategoryController {
     public String testCategoryEdit(@ModelAttribute("testCategory") TestCategoryImp testCategoryForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
         testCategoryValidator.validate(testCategoryForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "test-category/test-category-add";
+            return "test-category/test-category-edit";
         }
 
         TestCategoryImp testCategory = testCategoryService.findById(id);

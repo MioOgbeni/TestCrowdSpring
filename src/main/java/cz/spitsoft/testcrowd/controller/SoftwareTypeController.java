@@ -92,7 +92,7 @@ public class SoftwareTypeController {
     public String softwareTypeEdit(@ModelAttribute("softwareType") SoftwareTypeImp softwareTypeForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
         softwareTypeValidator.validate(softwareTypeForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "software-type/software-type-add";
+            return "software-type/software-type-edit";
         }
 
         SoftwareTypeImp softwareType = softwareTypeService.findById(id);
