@@ -18,6 +18,14 @@ body form .form-check .form-check-label,
 body form .form-check label {
   margin-left: 1.5rem;
 }
+body form .custom-file {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+body form .custom-file label {
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+}
 body .navbar .user-profile-link {
   text-decoration: none;
 }

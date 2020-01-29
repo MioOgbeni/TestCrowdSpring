@@ -168,19 +168,12 @@ public class TestCaseController {
         // save test case and return test case detail
         testCase.setName(testCaseForm.getName());
         testCase.setDescription(testCaseForm.getDescription());
-        //testCase.setTestCategory(testCaseForm.getTestCategory());
-        //testCase.setSoftwareType(testCaseForm.getSoftwareType());
-        testCase.setAvailableTo(testCaseForm.getAvailableTo());
-        //testCase.setFiles(testCaseForm.getFiles());
-        //testCase.setInGroup(testCaseForm.isInGroup());
-        //testCase.setRating(testCaseForm.getRating());
-        //testCase.setReviews(testCaseForm.getReviews());
-        //testCase.setReward(testCaseForm.getReward());
         testCase.setSkillDifficulty(testCaseForm.getSkillDifficulty());
         testCase.setTimeDifficulty(testCaseForm.getTimeDifficulty());
-        testCase.setTestStatus(testCaseForm.getTestStatus());
+        testCase.setReward(testCaseForm.getReward());
+        testCase.setAvailableTo(testCaseForm.getAvailableTo());
         testCaseService.save(testCase);
-        return "redirect:/test-case/" + testCase.getId();
+        return "redirect:/test-cases/" + testCase.getId();
 
     }
 

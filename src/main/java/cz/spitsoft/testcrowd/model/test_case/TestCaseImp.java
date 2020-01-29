@@ -9,6 +9,7 @@ import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.hibernate.annotations.Target;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -76,6 +77,7 @@ public class TestCaseImp extends BaseEntity implements TestCase {
     private UserImp createdBy;
 
     @Column(name = "AVAILABLE_TO")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date availableTo;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, targetEntity = ReviewImp.class)
