@@ -2,20 +2,19 @@ package cz.spitsoft.testcrowd.controller;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestStatus;
+import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.test_case.TestCaseService;
 import cz.spitsoft.testcrowd.validator.TestCaseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -68,7 +67,24 @@ public class TestCaseController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('REPORTER', 'TESTER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @GetMapping("/test-cases")
+    public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+        Page<TestCaseImp> testCases = testCaseService.findAll(PageRequest.of(page, size));
+        model.addAttribute("testCases", testCases);
+
+        int totalPages = testCases.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(0, totalPages - 1)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pages", pageNumbers);
+        }
+
+        return "test-case/test-case-list";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/test-cases/{id}")
     public String testCaseDetail(Model model, @PathVariable(value = "id") String id) {
         model.addAttribute("testCase", testCaseService.findById(id));
