@@ -58,10 +58,6 @@ public class TestCategoryController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/test-categories/add")
     public String testCategoryAdd(Model model) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         model.addAttribute("testCategory", new TestCategoryImp());
         return "test-category/test-category-add";
     }
@@ -69,10 +65,6 @@ public class TestCategoryController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/test-categories/add")
     public String testCategoryAdd(@ModelAttribute("testCategory") TestCategoryImp testCategory, BindingResult bindingResult) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         testCategoryValidator.validate(testCategory, bindingResult);
         if (bindingResult.hasErrors()) {
             return "test-category/test-category-add";
@@ -91,10 +83,6 @@ public class TestCategoryController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/test-categories/{id}/edit")
     public String testCategoryEdit(Model model, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         model.addAttribute("testCategory", testCategoryService.findById(id));
         return "test-category/test-category-edit";
     }
@@ -102,10 +90,6 @@ public class TestCategoryController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/test-categories/{id}/edit")
     public String testCategoryEdit(@ModelAttribute("testCategory") TestCategoryImp testCategoryForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         testCategoryValidator.validate(testCategoryForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "test-category/test-category-add";
@@ -115,6 +99,7 @@ public class TestCategoryController {
         testCategory.setName(testCategoryForm.getName());
         testCategory.setDescription(testCategoryForm.getDescription());
         testCategory.setEnabled(testCategoryForm.getEnabled());
+
         Date currentDate = new Date();
         UserImp currentUser = securityService.getCurrentUser();
         testCategory.setUpdatedAt(currentDate);
@@ -126,10 +111,6 @@ public class TestCategoryController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/test-categories/{id}/delete")
     public String testCategoryDelete(Model model, @PathVariable(value = "id") String id) {
-        if (!securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
-        }
-
         TestCategoryImp testCategory = testCategoryService.findById(id);
         testCategoryService.delete(testCategory);
         return "redirect:/test-categories";
