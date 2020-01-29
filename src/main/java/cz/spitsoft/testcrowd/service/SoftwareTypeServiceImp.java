@@ -1,4 +1,4 @@
-package cz.spitsoft.testcrowd.service.software_type;
+package cz.spitsoft.testcrowd.service;
 
 import cz.spitsoft.testcrowd.model.software_type.SoftwareTypeImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;

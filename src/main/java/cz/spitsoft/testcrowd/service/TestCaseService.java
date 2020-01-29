@@ -1,4 +1,4 @@
-package cz.spitsoft.testcrowd.service.test_case;
+package cz.spitsoft.testcrowd.service;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCase;
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;

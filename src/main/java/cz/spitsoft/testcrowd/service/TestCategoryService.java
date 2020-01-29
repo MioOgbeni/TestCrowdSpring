@@ -1,4 +1,4 @@
-package cz.spitsoft.testcrowd.service.test_category;
+package cz.spitsoft.testcrowd.service;
 
 import cz.spitsoft.testcrowd.model.test_category.TestCategoryImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;

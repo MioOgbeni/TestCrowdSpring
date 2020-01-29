@@ -3,7 +3,7 @@ package cz.spitsoft.testcrowd.controller;
 import cz.spitsoft.testcrowd.model.test_category.TestCategoryImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.SecurityService;
-import cz.spitsoft.testcrowd.service.test_category.TestCategoryService;
+import cz.spitsoft.testcrowd.service.TestCategoryService;
 import cz.spitsoft.testcrowd.validator.TestCategoryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
