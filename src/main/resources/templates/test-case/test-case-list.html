@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>User list | TestCrowd</title>
+    <title>Test case list | TestCrowd</title>
     <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -25,13 +25,13 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">Test category list</h1>
+                <h1 class="h3 mb-4 text-gray-800">Test case list</h1>
                 <p class="top-right-action-buttons">
-                    <a class="btn btn-primary" th:href="@{/test-categories/add}">
-                        <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add test category</a>
+                    <a class="btn btn-primary" th:href="@{/test-cases/add}">
+                        <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add test case</a>
                 </p>
-                <div th:switch="${testCategories.getNumberOfElements()}">
-                    <div th:case="0">There are no test categories yet.</div>
+                <div th:switch="${testCases.getNumberOfElements()}">
+                    <div th:case="0">There are no test cases yet.</div>
                     <div th:case="*">
                         <div class="table-responsive-md">
                             <table class="table">
@@ -39,41 +39,33 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Enabled</th>
-                                    <th scope="col">Last update at</th>
-                                    <th scope="col">Last update by</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="testCategory : ${testCategories}" class="link"
-                                    th:data-href="@{'/test-categories/' + ${testCategory.id}}">
-                                    <td><span th:text="${#strings.substring(testCategory.id, 28, 32)}"
-                                              th:title="${testCategory.id}"></span></td>
-                                    <td><span th:text="${testCategory.name}"></span></td>
-                                    <td><span th:text="${testCategory.enabled}"></span></td>
-                                    <td><span th:text="${#dates.format(testCategory.updatedAt, 'd. M. yyyy')}"
-                                              th:title="${#dates.format(testCategory.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
-                                    </td>
-                                    <td><span th:text="${testCategory.updatedBy.getUsername()}"></span></td>
+                                <tr th:each="testCase : ${testCases}" class="link"
+                                    th:data-href="@{'/test-cases/' + ${testCase.id}}">
+                                    <td><span th:text="${#strings.substring(testCase.id, 28, 32)}"
+                                              th:title="${testCase.id}"></span></td>
+                                    <td><span th:text="${testCase.name}"></span></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <ul th:if="${testCategories.totalPages > 0}" class="pagination">
-                            <li class="page-item" th:classappend="${testCategories.number <= 0} ? disabled">
+                        <ul th:if="${testCases.totalPages > 0}" class="pagination">
+                            <li class="page-item" th:classappend="${testCases.number <= 0} ? disabled">
                                 <a class="page-link"
-                                   th:href="@{/test-categories(size=${testCategories.size}, page=${testCategories.number - 1})}">Previous</a>
+                                   th:href="@{/test-cases(size=${testCases.size}, page=${testCases.number - 1})}">Previous</a>
                             </li>
                             <li class="page-item" th:each="page : ${pages}"
-                                th:classappend="${page==testCategories.number} ? active">
+                                th:classappend="${page==testCases.number} ? active">
                                 <a class="page-link"
-                                   th:href="@{/test-categories(size=${testCategories.size}, page=${page})}"
+                                   th:href="@{/test-cases(size=${testCases.size}, page=${page})}"
                                    th:text="${page} + 1"></a>
                             </li>
                             <li class="page-item"
-                                th:classappend="${testCategories.number >= testCategories.totalPages - 1} ? disabled">
+                                th:classappend="${testCases.number >= testCases.totalPages - 1} ? disabled">
                                 <a class="page-link"
-                                   th:href="@{/test-categories(size=${testCategories.size}, page=${testCategories.number + 1})}">Next</a>
+                                   th:href="@{/test-cases(size=${testCases.size}, page=${testCases.number + 1})}">Next</a>
                             </li>
                         </ul>
                     </div>

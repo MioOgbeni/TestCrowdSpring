@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Add test category | TestCrowd</title>
+    <title>Edit test case | TestCrowd</title>
     <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -26,11 +26,11 @@
             <div class="container-fluid">
 
                 <div class="top-left-action-buttons-with-title">
-                    <a class="btn btn-primary" th:href="@{'/test-categories/' + ${id}}">
+                    <a class="btn btn-primary" th:href="@{'/test-cases/' + ${id}}">
                         <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
-                    <h1 class="h3 mb-4 text-gray-800">Edit test category</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Edit test case</h1>
                 </div>
-                <form th:action="@{'/test-categories/' + ${id} + '/edit'}" th:object="${testCategory}" method="post">
+                <form th:action="@{'/test-cases/' + ${id} + '/edit'}" th:object="${testCase}" method="post">
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="name">Name</label>
@@ -52,12 +52,49 @@
                                    th:if="${#fields.hasErrors('description')}"
                                    th:errors="*{description}">Error</small>
                         </div>
-                        <div class="col-md-12 form-group form-check">
-                            <input class="form-check-input" type="checkbox" id="enabled" th:field="*{enabled}"/>
-                            <label class="form-check-label" for="enabled">enabled</label>
+                        <div class="col-md-6 form-group">
+                            <label for="skillDifficulty">Skill difficulty</label>
+                            <input class="form-control"
+                                   type="number"
+                                   min="1"
+                                   max="5"
+                                   id="skillDifficulty"
+                                   th:field="*{skillDifficulty}"/>
                             <small class="text-danger"
-                                   th:if="${#fields.hasErrors('enabled')}"
-                                   th:errors="*{description}">Error</small>
+                                   th:if="${#fields.hasErrors('skillDifficulty')}"
+                                   th:errors="*{skillDifficulty}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="timeDifficulty">Time difficulty</label>
+                            <input class="form-control"
+                                   type="number"
+                                   min="1"
+                                   max="5"
+                                   id="timeDifficulty"
+                                   th:field="*{timeDifficulty}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('timeDifficulty')}"
+                                   th:errors="*{timeDifficulty}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="reward">Reward</label>
+                            <input class="form-control"
+                                   type="number"
+                                   id="reward"
+                                   th:field="*{reward}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('reward')}"
+                                   th:errors="*{reward}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="availableTo">Available to</label>
+                            <input class="form-control datepicker"
+                                   type="text"
+                                   id="availableTo"
+                                   th:field="*{availableTo}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('availableTo')}"
+                                   th:errors="*{availableTo}">Error</small>
                         </div>
                     </div>
                     <hr>

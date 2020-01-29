@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>User detail | TestCrowd</title>
+    <title>Test case detail | TestCrowd</title>
     <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -26,35 +26,27 @@
             <div class="container-fluid">
 
                 <div class="top-left-action-buttons-with-title">
-                    <a class="btn btn-primary" th:href="@{/test-categories}">
+                    <a class="btn btn-primary" th:href="@{/test-cases}">
                         <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
-                    <h1 class="h3 mb-4 text-gray-800">Test category detail</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Test case detail</h1>
                 </div>
-                <p><strong>ID:</strong> <span th:text="${testCategory.id}"></span></p>
-                <p><strong>Name:</strong> <span th:text="${testCategory.name}"></span></p>
-                <p><strong>Description:</strong> <span th:text="${testCategory.description}"></span></p>
-                <p><strong>Enabled:</strong> <span th:text="${testCategory.enabled}"></span></p>
-                <p><strong>Last update at:</strong>
-                    <span th:text="${#dates.format(testCategory.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
-                </p>
-                <p><strong>Last update by:</strong>
-                    <a th:href="@{'/users/' + ${testCategory.updatedBy.getId()}}"
-                       th:text="${testCategory.updatedBy.getUsername()}"></a>
-                </p>
+                <p><strong>ID:</strong> <span th:text="${testCase.id}"></span></p>
+                <p><strong>Name:</strong> <span th:text="${testCase.name}"></span></p>
+                <p><strong>Description:</strong> <span th:text="${testCase.description}"></span></p>
                 <p><strong>Created at:</strong>
-                    <span th:text="${#dates.format(testCategory.createdAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                    <span th:text="${#dates.format(testCase.createdAt, 'd. M. yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Created by:</strong>
-                    <a th:href="@{'/users/' + ${testCategory.createdBy.getId()}}"
-                       th:text="${testCategory.createdBy.getUsername()}"></a>
+                    <a th:href="@{'/users/' + ${testCase.createdBy.getId()}}"
+                       th:text="${testCase.createdBy.getUsername()}"></a>
                 </p>
                 <hr>
                 <div class="action-buttons">
                     <a class="btn btn-primary"
-                       th:href="@{'/test-categories/' + ${testCategory.id} + '/edit'}">
+                       th:href="@{'/test-cases/' + ${testCase.id} + '/edit'}">
                         <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
                     <a class="btn btn-danger"
-                       th:href="@{'/test-categories/' + ${testCategory.id} + '/delete'}">
+                       th:href="@{'/test-cases/' + ${testCase.id} + '/delete'}">
                         <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
                 </div>
 
