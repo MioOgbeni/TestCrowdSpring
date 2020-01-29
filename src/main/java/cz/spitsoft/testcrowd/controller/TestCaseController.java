@@ -111,19 +111,26 @@ public class TestCaseController {
 
         // create new empty test case object and return add form
         model.addAttribute("testCase", new TestCaseImp());
-        model.addAttribute("testCategories", testCategoryService.findAll());
-        model.addAttribute("softwareTypes", softwareTypeService.findAll());
+        model.addAttribute("testCategories", testCategoryService.findByEnabledTrue());
+        model.addAttribute("softwareTypes", softwareTypeService.findByEnabledTrue());
         return "test-case/test-case-add";
 
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @PostMapping("/test-cases/add")
-    public String testCaseAdd(@ModelAttribute("testCase") TestCaseImp testCase, BindingResult bindingResult) {
+    public String testCaseAdd(Model model,
+                              @ModelAttribute("testCase") TestCaseImp testCase,
+                              BindingResult bindingResult) {
+
+        System.out.println("CONTROLLER");
+        System.out.println(testCase.getTestCategory());
 
         // validate test case
         testCaseValidator.validate(testCase, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("testCategories", testCategoryService.findByEnabledTrue());
+            model.addAttribute("softwareTypes", softwareTypeService.findByEnabledTrue());
             return "test-case/test-case-add";
         }
 

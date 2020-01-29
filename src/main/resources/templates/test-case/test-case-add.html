@@ -78,15 +78,32 @@
                                    th:if="${#fields.hasErrors('timeDifficulty')}"
                                    th:errors="*{timeDifficulty}">Error</small>
                         </div>
-                        <!--<div class="col-md-6 form-group">
+                        <div class="col-md-6 form-group">
                             <label for="testCategory">Test category</label>
-                            <select class="form-control" id="testCategory" th:field="*{testCategory}">
-                                <option>Default</option>
+                            <select class="form-control"
+                                    id="testCategory"
+                                    th:field="*{testCategory.id}">
+                                <option th:each="testCategory : ${testCategories}"
+                                        th:value="${testCategory.id}"
+                                        th:text="${testCategory.name}"></option>
                             </select>
                             <small class="text-danger"
-                                   th:if="${#fields.hasErrors('testCategory')}"
-                                   th:errors="*{testCategory}">Error</small>
-                        </div>-->
+                                   th:if="${#fields.hasErrors('testCategory.id')}"
+                                   th:errors="*{testCategory.id}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="softwareType">Software type</label>
+                            <select class="form-control"
+                                    id="softwareType"
+                                    th:field="*{softwareType.id}">
+                                <option th:each="softwareType : ${softwareTypes}"
+                                        th:value="${softwareType.id}"
+                                        th:text="${softwareType.name}"></option>
+                            </select>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('softwareType.id')}"
+                                   th:errors="*{softwareType.id}">Error</small>
+                        </div>
                         <div class="col-md-6 form-group">
                             <label for="reward">Reward</label>
                             <input class="form-control"
