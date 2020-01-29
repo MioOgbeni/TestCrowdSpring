@@ -83,6 +83,7 @@
                             <select class="form-control"
                                     id="testCategory"
                                     th:field="*{testCategory.id}">
+                                <option value="#" selected="selected">- select -</option>
                                 <option th:each="testCategory : ${testCategories}"
                                         th:value="${testCategory.id}"
                                         th:text="${testCategory.name}"></option>
@@ -96,6 +97,7 @@
                             <select class="form-control"
                                     id="softwareType"
                                     th:field="*{softwareType.id}">
+                                <option value="#" selected="selected">- select -</option>
                                 <option th:each="softwareType : ${softwareTypes}"
                                         th:value="${softwareType.id}"
                                         th:text="${softwareType.name}"></option>

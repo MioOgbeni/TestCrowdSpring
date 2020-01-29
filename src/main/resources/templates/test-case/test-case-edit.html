@@ -98,6 +98,34 @@
                                    th:if="${#fields.hasErrors('availableTo')}"
                                    th:errors="*{availableTo}">Error</small>
                         </div>
+                        <div class="col-md-6 form-group">
+                            <label for="testCategory">Test category</label>
+                            <select class="form-control"
+                                    id="testCategory"
+                                    th:field="*{testCategory.id}">
+                                <option value="#" selected="selected">- select -</option>
+                                <option th:each="testCategory : ${testCategories}"
+                                        th:value="${testCategory.id}"
+                                        th:text="${testCategory.name}"></option>
+                            </select>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('testCategory.id')}"
+                                   th:errors="*{testCategory.id}">Error</small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="softwareType">Software type</label>
+                            <select class="form-control"
+                                    id="softwareType"
+                                    th:field="*{softwareType.id}">
+                                <option value="#" selected="selected">- select -</option>
+                                <option th:each="softwareType : ${softwareTypes}"
+                                        th:value="${softwareType.id}"
+                                        th:text="${softwareType.name}"></option>
+                            </select>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('softwareType.id')}"
+                                   th:errors="*{softwareType.id}">Error</small>
+                        </div>
                         <div class="col-md-6 form-group custom-file">
                             <input type="file" class="custom-file-input" id="file">
                             <label class="custom-file-label" for="file">Choose file</label>

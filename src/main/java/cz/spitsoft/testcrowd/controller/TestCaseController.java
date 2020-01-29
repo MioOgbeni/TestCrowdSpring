@@ -161,19 +161,26 @@ public class TestCaseController {
 
         // return test case edit form
         model.addAttribute("testCase", testCase);
+        model.addAttribute("testCategories", testCategoryService.findByEnabledTrue());
+        model.addAttribute("softwareTypes", softwareTypeService.findByEnabledTrue());
         return "test-case/test-case-edit";
 
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @PostMapping("/test-cases/{id}/edit")
-    public String testCaseEdit(@ModelAttribute("testCase") TestCaseImp testCaseForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
+    public String testCaseEdit(Model model,
+                               @ModelAttribute("testCase") TestCaseImp testCaseForm,
+                               BindingResult bindingResult,
+                               @PathVariable(value = "id") String id) {
 
         // load test case
         TestCaseImp testCase = testCaseService.findById(id);
 
         // check if user is author of test case or admin
         if (!testCaseService.isCurrentUserAuthorOrAdmin(testCase)) {
+            model.addAttribute("testCategories", testCategoryService.findByEnabledTrue());
+            model.addAttribute("softwareTypes", softwareTypeService.findByEnabledTrue());
             return "error/error-401";
         }
 
@@ -189,6 +196,8 @@ public class TestCaseController {
         testCase.setDescription(testCaseForm.getDescription());
         testCase.setSkillDifficulty(testCaseForm.getSkillDifficulty());
         testCase.setTimeDifficulty(testCaseForm.getTimeDifficulty());
+        testCase.setTestCategory(testCaseForm.getTestCategory());
+        testCase.setSoftwareType(testCaseForm.getSoftwareType());
         // TODO: odecist reward od account balance u profilu autora
         testCase.setReward(testCaseForm.getReward());
         testCase.setAvailableTo(testCaseForm.getAvailableTo());
