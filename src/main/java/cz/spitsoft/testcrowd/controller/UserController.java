@@ -54,14 +54,17 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/current")
     public String userDetail(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("user", userService.findByUsername(username));
+        model.addAttribute("user", securityService.getCurrentUser());
         return "user/user-detail";
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}")
     public String userDetail(Model model, @PathVariable(value = "id") String id) {
+        if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
+            return "redirect:/";
+        }
+
         model.addAttribute("user", userService.findById(id));
         return "user/user-detail";
     }
@@ -102,7 +105,7 @@ public class UserController {
         }
         userService.save(user);
 
-        // TODO: Automatically logout or change session if username is updated.
+        // TODO: automatically logout or change session if username is updated
 
         return "user/user-detail";
     }
@@ -113,12 +116,13 @@ public class UserController {
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
             return "redirect:/";
         }
+
         UserImp user = userService.findById(id);
         userService.delete(user);
 
         HttpSession session = request.getSession();
         SecurityContextHolder.clearContext();
-        if (session == null) {
+        if (session != null) {
             session.invalidate();
         }
 
@@ -131,6 +135,7 @@ public class UserController {
         if (!securityService.isCurrentUserById(id)) {
             return "redirect:/";
         }
+
         model.addAttribute("user", userService.findById(id));
         return "user/user-recharge-credit";
     }

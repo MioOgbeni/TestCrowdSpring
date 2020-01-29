@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 public class UserImp extends BaseEntity implements User {
 
     @Column(name = "ROLE_TYPE")
+    @Enumerated(EnumType.STRING)
     @NotNull
     private RoleType roleType;
 
