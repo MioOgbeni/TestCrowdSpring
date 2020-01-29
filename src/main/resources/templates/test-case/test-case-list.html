@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>User list | TestCrowd</title>
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/res/css/contrib/sb-admin-2.min.css">
+    <link type="text/css" rel="stylesheet" href="/res/css/custom/default.css">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+    <ul th:insert="fragments/sidebar :: sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav th:insert="fragments/topbar :: topbar"
+                 class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <div class="container-fluid">
+
+                <h1 class="h3 mb-4 text-gray-800">Test category list</h1>
+                <p class="top-right-action-buttons">
+                    <a class="btn btn-primary" th:href="@{/test-categories/add}">
+                        <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add test category</a>
+                </p>
+                <div th:switch="${testCategories.getNumberOfElements()}">
+                    <div th:case="0">There are no test categories yet.</div>
+                    <div th:case="*">
+                        <div class="table-responsive-md">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Enabled</th>
+                                    <th scope="col">Last update at</th>
+                                    <th scope="col">Last update by</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="testCategory : ${testCategories}" class="link"
+                                    th:data-href="@{'/test-categories/' + ${testCategory.id}}">
+                                    <td><span th:text="${#strings.substring(testCategory.id, 28, 32)}"
+                                              th:title="${testCategory.id}"></span></td>
+                                    <td><span th:text="${testCategory.name}"></span></td>
+                                    <td><span th:text="${testCategory.enabled}"></span></td>
+                                    <td><span th:text="${#dates.format(testCategory.updatedAt, 'd. M. yyyy')}"
+                                              th:title="${#dates.format(testCategory.updatedAt, 'd. M. yyyy HH:mm:ss')}"></span>
+                                    </td>
+                                    <td><span th:text="${testCategory.updatedBy.getUsername()}"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul th:if="${testCategories.totalPages > 0}" class="pagination">
+                            <li class="page-item" th:classappend="${testCategories.number <= 0} ? disabled">
+                                <a class="page-link"
+                                   th:href="@{/test-categories(size=${testCategories.size}, page=${testCategories.number - 1})}">Previous</a>
+                            </li>
+                            <li class="page-item" th:each="page : ${pages}"
+                                th:classappend="${page==testCategories.number} ? active">
+                                <a class="page-link"
+                                   th:href="@{/test-categories(size=${testCategories.size}, page=${page})}"
+                                   th:text="${page} + 1"></a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${testCategories.number >= testCategories.totalPages - 1} ? disabled">
+                                <a class="page-link"
+                                   th:href="@{/test-categories(size=${testCategories.size}, page=${testCategories.number + 1})}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <footer th:insert="fragments/footer :: footer" class="sticky-footer bg-white"></footer>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="/res/js/contrib/jquery.min.js"></script>
+<script src="/res/js/contrib/bootstrap.min.js"></script>
+<script src="/res/js/contrib/fontawesome-free.min.js"></script>
+<script src="/res/js/contrib/sb-admin-2.min.js"></script>
+<script src="/res/js/custom/default.js"></script>
+</body>
+</html>

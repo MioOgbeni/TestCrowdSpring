@@ -111,7 +111,7 @@ public class TestCaseController {
     public String testCaseEdit(@ModelAttribute("testCase") TestCaseImp testCaseForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
         testCaseValidator.validate(testCaseForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "test-cases/test-case-add";
+            return "test-cases/test-case-edit";
         }
 
         // TODO
