@@ -185,14 +185,14 @@ public class TestCaseController {
 
         // check if user is author of test case or admin
         if (!testCaseService.isCurrentUserAuthorOrAdmin(testCase)) {
-            model.addAttribute("testCategories", testCategoryService.findByEnabledTrue());
-            model.addAttribute("softwareTypes", softwareTypeService.findByEnabledTrue());
             return "error/error-401";
         }
 
         // validate test case
         testCaseValidator.validate(testCaseForm, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("testCategories", testCategoryService.findByEnabledTrue());
+            model.addAttribute("softwareTypes", softwareTypeService.findByEnabledTrue());
             return "test-case/test-case-edit";
         }
 

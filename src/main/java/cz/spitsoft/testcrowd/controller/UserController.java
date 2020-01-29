@@ -39,6 +39,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users")
     public String userList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "2") int size) {
+
         Page<UserImp> users = userService.findAll(PageRequest.of(page, size));
         model.addAttribute("users", users);
         int totalPages = users.getTotalPages();
@@ -49,42 +50,50 @@ public class UserController {
             model.addAttribute("pages", pageNumbers);
         }
         return "user/user-list";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/current")
     public String userDetail(Model model) {
+
         model.addAttribute("user", securityService.getCurrentUser());
         return "user/user-detail";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}")
     public String userDetail(Model model, @PathVariable(value = "id") String id) {
+
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
+            return "error/error-401";
         }
 
         model.addAttribute("user", userService.findById(id));
         return "user/user-detail";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}/edit")
     public String userEdit(Model model, @PathVariable(value = "id") String id) {
+
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
+            return "error/error-401";
         }
 
         model.addAttribute("user", userService.findById(id));
         return "user/user-edit";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @PostMapping("/users/{id}/edit")
     public String userEdit(@ModelAttribute("user") UserImp userForm, BindingResult bindingResult, @PathVariable(value = "id") String id) {
+
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
+            return "error/error-401";
         }
 
         userValidator.validate(userForm, bindingResult);
@@ -108,13 +117,15 @@ public class UserController {
         // TODO: automaticky upravit session (nebo provest logout), pokud se zmenil username
 
         return "user/user-detail";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/users/{id}/delete")
     public String userDelete(Model model, @PathVariable(value = "id") String id, HttpServletRequest request) {
+
         if (!securityService.isCurrentUserById(id) && !securityService.isCurrentUserAdmin()) {
-            return "redirect:/";
+            return "error/error-401";
         }
 
         UserImp user = userService.findById(id);
@@ -127,16 +138,19 @@ public class UserController {
         }
 
         return "redirect:/login";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @GetMapping("/users/{id}/recharge-credit")
     public String userRechargeCredits(Model model, @PathVariable(value = "id") String id) {
+
         if (!securityService.isCurrentUserById(id)) {
-            return "redirect:/";
+            return "error/error-401";
         }
 
         model.addAttribute("user", userService.findById(id));
         return "user/user-recharge-credit";
+
     }
 }
