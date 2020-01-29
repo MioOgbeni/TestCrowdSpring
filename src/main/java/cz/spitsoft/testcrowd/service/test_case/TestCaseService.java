@@ -2,6 +2,7 @@ package cz.spitsoft.testcrowd.service.test_case;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCase;
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,6 +21,8 @@ public interface TestCaseService {
     List<TestCaseImp> findAll();
 
     Page<TestCaseImp> findAll(Pageable pageable);
+
+    Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable);
 
     //List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
 

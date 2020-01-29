@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -52,6 +51,11 @@ public class TestCaseServiceImp implements TestCaseService {
     @Override
     public Page<TestCaseImp> findAll(Pageable pageable) {
         return testCaseRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable) {
+        return testCaseRepository.findByCreatedBy(user, pageable);
     }
 
     /*@Override

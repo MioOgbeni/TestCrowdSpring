@@ -82,9 +82,8 @@ public class TestCaseController {
     @GetMapping("/test-cases")
     public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
 
-        // TODO: pouze autor muze zobrazit sve testy
-
-        Page<TestCaseImp> testCases = testCaseService.findAll(PageRequest.of(page, size));
+        UserImp currentUser = securityService.getCurrentUser();
+        Page<TestCaseImp> testCases = testCaseService.findByCreatedBy(currentUser, PageRequest.of(page, size));
         MakePagedTestCases(model, testCases);
 
         return "test-case/test-case-list";
@@ -126,9 +125,6 @@ public class TestCaseController {
     public String testCaseAdd(Model model,
                               @ModelAttribute("testCase") TestCaseImp testCase,
                               BindingResult bindingResult) {
-
-        System.out.println("CONTROLLER");
-        System.out.println(testCase.getTestCategory());
 
         // validate test case
         testCaseValidator.validate(testCase, bindingResult);
