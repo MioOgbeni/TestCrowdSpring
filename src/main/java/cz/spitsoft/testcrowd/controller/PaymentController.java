@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PaymentController {
+    public static final String PAYPAL_EXECUTE_PAYMENT_URL = "/pay/executePayment";
     public static final String PAYPAL_SUCCESS_URL = "/pay/success";
     public static final String PAYPAL_CANCEL_URL = "/pay/cancel";
 
@@ -38,10 +39,9 @@ public class PaymentController {
     private PayPalService paypalService;
 
     @PostMapping("/pay")
-
     public String pay(HttpServletRequest request, @RequestParam Double sum) {
         String cancelUrl = URLUtils.getBaseURl(request) + PAYPAL_CANCEL_URL;
-        String successUrl = URLUtils.getBaseURl(request) + PAYPAL_SUCCESS_URL;
+        String successUrl = URLUtils.getBaseURl(request) + PAYPAL_EXECUTE_PAYMENT_URL;
 
         sum = sum / 100; // 100 credits = 1 USD
 
@@ -67,14 +67,16 @@ public class PaymentController {
 
     @GetMapping(PAYPAL_CANCEL_URL)
     public String cancel() {
-        return "cancel";
+        return "user/user-recharge-credit-cancel";
     }
 
     @GetMapping(PAYPAL_SUCCESS_URL)
-    public String success(@RequestParam("paymentId") String paymentId, @RequestParam("token") String token, @RequestParam("PayerID") String payerId) {
+    public String success() {
+        return "user/user-recharge-credit-success";
+    }
 
-        // TODO: kdyz uzivatel po platbe klikne v prohlizeci na tlacitko zpet, kredit se mu znovu pricte na ucet, coz je spatne
-
+    @GetMapping(PAYPAL_EXECUTE_PAYMENT_URL)
+    public String executePayment(@RequestParam("paymentId") String paymentId, @RequestParam("token") String token, @RequestParam("PayerID") String payerId) {
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
@@ -88,7 +90,7 @@ public class PaymentController {
                     userService.save(user);
                 }
 
-                return "user/user-recharge-credit-success";
+                return "redirect:/pay/success";
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
