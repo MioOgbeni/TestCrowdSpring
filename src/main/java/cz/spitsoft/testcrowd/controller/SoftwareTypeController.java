@@ -115,4 +115,5 @@ public class SoftwareTypeController {
         softwareTypeService.delete(softwareType);
         return "redirect:/software-types";
     }
+
 }

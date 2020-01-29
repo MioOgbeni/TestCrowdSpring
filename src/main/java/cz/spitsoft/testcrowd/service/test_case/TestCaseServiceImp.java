@@ -1,8 +1,10 @@
 package cz.spitsoft.testcrowd.service.test_case;
 
+import cz.spitsoft.testcrowd.model.test_case.TestCase;
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.TestCaseRepository;
+import cz.spitsoft.testcrowd.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,16 @@ public class TestCaseServiceImp implements TestCaseService {
 
     @Autowired
     private TestCaseRepository testCaseRepository;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Override
+    public boolean isCurrentUserAuthorOrAdmin(TestCase testCase) {
+        String testCaseAuthorId = testCase.getCreatedBy().getId();
+        String currentUserId = securityService.getCurrentUser().getId();
+        return currentUserId.equals(testCaseAuthorId) || securityService.isCurrentUserAdmin();
+    }
 
     @Override
     public long count() {
