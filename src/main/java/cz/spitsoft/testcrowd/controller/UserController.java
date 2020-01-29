@@ -125,9 +125,12 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @GetMapping("/users/{id}/recharge-credit")
     public String userRechargeCredits(Model model, @PathVariable(value = "id") String id) {
+        if (!securityService.isCurrentUserById(id)) {
+            return "redirect:/";
+        }
         model.addAttribute("user", userService.findById(id));
         return "user/user-recharge-credit";
     }

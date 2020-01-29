@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Credit recharge | TestCrowd</title>
+    <title>Recharge credits | TestCrowd</title>
     <link type="text/css" rel="stylesheet" href="/res/css/contrib/fontawesome-free.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -29,11 +29,10 @@
                 <div class="top-left-action-buttons-with-title">
                     <a class="btn btn-primary" th:href="@{'/users/' + ${id}}">
                         <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
-                    <h1 class="h3 mb-4 text-gray-800">Recharge your credits</h1>
-                    <p> 100 Credits = 1 USD</p>
+                    <h1 class="h3 mb-4 text-gray-800">Recharge credits to your account</h1>
                 </div>
-
-                <form name="f" th:action="@{/pay}" method="post">
+                <p> 100 Credits = 1 USD</p>
+                <form th:action="@{/pay}" method="post">
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="sum">Credit count</label>
