@@ -16,7 +16,7 @@ public class FileServiceImp implements FileService {
     @Autowired
     private FileRepository fileRepository;
 
-    public FileImp saveFile(String name, MultipartFile file) {
+    public FileImp saveFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -26,7 +26,7 @@ public class FileServiceImp implements FileService {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            FileImp newFile = new FileImp(name, fileName, file.getBytes(), file.getContentType(), new Date());
+            FileImp newFile = new FileImp(fileName, file.getBytes(), file.getContentType(), new Date());
 
             return fileRepository.save(newFile);
         } catch (IOException ex) {

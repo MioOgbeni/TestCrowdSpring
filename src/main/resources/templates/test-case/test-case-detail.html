@@ -38,6 +38,28 @@
                 <p><strong>Test category:</strong> <span th:text="${testCase.testCategory.name}"></span></p>
                 <p><strong>Software type:</strong> <span th:text="${testCase.softwareType.name}"></span></p>
                 <p><strong>Reward:</strong> <span th:text="${testCase.reward}"></span> Kr</p>
+
+                <div class="table-responsive-md">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="file : ${testCase.files}">
+                            <td><span th:text="${file.fileName}"></span></td>
+                            <td><span th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span></td>
+                            <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER', 'REPORTER')}"
+                                   class="btn btn-primary" th:href="@{'/test-cases/download/' + ${file.id}}"> <i
+                                    class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <p><strong>Created at:</strong>
                     <span th:text="${#dates.format(testCase.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
