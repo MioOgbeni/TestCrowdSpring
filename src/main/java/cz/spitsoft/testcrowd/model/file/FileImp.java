@@ -16,11 +16,6 @@ import java.util.Date;
 @Table(name = "TBL_FILES")
 public class FileImp extends BaseEntity implements File {
 
-    @Column(name = "NAME")
-    @Size(max = 80, message = "{evidence.name.invalid}")
-    @NotEmpty
-    private String name;
-
     @Column(name = "FILE_NAME")
     @Size(max = 240, message = "{evidence.fileName.invalid}")
     @NotEmpty
@@ -30,10 +25,10 @@ public class FileImp extends BaseEntity implements File {
     @Column(name = "DTA_BLOB")
     private byte[] data;
 
-    @Column(name = "EXTENSION")
-    @Size(max = 20, message = "{evidence.extension.invalid}")
+    @Column(name = "CONTENT_TYPE")
+    @Size(max = 20, message = "{evidence.contentType.invalid}")
     @NotEmpty
-    private String extension;
+    private String contentType;
 
     @Column(name = "CREATED_AT")
     @NotNull
@@ -43,23 +38,12 @@ public class FileImp extends BaseEntity implements File {
         super();
     }
 
-    public FileImp(String name, String fileName, byte[] data, String extension, Date createdAt) {
+    public FileImp(String fileName, byte[] data, String contentType, Date createdAt) {
         super();
-        this.name = name;
         this.fileName = fileName;
         this.data = data;
-        this.extension = extension;
+        this.contentType = contentType;
         this.createdAt = createdAt;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -83,13 +67,13 @@ public class FileImp extends BaseEntity implements File {
     }
 
     @Override
-    public String getExtension() {
-        return extension;
+    public String getContentType() {
+        return contentType;
     }
 
     @Override
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     @Override
@@ -106,7 +90,7 @@ public class FileImp extends BaseEntity implements File {
     public String toString() {
         return new ToStringCreator(this)
                 .append("id", this.getId())
-                .append("name", this.getName())
+                .append("fileName", this.getFileName())
                 .toString();
     }
 

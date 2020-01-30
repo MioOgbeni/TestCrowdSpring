@@ -4,10 +4,6 @@ import java.util.Date;
 
 public interface File {
 
-    String getName();
-
-    void setName(String name);
-
     String getFileName();
 
     void setFileName(String fileName);
@@ -16,9 +12,9 @@ public interface File {
 
     void setData(byte[] data);
 
-    String getExtension();
+    String getContentType();
 
-    void setExtension(String extension);
+    void setContentType(String contentType);
 
     Date getCreatedAt();
 

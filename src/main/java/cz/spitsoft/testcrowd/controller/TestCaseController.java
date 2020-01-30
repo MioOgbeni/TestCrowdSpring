@@ -1,23 +1,27 @@
 package cz.spitsoft.testcrowd.controller;
 
+import cz.spitsoft.testcrowd.model.file.FileImp;
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
-import cz.spitsoft.testcrowd.service.SecurityService;
-import cz.spitsoft.testcrowd.service.UserService;
-import cz.spitsoft.testcrowd.service.SoftwareTypeService;
-import cz.spitsoft.testcrowd.service.TestCaseService;
-import cz.spitsoft.testcrowd.service.TestCategoryService;
+import cz.spitsoft.testcrowd.service.*;
 import cz.spitsoft.testcrowd.validator.TestCaseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +44,9 @@ public class TestCaseController {
 
     @Autowired
     private SoftwareTypeService softwareTypeService;
+
+    @Autowired
+    private FileService fileStorageService;
 
     @Autowired
     private UserService userService;
@@ -129,6 +136,7 @@ public class TestCaseController {
     @PostMapping("/test-cases/add")
     public String testCaseAdd(Model model,
                               @ModelAttribute("testCase") TestCaseImp testCase,
+                              @RequestParam("file") MultipartFile[] files,
                               BindingResult bindingResult) {
 
         // validate test case
@@ -139,19 +147,19 @@ public class TestCaseController {
             return "test-case/test-case-add";
         }
 
-        // TODO
-        // save test case and return test case list
         Date currentDate = new Date();
-        UserImp currentUser = securityService.getCurrentUser();
         testCase.setTestStatus(TestStatus.AVAILABLE);
-        // TODO: zpracovat odeslany soubor
-        currentUser.setAccountBalance(currentUser.getAccountBalance() - testCase.getReward());
-        userService.save(currentUser);
+
+        List<FileImp> uploadedFiles = new ArrayList<>();
+        for (MultipartFile file : files) {
+            uploadedFiles.add(fileStorageService.saveFile(file));
+        }
+        testCase.setFiles(uploadedFiles);
+
         testCase.setCreatedAt(currentDate);
-        testCase.setCreatedBy(currentUser);
+        testCase.setCreatedBy(securityService.getCurrentUser());
         testCaseService.save(testCase);
         return "redirect:/test-cases";
-
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
@@ -178,6 +186,7 @@ public class TestCaseController {
     @PostMapping("/test-cases/{id}/edit")
     public String testCaseEdit(Model model,
                                @ModelAttribute("testCase") TestCaseImp testCaseForm,
+                               @RequestParam("file") MultipartFile[] files,
                                BindingResult bindingResult,
                                @PathVariable(value = "id") String id) {
 
@@ -204,11 +213,13 @@ public class TestCaseController {
         testCase.setTimeDifficulty(testCaseForm.getTimeDifficulty());
         testCase.setTestCategory(testCaseForm.getTestCategory());
         testCase.setSoftwareType(testCaseForm.getSoftwareType());
-        // TODO: zpracovat odeslany soubor
-        UserImp currentUser = securityService.getCurrentUser();
-        currentUser.setAccountBalance(currentUser.getAccountBalance() + testCase.getReward());
-        currentUser.setAccountBalance(currentUser.getAccountBalance() - testCaseForm.getReward());
-        userService.save(currentUser);
+
+        List<FileImp> uploadedFiles = testCase.getFiles();
+        for (MultipartFile file : files) {
+            uploadedFiles.add(fileStorageService.saveFile(file));
+        }
+        testCase.setFiles(uploadedFiles);
+
         testCase.setReward(testCaseForm.getReward());
         testCase.setAvailableTo(testCaseForm.getAvailableTo());
         testCaseService.save(testCase);
@@ -232,6 +243,17 @@ public class TestCaseController {
         testCaseService.delete(testCase);
         return "redirect:/test-cases";
 
+    }
+
+    @GetMapping("/test-cases/download/{fileId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
+        // Load file from database
+        FileImp file = fileStorageService.getFile(fileId);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(file.getContentType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+                .body(new ByteArrayResource(file.getData()));
     }
 
 }

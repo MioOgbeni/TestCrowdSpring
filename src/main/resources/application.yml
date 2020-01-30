@@ -4,7 +4,7 @@ spring:
   # MSSQL
   datasource:
     url: 'jdbc:sqlserver://testcrowd-mssqldb:1433'
-    # url: 'jdbc:sqlserver://localhost:1433'
+    #url: 'jdbc:sqlserver://localhost:1433'
     username: 'sa'
     password: 'Test@123456'
     driverClassName: 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
@@ -33,6 +33,13 @@ spring:
   thymeleaf:
     mode: HTML
 
+  ## MULTIPART (MultipartProperties)
+  servlet:
+    multipart:
+      enabled: true               # enable multipart uploads
+      file-size-threshold: 200MB    # threshold after which files are written to disk
+      max-file-size: 400MB        # max file size
+      max-request-size: 415MB     # max request size
 
 ## Logging
 logging:
@@ -67,12 +74,3 @@ payPal:
   client:
     id: 'AfszrU41imldmUDZJp_5zyJDiD9N61N_GRlpJSzftPbiA0zIoOH2r7UzXe0re7TBudZl3ngQktCOOfnU'
     secret: 'EMvVxXesBEcz1bIsJT8mjVR_M8NNRJXXNfP04fm8AyyU3V7VSqqNwNsZyCKU9_j6PacrOTtZjQRUCl4r'
-
-
-## MULTIPART (MultipartProperties)
-servlet:
-  multipart:
-    enabled: true               # enable multipart uploads
-    file-size-threshold: 2KB    # threshold after which files are written to disk
-    max-file-size: 200MB        # max file size
-    max-request-size: 215MB     # max request size
