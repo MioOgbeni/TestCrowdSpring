@@ -12,6 +12,8 @@ public interface TestCaseService {
 
     boolean isCurrentUserAuthorOrAdmin(TestCase testCase);
 
+    boolean isCurrentUserAuthorOrTester(TestCase testCase);
+
     long count();
 
     void save(TestCaseImp testCase);

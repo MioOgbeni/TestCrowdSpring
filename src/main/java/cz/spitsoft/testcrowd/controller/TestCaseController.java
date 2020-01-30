@@ -103,7 +103,7 @@ public class TestCaseController {
         TestCaseImp testCase = testCaseService.findById(id);
 
         // check if user is author of test case or admin
-        if (!testCaseService.isCurrentUserAuthorOrAdmin(testCase)) {
+        if (!testCaseService.isCurrentUserAuthorOrTester(testCase)) {
             return "error/error-401";
         }
 

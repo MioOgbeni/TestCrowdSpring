@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -47,12 +47,15 @@
                 </p>
                 <hr>
                 <div class="action-buttons">
-                    <a class="btn btn-primary"
+                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-primary"
                        th:href="@{'/test-cases/' + ${testCase.id} + '/edit'}">
                         <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
-                    <a class="btn btn-danger"
+                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-danger"
                        th:href="@{'/test-cases/' + ${testCase.id} + '/delete'}">
                         <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
+                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
+                       th:href="@{'/test-cases/' + ${testCase.id} + '/take'}">
+                        <i class="fas fa-random fa-sm mr-2 text-gray-400"></i> Take test case</a>
                 </div>
 
             </div>

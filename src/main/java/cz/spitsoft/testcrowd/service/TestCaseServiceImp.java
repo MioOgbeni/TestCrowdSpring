@@ -28,6 +28,13 @@ public class TestCaseServiceImp implements TestCaseService {
     }
 
     @Override
+    public boolean isCurrentUserAuthorOrTester(TestCase testCase) {
+        String testCaseAuthorId = testCase.getCreatedBy().getId();
+        String currentUserId = securityService.getCurrentUser().getId();
+        return currentUserId.equals(testCaseAuthorId) || securityService.isCurrentUserTester();
+    }
+
+    @Override
     public long count() {
         return testCaseRepository.count();
     }
