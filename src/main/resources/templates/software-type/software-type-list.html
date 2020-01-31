@@ -54,7 +54,10 @@
                                     <td><span th:text="${#strings.substring(softwareType.id, 28, 32)}"
                                               th:title="${softwareType.id}"></span></td>
                                     <td><span th:text="${softwareType.name}"></span></td>
-                                    <td><span th:text="${softwareType.enabled}"></span></td>
+                                    <td th:if="${softwareType.enabled}">
+                                        <span class="text-success font-weight-bold">YES</span></td>
+                                    <td th:if="${!softwareType.enabled}">
+                                        <span class="text-danger font-weight-bold">NO</span></td>
                                     <td><span th:text="${#dates.format(softwareType.updatedAt, 'MM/dd/yyyy')}"
                                               th:title="${#dates.format(softwareType.updatedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                                     </td>

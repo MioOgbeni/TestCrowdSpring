@@ -109,4 +109,7 @@ body .text-align-right {
 body .display-block {
   display: block;
 }
+body svg.fa-star.checked {
+  color: #4e73df;
+}
 /*# sourceMappingURL=default.css.map */

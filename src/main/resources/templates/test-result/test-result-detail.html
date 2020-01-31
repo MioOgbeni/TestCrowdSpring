@@ -36,7 +36,10 @@
                     <a th:href="@{'/users/' + ${testResult.user.id}}"
                        th:text="${testResult.user.username}"></a>
                 </p>
-                <p><strong>Status:</strong> <span th:text="${testResult.testResultStatus}"></span></p>
+                <p th:if="${testResult.testResultStatus.toString() == 'TAKEN'}"><strong>Status:</strong>
+                    <span class="text-info font-weight-bold">TAKEN</span></p>
+                <p th:if="${testResult.testResultStatus.toString() == 'DONE'}"><strong>Status:</strong>
+                    <span class="text-success font-weight-bold">DONE</span></p>
                 <p><strong>Reward:</strong> <span th:text="${testResult.reward}"></span> Kr</p>
                 <p><strong>Taken at:</strong>
                     <span th:text="${#dates.format(testResult.takenAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
@@ -63,7 +66,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="action-buttons">
+                <div class="action-buttons" th:if="${testResult.testResultStatus.toString() != 'DONE'}">
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
                        th:href="@{'/test-results/' + ${testResult.id} + '/finish'}">
                         <i class="fas fa-check mr-2 text-gray-400"></i> Finish</a>

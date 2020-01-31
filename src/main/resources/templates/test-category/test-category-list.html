@@ -54,7 +54,10 @@
                                     <td><span th:text="${#strings.substring(testCategory.id, 28, 32)}"
                                               th:title="${testCategory.id}"></span></td>
                                     <td><span th:text="${testCategory.name}"></span></td>
-                                    <td><span th:text="${testCategory.enabled}"></span></td>
+                                    <td th:if="${testCategory.enabled}">
+                                        <span class="text-success font-weight-bold">YES</span></td>
+                                    <td th:if="${!testCategory.enabled}">
+                                        <span class="text-danger font-weight-bold">NO</span></td>
                                     <td><span th:text="${#dates.format(testCategory.updatedAt, 'MM/dd/yyyy')}"
                                               th:title="${#dates.format(testCategory.updatedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                                     </td>

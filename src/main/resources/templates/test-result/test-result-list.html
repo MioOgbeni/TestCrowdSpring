@@ -58,7 +58,10 @@
                                     <td><span th:text="${testResult.testCase.name}"></span></td>
                                     <td sec:authorize="${hasAuthority('ADMIN')}">
                                         <span th:text="${testResult.user.username}"></span></td>
-                                    <td><span th:text="${testResult.testResultStatus}"></span></td>
+                                    <td th:if="${testResult.testResultStatus.toString() == 'TAKEN'}">
+                                        <span class="text-info font-weight-bold">TAKEN</span></td>
+                                    <td th:if="${testResult.testResultStatus.toString() == 'DONE'}">
+                                        <span class="text-success font-weight-bold">DONE</span></td>
                                     <td class="text-align-right"><span th:text="${testResult.reward}"></span> Kr</td>
                                     <td><span th:text="${#dates.format(testResult.takenAt, 'MM/dd/yyyy')}"
                                               th:title="${#dates.format(testResult.takenAt, 'MM/dd/yyyy HH:mm:ss')}"></span>

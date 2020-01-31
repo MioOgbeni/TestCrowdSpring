@@ -59,10 +59,14 @@
                                     <td><span th:text="${testCase.testCategory.name}"></span></td>
                                     <td><span th:text="${testCase.softwareType.name}"></span></td>
                                     <td class="text-align-right">
-                                        <span th:text="${testCase.timeDifficulty}"></span>/5
+                                        <span class="fa fa-star"
+                                              th:each="i : ${#numbers.sequence(1, 5, 1)}"
+                                              th:classappend="${testCase.timeDifficulty >= i} ? 'checked' : ''"></span>
                                     </td>
                                     <td class="text-align-right">
-                                        <span th:text="${testCase.skillDifficulty}"></span>/5
+                                        <span class="fa fa-star"
+                                              th:each="i : ${#numbers.sequence(1, 5, 1)}"
+                                              th:classappend="${testCase.skillDifficulty >= i} ? 'checked' : ''"></span>
                                     </td>
                                     <td class="text-align-right">
                                         <span th:text="${testCase.reward}"></span> Kr
