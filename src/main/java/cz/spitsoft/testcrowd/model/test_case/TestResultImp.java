@@ -30,9 +30,8 @@ public class TestResultImp extends BaseEntity implements TestResult {
     @NotNull
     private UserImp user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = FileImp.class)
-    @NotNull
-    private List<FileImp> file;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, targetEntity = FileImp.class)
+    private List<FileImp> files;
 
     @Column(name = "TEST_RESULT_STATUS")
     @Enumerated(EnumType.STRING)
@@ -50,11 +49,11 @@ public class TestResultImp extends BaseEntity implements TestResult {
         super();
     }
 
-    public TestResultImp(TestCaseImp testCase, UserImp user, List<FileImp> file, TestResultStatus testResultStatus, Date takenAt, Date finishedAt) {
+    public TestResultImp(TestCaseImp testCase, UserImp user, List<FileImp> files, TestResultStatus testResultStatus, Date takenAt, Date finishedAt) {
         super();
         this.testCase = testCase;
         this.user = user;
-        this.file = file;
+        this.files = files;
         this.testResultStatus = testResultStatus;
         this.takenAt = takenAt;
         this.finishedAt = finishedAt;
@@ -81,13 +80,13 @@ public class TestResultImp extends BaseEntity implements TestResult {
     }
 
     @Override
-    public List<FileImp> getFile() {
-        return file;
+    public List<FileImp> getFiles() {
+        return files;
     }
 
     @Override
-    public void setFile(List<FileImp> file) {
-        this.file = file;
+    public void setFiles(List<FileImp> files) {
+        this.files = files;
     }
 
     @Override

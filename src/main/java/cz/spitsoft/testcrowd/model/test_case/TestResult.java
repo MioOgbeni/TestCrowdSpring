@@ -16,9 +16,9 @@ public interface TestResult {
 
     void setUser(UserImp user);
 
-    List<FileImp> getFile();
+    List<FileImp> getFiles();
 
-    void setFile(List<FileImp> file);
+    void setFiles(List<FileImp> evidences);
 
     TestResultStatus getTestResultStatus();
 

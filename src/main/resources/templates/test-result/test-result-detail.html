@@ -31,54 +31,7 @@
                     <h1 class="h3 mb-4 text-gray-800">Test result detail</h1>
                 </div>
                 <p><strong>ID:</strong> <span th:text="${testResult.id}"></span></p>
-                <p><strong>Name:</strong> <span th:text="${testResult.name}"></span></p>
-                <p><strong>Description:</strong> <span th:text="${testResult.description}"></span></p>
-                <p><strong>Time difficulty:</strong> <span th:text="${testResult.timeDifficulty}"></span>/5</p>
-                <p><strong>Skill difficulty:</strong> <span th:text="${testResult.skillDifficulty}"></span>/5</p>
-                <p><strong>Test category:</strong> <span th:text="${testResult.testCategory.name}"></span></p>
-                <p><strong>Software type:</strong> <span th:text="${testResult.softwareType.name}"></span></p>
-                <p><strong>Reward:</strong> <span th:text="${testResult.reward}"></span> Kr</p>
-
-                <div class="table-responsive-md">
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="file : ${testResult.files}">
-                            <td><span th:text="${file.fileName}"></span></td>
-                            <td><span th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span></td>
-                            <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER', 'REPORTER')}"
-                                   class="btn btn-primary" th:href="@{'/test-results/download/' + ${file.id}}"> <i
-                                    class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <p><strong>Created at:</strong>
-                    <span th:text="${#dates.format(testResult.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
-                </p>
-                <p><strong>Created by:</strong>
-                    <a th:href="@{'/users/' + ${testResult.createdBy.getId()}}"
-                       th:text="${testResult.createdBy.getUsername()}"></a>
-                </p>
                 <hr>
-                <div class="action-buttons">
-                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-primary"
-                       th:href="@{'/test-results/' + ${testResult.id} + '/edit'}">
-                        <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
-                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-danger"
-                       th:href="@{'/test-results/' + ${testResult.id} + '/delete'}">
-                        <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
-                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
-                       th:href="@{'/test-results/' + ${testResult.id} + '/take'}">
-                        <i class="fas fa-arrow-alt-circle-down fa-sm mr-2 text-gray-400"></i> Take test result</a>
-                </div>
 
             </div>
         </div>
