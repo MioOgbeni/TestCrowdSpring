@@ -152,9 +152,13 @@ public class TestCaseController {
 
         List<FileImp> uploadedFiles = new ArrayList<>();
         for (MultipartFile file : files) {
-            uploadedFiles.add(fileStorageService.saveFile(file));
+            if (!file.isEmpty()) {
+                uploadedFiles.add(fileStorageService.saveFile(file));
+            }
         }
-        testCase.setFiles(uploadedFiles);
+        if (!uploadedFiles.isEmpty()) {
+            testCase.setFiles(uploadedFiles);
+        }
 
         testCase.setCreatedAt(currentDate);
         testCase.setCreatedBy(securityService.getCurrentUser());
