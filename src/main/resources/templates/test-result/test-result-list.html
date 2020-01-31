@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -38,6 +38,11 @@
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Test case</th>
+                                    <th scope="col" sec:authorize="${hasAuthority('ADMIN')}">User</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Taken at</th>
+                                    <th scope="col">Finished at</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -45,6 +50,14 @@
                                     th:data-href="@{'/test-results/' + ${testResult.id}}">
                                     <td><span th:text="${#strings.substring(testResult.id, 28, 32)}"
                                               th:title="${testResult.id}"></span></td>
+                                    <td><span th:text="${testResult.testCase.name}"></span></td>
+                                    <td sec:authorize="${hasAuthority('ADMIN')}">
+                                        <span th:text="${testResult.user.username}"></span></td>
+                                    <td><span th:text="${testResult.testResultStatus}"></span></td>
+                                    <td><span th:text="${#dates.format(testResult.takenAt, 'MM/dd/yyyy')}"
+                                              th:title="${#dates.format(testResult.takenAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
+                                    <td><span th:text="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy')}"
+                                              th:title="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                                 </tr>
                                 </tbody>
                             </table>

@@ -44,7 +44,18 @@
     th:classappend="${#httpServletRequest.requestURI == '/test-cases'} ? 'active' : ''">
     <a class="nav-link" th:href="@{/test-cases}">
         <i class="fas fa-keyboard fa-fw mr-2"></i>
-        <span>Test cases</span>
+        <span sec:authorize="${hasAuthority('ADMIN')}">Test cases</span>
+        <span sec:authorize="${hasAuthority('REPORTER')}">My test cases</span>
+        <span sec:authorize="${hasAuthority('TESTER')}">Available test cases</span>
+    </a>
+</li>
+
+<li class="nav-item" sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}"
+    th:classappend="${#httpServletRequest.requestURI == '/test-results'} ? 'active' : ''">
+    <a class="nav-link" th:href="@{/test-results}">
+        <i class="fas fa-poll fa-fw mr-2"></i>
+        <span sec:authorize="${hasAuthority('ADMIN')}">Test results</span>
+        <span sec:authorize="${hasAuthority('TESTER')}">My test results</span>
     </a>
 </li>
 

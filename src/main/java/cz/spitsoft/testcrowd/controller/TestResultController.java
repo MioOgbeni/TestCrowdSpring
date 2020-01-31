@@ -46,16 +46,16 @@ public class TestResultController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
     @GetMapping("/test-results")
     public String testResultList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
 
-        UserImp currentUser = securityService.getCurrentUser();
         Page<TestResultImp> testResults;
-        if (securityService.isCurrentUserTester()) {
-            testResults = testResultService.findByUser(currentUser, PageRequest.of(page, size));
-        } else {
+        if (securityService.isCurrentUserAdmin()) {
             testResults = testResultService.findAll(PageRequest.of(page, size));
+        } else {
+            UserImp currentUser = securityService.getCurrentUser();
+            testResults = testResultService.findByUser(currentUser, PageRequest.of(page, size));
         }
         MakePagedTestResults(model, testResults);
 
@@ -97,8 +97,8 @@ public class TestResultController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
-    @GetMapping("/test-results/{id}/edit")
-    public String testResultEdit(Model model, @PathVariable(value = "id") String id) {
+    @GetMapping("/test-results/{id}/finish")
+    public String testResultFinish(Model model, @PathVariable(value = "id") String id) {
 
         // load test result
         TestResultImp testResult = testResultService.findById(id);
@@ -110,15 +110,19 @@ public class TestResultController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
-    @PostMapping("/test-results/{id}/edit")
-    public String testResultEdit(Model model,
-                                 @ModelAttribute("testResult") TestResultImp testResultForm,
-                                 @RequestParam("file") MultipartFile[] files,
-                                 BindingResult bindingResult,
-                                 @PathVariable(value = "id") String id) {
+    @PostMapping("/test-results/{id}/finish")
+    public String testResultFinish(Model model,
+                                   @ModelAttribute("testResult") TestResultImp testResultForm,
+                                   @RequestParam("file") MultipartFile[] files,
+                                   BindingResult bindingResult,
+                                   @PathVariable(value = "id") String id) {
 
-        // load test result
+        // load, finish and save test result
+        Date currentDate = new Date();
         TestResultImp testResult = testResultService.findById(id);
+        testResult.setTestResultStatus(TestResultStatus.DONE);
+        testResult.setFinishedAt(currentDate);
+        // TODO: pridat reward to user
 
         testResultService.save(testResult);
         return "redirect:/test-results/" + testResult.getId();
