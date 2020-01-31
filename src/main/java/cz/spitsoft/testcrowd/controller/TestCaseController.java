@@ -229,6 +229,7 @@ public class TestCaseController {
                 uploadedFiles.add(fileStorageService.saveFile(file, testCase.getId()));
             }
         }
+
         if (!uploadedFiles.isEmpty()) {
             testCase.setFiles(uploadedFiles);
         }
@@ -252,13 +253,20 @@ public class TestCaseController {
             return "error/error-401";
         }
 
+        List<FileImp> filesToDelete = testCase.getFiles();
+
         // delete test case and return test case list
         testCaseService.delete(testCase);
-        return "redirect:/test-cases";
 
+        // delete test case files
+        for (FileImp file : filesToDelete) {
+            fileStorageService.deleteFile(file);
+        }
+
+        return "redirect:/test-cases";
     }
 
-    @GetMapping("/test-cases/{testCaseId}/{fileId}")
+    @GetMapping("/test-cases/{testCaseId}/download/{fileId}")
     public @ResponseBody
     void downloadFile(@PathVariable String testCaseId, @PathVariable String fileId, HttpServletResponse response) {
         // Load file from database
@@ -274,5 +282,23 @@ public class TestCaseController {
         } catch (IOException ex) {
             throw new RuntimeException("Error writing file to output stream. Filename was " + file.getFileName(), ex);
         }
+    }
+
+    @GetMapping("/test-cases/{testCaseId}/delete/{fileId}")
+    public String deleteFile(@PathVariable String testCaseId, @PathVariable String fileId) {
+        // Load file from database
+        FileImp file = fileStorageService.getFile(fileId);
+        TestCaseImp testCase = testCaseService.findById(testCaseId);
+
+        // process files
+        List<FileImp> uploadedFiles = testCase.getFiles();
+        uploadedFiles.remove(file);
+        testCase.setFiles(uploadedFiles);
+
+        testCaseService.save(testCase);
+
+        fileStorageService.deleteFile(file);
+
+        return "redirect:/test-cases/" + testCaseId + "/edit";
     }
 }

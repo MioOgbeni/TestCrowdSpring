@@ -54,4 +54,14 @@ public class FileServiceImp implements FileService {
         return fileRepository.findById(fileId)
                 .orElseThrow(() -> new RuntimeException("File not found with id " + fileId));
     }
+
+    public void deleteFile(FileImp file) {
+        File fileToDelete = new File(file.getFilePath() + File.separator + file.getFileName());
+
+        if (fileToDelete.exists()) {
+            fileToDelete.delete();
+        }
+
+        fileRepository.delete(file);
+    }
 }

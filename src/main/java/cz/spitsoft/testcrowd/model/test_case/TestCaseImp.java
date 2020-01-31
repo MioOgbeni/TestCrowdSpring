@@ -63,7 +63,7 @@ public class TestCaseImp extends BaseEntity implements TestCase {
     @Range(min = 1, max = 1000000, message = "{testCase.reward.invalid}")
     private int reward;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, targetEntity = FileImp.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = FileImp.class)
     private List<FileImp> files;
 
     @Column(name = "CREATED_AT")
@@ -80,7 +80,7 @@ public class TestCaseImp extends BaseEntity implements TestCase {
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date availableTo;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, targetEntity = ReviewImp.class)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = ReviewImp.class)
     private List<ReviewImp> reviews;
 
     @Column(name = "RATING")

@@ -134,6 +134,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Created At</th>
                                         <th scope="col"></th>
+                                        <th scope="col"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -144,13 +145,19 @@
                                         </td>
                                         <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
                                                class="btn btn-primary"
-                                               th:href="@{'/test-cases/' + ${testCase.id} + '/' + ${file.id}}"> <i
+                                               th:href="@{'/test-cases/' + ${testCase.id} + '/download/' + ${file.id}}">
+                                            <i
                                                 class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
+                                        <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
+                                               class="btn btn-danger"
+                                               th:href="@{'/test-cases/' + ${testCase.id} + '/delete/' + ${file.id}}">
+                                            <i
+                                                    class="fas fa-trash fa-sm mr-2 text-gray-400"></i>Delete</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <label for="file">File</label>
-                                <input type="file" class="form-control-file" id="file" name="file">
+                                <input type="file" class="form-control-file" id="file" name="file" multiple>
                             </div>
                         </div>
                     </div>

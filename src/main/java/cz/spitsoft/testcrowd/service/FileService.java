@@ -7,4 +7,6 @@ public interface FileService {
     FileImp saveFile(MultipartFile file, String testCaseId);
 
     FileImp getFile(String fileId);
+
+    void deleteFile(FileImp file);
 }
