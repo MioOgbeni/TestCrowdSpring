@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface TestResult {
 
+    String getDescription();
+
+    void setDescription(String description);
+
     TestCaseImp getTestCase();
 
     void setTestCase(TestCaseImp testCase);
@@ -23,6 +27,10 @@ public interface TestResult {
     TestResultStatus getTestResultStatus();
 
     void setTestResultStatus(TestResultStatus testResultStatus);
+
+    int getReward();
+
+    void setReward(int reward);
 
     Date getTakenAt();
 

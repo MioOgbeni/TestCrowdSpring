@@ -4,10 +4,12 @@ import cz.spitsoft.testcrowd.model.BaseEntity;
 import cz.spitsoft.testcrowd.model.file.FileImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.hibernate.annotations.Target;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,10 @@ import java.util.List;
 })
 @Table(name = "TBL_TEST_RESULTS")
 public class TestResultImp extends BaseEntity implements TestResult {
+
+    @Column(name = "DESCRIPTION")
+    @Size(max = 240, message = "{testResult.description.invalid}")
+    private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEST_CASE")
@@ -38,6 +44,10 @@ public class TestResultImp extends BaseEntity implements TestResult {
     @NotNull
     private TestResultStatus testResultStatus;
 
+    @Column(name = "REWARD")
+    @Range(min = 1, max = 1000000, message = "{testResult.reward.invalid}")
+    private int reward;
+
     @Column(name = "TAKEN_AT")
     @NotNull
     private Date takenAt;
@@ -49,14 +59,26 @@ public class TestResultImp extends BaseEntity implements TestResult {
         super();
     }
 
-    public TestResultImp(TestCaseImp testCase, UserImp user, List<FileImp> files, TestResultStatus testResultStatus, Date takenAt, Date finishedAt) {
+    public TestResultImp(String description, TestCaseImp testCase, UserImp user, List<FileImp> files, TestResultStatus testResultStatus, int reward, Date takenAt, Date finishedAt) {
         super();
+        this.description = description;
         this.testCase = testCase;
         this.user = user;
         this.files = files;
         this.testResultStatus = testResultStatus;
+        this.reward = reward;
         this.takenAt = takenAt;
         this.finishedAt = finishedAt;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -97,6 +119,16 @@ public class TestResultImp extends BaseEntity implements TestResult {
     @Override
     public void setTestResultStatus(TestResultStatus testResultStatus) {
         this.testResultStatus = testResultStatus;
+    }
+
+    @Override
+    public int getReward() {
+        return reward;
+    }
+
+    @Override
+    public void setReward(int reward) {
+        this.reward = reward;
     }
 
     @Override
