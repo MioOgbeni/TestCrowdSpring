@@ -25,7 +25,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">CANCELLED!</h1>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back"
+                       th:href="@{'/users/current'}"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand custom-heading text-danger font-weight-bolder">CANCELLED!</h1>
+                </nav>
                 <p>Your transaction was canceled or timeout.</p>
                 <a class="btn btn-primary" th:href="@{'/users/current'}">
                     <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Go back to account detail</a>

@@ -25,11 +25,28 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <div class="top-left-action-buttons-with-title">
-                    <a class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">
-                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Go to user list</a>
-                    <h1 class="h3 mb-4 text-gray-800">User detail</h1>
-                </div>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back"
+                       th:href="@{/users}" sec:authorize="hasAuthority('ADMIN')"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand text-gray-800 custom-heading">User detail</h1>
+                    <ul class="navbar-nav ml-auto custom-buttons">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary"
+                               th:if="${user.username == #authentication.name}"
+                               sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
+                               th:href="@{'/users/' + ${user.id} + '/recharge-credit'}">
+                                <i class="fas fa-dollar-sign fa-sm mr-2 text-gray-400"></i> Recharge credit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">
+                                <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" th:href="@{'/users/' + ${user.id} + '/delete'}">
+                                <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
+                        </li>
+                    </ul>
+                </nav>
                 <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
                 <p><strong>Role type:</strong> <span th:text="${user.roleType}"></span></p>
                 <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
@@ -37,16 +54,6 @@
                 <p><strong>First name:</strong> <span th:text="${user.firstName}"></span></p>
                 <p><strong>Last name:</strong> <span th:text="${user.lastName}"></span></p>
                 <p><strong>Account balance:</strong> <span th:text="${user.accountBalance}"></span> Kr</p>
-                <hr>
-                <div class="action-buttons">
-                    <a class="btn btn-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">
-                        <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
-                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
-                       class="btn btn-primary" th:href="@{'/users/' + ${user.id} + '/recharge-credit'}">
-                        <i class="fas fa-dollar-sign fa-sm mr-2 text-gray-400"></i> Recharge credit</a>
-                    <a class="btn btn-danger" th:href="@{'/users/' + ${user.id} + '/delete'}">
-                        <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
-                </div>
 
             </div>
         </div>

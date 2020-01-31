@@ -25,7 +25,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">User list</h1>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back" th:href="@{/}">
+                        <i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand text-gray-800 custom-heading">User list</h1>
+                </nav>
                 <div th:switch="${users}">
                     <div th:case="null">No test cases yet!</div>
                     <div th:case="*">
