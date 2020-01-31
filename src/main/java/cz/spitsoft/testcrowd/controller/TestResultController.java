@@ -8,13 +8,19 @@ import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.TestCaseService;
 import cz.spitsoft.testcrowd.service.TestResultService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class TestResultController {
@@ -28,9 +34,38 @@ public class TestResultController {
     @Autowired
     private TestCaseService testCaseService;
 
+    private void MakePagedTestResults(Model model, Page<TestResultImp> testResults) {
+        model.addAttribute("testResults", testResults);
+
+        int totalPages = testResults.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(0, totalPages - 1)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pages", pageNumbers);
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @GetMapping("/test-results")
+    public String testResultList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        UserImp currentUser = securityService.getCurrentUser();
+        Page<TestResultImp> testResults;
+        if (securityService.isCurrentUserTester()) {
+            testResults = testResultService.findByUser(currentUser, PageRequest.of(page, size));
+        } else {
+            testResults = testResultService.findAll(PageRequest.of(page, size));
+        }
+        MakePagedTestResults(model, testResults);
+
+        return "test-result/test-result-list";
+
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/test-cases/{testCaseId}/take")
-    public String testCaseDetail(Model model, @PathVariable(value = "testCaseId") String testCaseId) {
+    public String testResultAdd(Model model, @PathVariable(value = "testCaseId") String testCaseId) {
 
         // create test result
         TestCaseImp testCase = testCaseService.findById(testCaseId);
@@ -42,10 +77,64 @@ public class TestResultController {
         testResult.setTestResultStatus(TestResultStatus.TAKEN);
         testResult.setTakenAt(currentDate);
 
-        // save test result and return his detail
-        testResultService.save(testResult);
+        // save test result and redirect to his detail
+        TestResultImp result = testResultService.save(testResult);
+        return "redirect:/test-results/" + result.getId();
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
+    @GetMapping("/test-results/{id}")
+    public String testResultDetail(Model model, @PathVariable(value = "id") String id) {
+
+        // load test result
+        TestResultImp testResult = testResultService.findById(id);
+
+        // return test result detail
         model.addAttribute("testResult", testResult);
         return "test-result/test-result-detail";
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
+    @GetMapping("/test-results/{id}/edit")
+    public String testResultEdit(Model model, @PathVariable(value = "id") String id) {
+
+        // load test result
+        TestResultImp testResult = testResultService.findById(id);
+
+        // return test result edit form
+        model.addAttribute("testResult", testResult);
+        return "test-result/test-result-edit";
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
+    @PostMapping("/test-results/{id}/edit")
+    public String testResultEdit(Model model,
+                                 @ModelAttribute("testResult") TestResultImp testResultForm,
+                                 @RequestParam("file") MultipartFile[] files,
+                                 BindingResult bindingResult,
+                                 @PathVariable(value = "id") String id) {
+
+        // load test result
+        TestResultImp testResult = testResultService.findById(id);
+
+        testResultService.save(testResult);
+        return "redirect:/test-results/" + testResult.getId();
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
+    @GetMapping("/test-results/{id}/delete")
+    public String testResultDelete(Model model, @PathVariable(value = "id") String id) {
+
+        // load test result
+        TestResultImp testResult = testResultService.findById(id);
+
+        // delete test result and return test result list
+        testResultService.delete(testResult);
+        return "redirect:/test-results";
 
     }
 

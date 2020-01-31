@@ -102,24 +102,6 @@ public class TestCaseController {
 
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
-    @GetMapping("/test-cases/{id}")
-    public String testCaseDetail(Model model, @PathVariable(value = "id") String id) {
-
-        // load test case
-        TestCaseImp testCase = testCaseService.findById(id);
-
-        // check if user is author of test case or admin
-        if (!testCaseService.isCurrentUserAuthorOrTester(testCase)) {
-            return "error/error-401";
-        }
-
-        // return test case detail
-        model.addAttribute("testCase", testCase);
-        return "test-case/test-case-detail";
-
-    }
-
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")
     @GetMapping("/test-cases/add")
     public String testCaseAdd(Model model) {
@@ -164,6 +146,24 @@ public class TestCaseController {
         testCase.setCreatedBy(securityService.getCurrentUser());
         testCaseService.save(testCase);
         return "redirect:/test-cases";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @GetMapping("/test-cases/{id}")
+    public String testCaseDetail(Model model, @PathVariable(value = "id") String id) {
+
+        // load test case
+        TestCaseImp testCase = testCaseService.findById(id);
+
+        // check if user is author of test case or admin
+        if (!testCaseService.isCurrentUserAuthorOrTester(testCase)) {
+            return "error/error-401";
+        }
+
+        // return test case detail
+        model.addAttribute("testCase", testCase);
+        return "test-case/test-case-detail";
+
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER')")

@@ -1,10 +1,10 @@
 package cz.spitsoft.testcrowd.repository;
 
+import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNullApi;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nonnull;
@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<UserImp, UUID> {
     List<UserImp> findAll();
 
     @Nonnull
-    Page<UserImp> findAll(Pageable pageable);
+    Page<UserImp> findAll(@Nonnull Pageable pageable);
 
     UserImp findById(String id);
 

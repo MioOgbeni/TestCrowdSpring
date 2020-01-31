@@ -1,6 +1,7 @@
 package cz.spitsoft.testcrowd.service;
 
 import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
+import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.TestResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,13 +22,13 @@ public class TestResultServiceImp implements TestResultService {
     }
 
     @Override
-    public void save(TestResultImp testCase) {
-        testResultRepository.save(testCase);
+    public TestResultImp save(TestResultImp testResult) {
+        return testResultRepository.save(testResult);
     }
 
     @Override
-    public void delete(TestResultImp testCase) {
-        testResultRepository.delete(testCase);
+    public void delete(TestResultImp testResult) {
+        testResultRepository.delete(testResult);
     }
 
     @Override
@@ -38,6 +39,11 @@ public class TestResultServiceImp implements TestResultService {
     @Override
     public Page<TestResultImp> findAll(Pageable pageable) {
         return testResultRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<TestResultImp> findByUser(UserImp user, Pageable pageable) {
+        return testResultRepository.findByUser(user, pageable);
     }
 
     @Override
