@@ -24,13 +24,13 @@ public class TestResultImp extends BaseEntity implements TestResult {
     @Size(max = 240, message = "{testResult.description.invalid}")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "TEST_CASE")
     @Target(TestCaseImp.class)
     @NotNull
     private TestCaseImp testCase;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "TEST_RESULT_USER")
     @Target(UserImp.class)
     @NotNull
