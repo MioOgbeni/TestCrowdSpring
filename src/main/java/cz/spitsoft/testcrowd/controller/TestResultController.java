@@ -87,6 +87,25 @@ public class TestResultController {
 
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @GetMapping("/test-cases/{testCaseId}/test-results")
+    public String testCaseTestResultList(Model model, @PathVariable(value = "testCaseId") String testCaseId, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        Page<TestResultImp> testResults;
+        TestCaseImp currentTestCase = testCaseService.findById(testCaseId);
+        if (securityService.isCurrentUserAdmin()) {
+            testResults = testResultService.findByTestCase(currentTestCase, PageRequest.of(page, size));
+        } else {
+            UserImp currentUser = securityService.getCurrentUser();
+            testResults = testResultService.findByTestCaseAndUser(currentTestCase, currentUser, PageRequest.of(page, size));
+        }
+        MakePagedTestResults(model, testResults);
+        model.addAttribute("testCase", currentTestCase);
+
+        return "test-result/test-result-list";
+
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN', 'TESTER')")
     @GetMapping("/test-results/{id}")
     public String testResultDetail(Model model, @PathVariable(value = "id") String id) {

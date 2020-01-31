@@ -51,7 +51,7 @@
 
                 <div class="table-responsive-md">
                     <table class="table">
-                        <thead class="thead-dark">
+                        <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Created At</th>
@@ -62,10 +62,9 @@
                         <tr th:each="file : ${testCase.files}">
                             <td><span th:text="${file.fileName}"></span></td>
                             <td><span th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span></td>
-                            <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER', 'REPORTER')}"
-                                   class="btn btn-primary"
-                                   th:href="@{'/test-cases/' + ${testCase.id} + '/' + ${file.id}}"> <i
-                                    class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
+                            <td><a class="btn btn-primary"
+                                   th:href="@{'/test-cases/' + ${testCase.id} + '/' + ${file.id}}">
+                                <i class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -79,6 +78,9 @@
                        th:text="${testCase.createdBy.getUsername()}"></a>
                 </p>
                 <div class="action-buttons">
+                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-primary"
+                       th:href="@{'/test-cases/' + ${testCase.id} + '/test-results'}">
+                        <i class="fas fa-poll fa-sm mr-2 text-gray-400"></i> Show results</a>
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
                        th:href="@{'/test-cases/' + ${testCase.id} + '/take'}">
                         <i class="fas fa-arrow-alt-circle-down fa-sm mr-2 text-gray-400"></i> Take test case</a>

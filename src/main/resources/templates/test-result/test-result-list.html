@@ -25,7 +25,13 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                <nav th:if="${testCase}" class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back"
+                       th:href="@{'/test-cases/' + ${testCase.id}}"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand text-gray-800 custom-heading"
+                        th:text="'Results of test case ' + ${testCase.name}"></h1>
+                </nav>
+                <nav th:if="${testCase == null}" class="navbar navbar-expand custom-heading-with-buttons">
                     <h1 class="navbar-brand text-gray-800 custom-heading">Test result list</h1>
                 </nav>
                 <div th:switch="${testResults.getNumberOfElements()}">

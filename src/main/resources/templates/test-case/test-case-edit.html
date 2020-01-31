@@ -126,31 +126,34 @@
                                    th:if="${#fields.hasErrors('availableTo')}"
                                    th:errors="*{availableTo}">Error</small>
                         </div>
-                        <div class="table-responsive-md">
-                            <table class="table">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Created At</th>
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="file : ${testCase.files}">
-                                    <td><span th:text="${file.fileName}"></span></td>
-                                    <td><span th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
-                                    </td>
-                                    <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
-                                           class="btn btn-primary"
-                                           th:href="@{'/test-cases/' + ${testCase.id} + '/' + ${file.id}}"> <i
-                                            class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6 form-group custom-file">
-                            <input type="file" class="custom-file-input" id="file" name="file">
-                            <label class="custom-file-label" for="file">Choose file</label>
+                        <div class="col-md-12 form-group">
+                            <div class="table-responsive-md">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="file : ${testCase.files}">
+                                        <td><span th:text="${file.fileName}"></span></td>
+                                        <td><span
+                                                th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
+                                        </td>
+                                        <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
+                                               class="btn btn-primary"
+                                               th:href="@{'/test-cases/' + ${testCase.id} + '/' + ${file.id}}"> <i
+                                                class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file" name="file">
+                                    <label class="custom-file-label" for="file">Choose file</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group action-buttons">

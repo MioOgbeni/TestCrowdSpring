@@ -1,5 +1,6 @@
 package cz.spitsoft.testcrowd.repository;
 
+import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,10 @@ public interface TestResultRepository extends JpaRepository<TestResultImp, UUID>
     Page<TestResultImp> findAll(@Nonnull Pageable pageable);
 
     Page<TestResultImp> findByUser(UserImp user, Pageable pageable);
+
+    Page<TestResultImp> findByTestCase(TestCaseImp testCase, Pageable pageable);
+
+    Page<TestResultImp> findByTestCaseAndUser(TestCaseImp testCase, UserImp user, Pageable pageable);
 
     TestResultImp findById(String id);
 

@@ -22,6 +22,10 @@ public interface TestResultService {
 
     Page<TestResultImp> findByUser(UserImp user, Pageable pageable);
 
+    Page<TestResultImp> findByTestCase(TestCaseImp testCase, Pageable pageable);
+
+    Page<TestResultImp> findByTestCaseAndUser(TestCaseImp testCase, UserImp user, Pageable pageable);
+
     TestResultImp findById(String id);
 
 }

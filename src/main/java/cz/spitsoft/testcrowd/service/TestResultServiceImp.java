@@ -1,5 +1,6 @@
 package cz.spitsoft.testcrowd.service;
 
+import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.repository.TestResultRepository;
@@ -44,6 +45,16 @@ public class TestResultServiceImp implements TestResultService {
     @Override
     public Page<TestResultImp> findByUser(UserImp user, Pageable pageable) {
         return testResultRepository.findByUser(user, pageable);
+    }
+
+    @Override
+    public Page<TestResultImp> findByTestCase(TestCaseImp testCase, Pageable pageable) {
+        return testResultRepository.findByTestCase(testCase, pageable);
+    }
+
+    @Override
+    public Page<TestResultImp> findByTestCaseAndUser(TestCaseImp testCase, UserImp user, Pageable pageable) {
+        return testResultRepository.findByTestCaseAndUser(testCase, user, pageable);
     }
 
     @Override
