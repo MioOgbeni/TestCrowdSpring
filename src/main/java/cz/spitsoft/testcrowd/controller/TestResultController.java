@@ -6,6 +6,7 @@ import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.*;
+import cz.spitsoft.testcrowd.validator.TestResultValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,9 @@ public class TestResultController {
 
     @Autowired
     private TestResultService testResultService;
+
+    @Autowired
+    private TestResultValidator testResultValidator;
 
     @Autowired
     private TestCaseService testCaseService;
@@ -141,6 +145,12 @@ public class TestResultController {
                                    @RequestParam("file") MultipartFile[] files,
                                    BindingResult bindingResult,
                                    @PathVariable(value = "id") String id) {
+
+        // validate test case
+        testResultValidator.validate(testResultForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "test-result/test-result-edit";
+        }
 
         // load, finish and save test result
         Date currentDate = new Date();
