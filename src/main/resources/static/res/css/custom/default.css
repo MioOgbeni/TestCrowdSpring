@@ -52,6 +52,14 @@ body .table tr:active,
 body .table tr:focus {
   background: #eee;
 }
+body h1,
+body h2,
+body h3,
+body h4 {
+  margin-top: 1rem;
+  color: #5a5c69;
+  font-weight: 400;
+}
 body .pagination {
   float: right;
 }
@@ -111,5 +119,18 @@ body .display-block {
 }
 body svg.fa-star.checked {
   color: #4e73df;
+}
+body .reviews .row {
+  margin-bottom: 1rem;
+}
+body .reviews .row .thumbnail {
+  padding: 0;
+}
+body .reviews .row .username a {
+  color: #5a5c69;
+  text-decoration: none;
+}
+body .reviews .row .username a:hover {
+  text-decoration: underline;
 }
 /*# sourceMappingURL=default.css.map */

@@ -65,6 +65,13 @@ body {
     }
   }
 
+
+  h1, h2, h3, h4 {
+    margin-top: 1rem;
+    color: #5a5c69;
+    font-weight: 400;
+  }
+
   .pagination {
     float: right;
   }
@@ -139,6 +146,27 @@ body {
 
   svg.fa-star.checked {
     color: #4e73df;
+  }
+
+  .reviews {
+    .row {
+      margin-bottom: 1rem;
+
+      .thumbnail {
+        padding: 0;
+      }
+
+      .username {
+        a {
+          color: #5a5c69;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 
 }

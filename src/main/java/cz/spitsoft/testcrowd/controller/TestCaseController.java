@@ -1,6 +1,7 @@
 package cz.spitsoft.testcrowd.controller;
 
 import cz.spitsoft.testcrowd.model.file.FileImp;
+import cz.spitsoft.testcrowd.model.review.ReviewImp;
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
@@ -164,6 +165,7 @@ public class TestCaseController {
 
         // return test case detail
         model.addAttribute("testCase", testCase);
+        model.addAttribute("review", new ReviewImp());
         return "test-case/test-case-detail";
 
     }

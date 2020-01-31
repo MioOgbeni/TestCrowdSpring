@@ -80,8 +80,8 @@
                     <span th:text="${#dates.format(testCase.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
                 <p><strong>Created by:</strong>
-                    <a th:href="@{'/users/' + ${testCase.createdBy.getId()}}"
-                       th:text="${testCase.createdBy.getUsername()}"></a>
+                    <a th:href="@{'/users/' + ${testCase.createdBy.id}}"
+                       th:text="${testCase.createdBy.username}"></a>
                 </p>
                 <div class="action-buttons">
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-primary"
@@ -91,6 +91,65 @@
                        th:href="@{'/test-cases/' + ${testCase.id} + '/take'}">
                         <i class="fas fa-arrow-alt-circle-down fa-sm mr-2 text-gray-400"></i> Take test case</a>
                 </div>
+                <hr>
+                <h2>Reviews</h2>
+                <div class="reviews">
+                    <div class="row" th:each="review : ${testCase.reviews}">
+                        <div class="col-sm-2">
+                            <div class="thumbnail">
+                                <a th:href="@{'/users/' + ${review.createdBy.id}}">
+                                    <img class="img-responsive user-photo" src="/res/img/user-placeholder.png"/></a>
+                            </div>
+                            <div class="username">
+                                <a th:href="@{'/users/' + ${review.createdBy.id}}"
+                                   th:text="${review.createdBy.username}"></a></div>
+                        </div>
+
+                        <div class="col-sm-10">
+                            <div class="panel panel-default">
+                                <div><span class="fa fa-star"
+                                           th:each="i : ${#numbers.sequence(1, 5, 1)}"
+                                           th:classappend="${review.rating >= i} ? 'checked' : ''"></span></div>
+                                <div><span th:text="${#dates.format(review.createdAt, 'MM/dd/yyyy HH:mm:ss')}"
+                                           class="text-muted"></span></div>
+                                <div class="panel-body" th:text="${review.content}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3>Add new review</h3>
+                <form th:action="@{'/test-cases/' + ${testCase.id} + '/add-review'}" th:object="${review}"
+                      method="post">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="rating">Rating</label>
+                            <input class="form-control"
+                                   type="number"
+                                   min="1"
+                                   max="5"
+                                   id="rating"
+                                   th:field="*{rating}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('rating')}"
+                                   th:errors="*{rating}">Error</small>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="reviewContent">Content</label>
+                            <input class="form-control"
+                                   type="text"
+                                   id="reviewContent"
+                                   th:field="*{content}"/>
+                            <small class="text-danger"
+                                   th:if="${#fields.hasErrors('content')}"
+                                   th:errors="*{content}">Error</small>
+                        </div>
+                    </div>
+                    <div class="form-group action-buttons">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save fa-sm mr-2 text-gray-400"></i> Add
+                        </button>
+                    </div>
+                </form>
 
             </div>
         </div>

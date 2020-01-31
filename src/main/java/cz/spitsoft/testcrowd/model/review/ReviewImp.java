@@ -3,10 +3,10 @@ package cz.spitsoft.testcrowd.model.review;
 import cz.spitsoft.testcrowd.model.BaseEntity;
 import cz.spitsoft.testcrowd.model.user.UserImp;
 import org.hibernate.annotations.Target;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -23,15 +23,15 @@ public class ReviewImp extends BaseEntity implements Review {
     private String content;
 
     @Column(name = "RATING")
-    @Size(min = 1, max = 5, message = "{review.rating.invalid}")
-    @NotEmpty
+    @Range(min = 1, max = 5, message = "{review.rating.invalid}")
+    @NotNull
     private int rating;
 
     @Column(name = "CREATED_AT")
     @NotNull
     private Date createdAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "CREATED_BY")
     @Target(UserImp.class)
     @NotNull
