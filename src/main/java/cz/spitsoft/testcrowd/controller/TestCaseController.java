@@ -76,7 +76,6 @@ public class TestCaseController {
 
     private void MakePagedTestCases(Model model, Page<TestCaseImp> testCases) {
         model.addAttribute("testCases", testCases);
-
         int totalPages = testCases.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(0, totalPages - 1)
@@ -90,6 +89,7 @@ public class TestCaseController {
     @GetMapping("/test-cases")
     public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
 
+        // get test cases by user role
         UserImp currentUser = securityService.getCurrentUser();
         Page<TestCaseImp> testCases;
         if (securityService.isCurrentUserReporter()) {
@@ -133,6 +133,7 @@ public class TestCaseController {
         Date currentDate = new Date();
         testCase.setTestStatus(TestStatus.AVAILABLE);
 
+        // process files
         List<FileImp> uploadedFiles = new ArrayList<>();
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
@@ -219,13 +220,16 @@ public class TestCaseController {
         testCase.setTestCategory(testCaseForm.getTestCategory());
         testCase.setSoftwareType(testCaseForm.getSoftwareType());
 
+        // process files
         List<FileImp> uploadedFiles = testCase.getFiles();
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
                 uploadedFiles.add(fileStorageService.saveFile(file, testCase.getId()));
             }
         }
-        testCase.setFiles(uploadedFiles);
+        if (!uploadedFiles.isEmpty()) {
+            testCase.setFiles(uploadedFiles);
+        }
 
         testCase.setReward(testCaseForm.getReward());
         testCase.setAvailableTo(testCaseForm.getAvailableTo());

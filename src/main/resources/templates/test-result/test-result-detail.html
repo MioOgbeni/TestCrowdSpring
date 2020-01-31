@@ -43,6 +43,24 @@
                 <p><strong>Finished at:</strong>
                     <span th:text="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="file : ${testResult.files}">
+                        <td><span th:text="${file.fileName}"></span></td>
+                        <td><span th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span></td>
+                        <td><a class="btn btn-primary"
+                               th:href="@{'/test-cases/' + ${testResult.id} + '/' + ${file.id}}">
+                            <i class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
+                    </tr>
+                    </tbody>
+                </table>
                 <div class="action-buttons">
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
                        th:href="@{'/test-results/' + ${testResult.id} + '/finish'}">

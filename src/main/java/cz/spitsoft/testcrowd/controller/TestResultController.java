@@ -1,9 +1,11 @@
 package cz.spitsoft.testcrowd.controller;
 
+import cz.spitsoft.testcrowd.model.file.FileImp;
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
+import cz.spitsoft.testcrowd.service.FileService;
 import cz.spitsoft.testcrowd.service.SecurityService;
 import cz.spitsoft.testcrowd.service.TestCaseService;
 import cz.spitsoft.testcrowd.service.TestResultService;
@@ -33,6 +35,9 @@ public class TestResultController {
 
     @Autowired
     private TestCaseService testCaseService;
+
+    @Autowired
+    private FileService fileStorageService;
 
     private void MakePagedTestResults(Model model, Page<TestResultImp> testResults) {
         model.addAttribute("testResults", testResults);
@@ -142,10 +147,24 @@ public class TestResultController {
 
         // load, finish and save test result
         Date currentDate = new Date();
+        UserImp currentUser = securityService.getCurrentUser();
         TestResultImp testResult = testResultService.findById(id);
+        testResult.setDescription(testResultForm.getDescription());
+
+        // process files
+        List<FileImp> uploadedFiles = testResult.getFiles();
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                uploadedFiles.add(fileStorageService.saveFile(file, testResult.getId()));
+            }
+        }
+        if (!uploadedFiles.isEmpty()) {
+            testResult.setFiles(uploadedFiles);
+        }
+
         testResult.setTestResultStatus(TestResultStatus.DONE);
+        currentUser.setAccountBalance(currentUser.getAccountBalance() + testResult.getReward());
         testResult.setFinishedAt(currentDate);
-        // TODO: pridat reward k user
 
         testResultService.save(testResult);
         return "redirect:/test-results/" + testResult.getId();
