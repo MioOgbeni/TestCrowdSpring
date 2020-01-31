@@ -8,16 +8,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface TestCaseRepository extends JpaRepository<TestCaseImp, UUID> {
 
+    @Nonnull
     List<TestCaseImp> findAll();
 
-    Page<TestCaseImp> findAll(Pageable pageable);
+    @Nonnull
+    Page<TestCaseImp> findAll(@Nonnull Pageable pageable);
 
     Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable);
 
