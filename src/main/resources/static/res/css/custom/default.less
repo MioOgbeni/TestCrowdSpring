@@ -69,29 +69,55 @@ body {
     float: right;
   }
 
-  .top-left-action-buttons-with-title {
-    h1 {
-      margin: 1rem 0 0;
+  .custom-heading-with-buttons {
+    display: block;
+    padding: 0;
+    margin-bottom: 1rem;
+
+    .custom-back-btn {
+      margin-top: -1rem;
+    }
+
+    .custom-heading {
+      display: inline-block;
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .custom-buttons {
+      display: block;
+      margin: 1rem 0;
+
+      .nav-item {
+        display: inline-block;
+        margin: .5rem .5rem .5rem 0;
+
+        .nav-link {
+          padding: .375rem .75rem;
+        }
+      }
     }
   }
 
-  @media (min-width: 576px) {
-    .top-left-action-buttons-with-title {
-      h1 {
-        margin: .2rem 0 0;
-        display: inline-block;
+  @media (min-width: 992px) {
+    .custom-heading-with-buttons {
+      display: flex;
+
+      .custom-back-btn {
+        margin-top: 0;
       }
 
-      .btn {
-        float: left;
-        margin-right: 1.2rem;
-      }
-    }
+      .custom-buttons {
+        display: flex;
+        margin: 0;
 
-    .top-right-action-buttons {
-      display: inline-block;
-      float: right;
-      margin-top: -3.2rem;
+        .nav-item {
+          margin: 0 .5rem 0 0;
+        }
+      }
     }
   }
 

@@ -55,22 +55,46 @@ body .table tr:focus {
 body .pagination {
   float: right;
 }
-body .top-left-action-buttons-with-title h1 {
-  margin: 1rem 0 0;
+body .custom-heading-with-buttons {
+  display: block;
+  padding: 0;
+  margin-bottom: 1rem;
 }
-@media (min-width: 576px) {
-  body .top-left-action-buttons-with-title h1 {
-    margin: 0.2rem 0 0;
-    display: inline-block;
+body .custom-heading-with-buttons .custom-back-btn {
+  margin-top: -1rem;
+}
+body .custom-heading-with-buttons .custom-heading {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
+body .custom-heading-with-buttons .custom-buttons {
+  display: block;
+  margin: 1rem 0;
+}
+body .custom-heading-with-buttons .custom-buttons .nav-item {
+  display: inline-block;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
+body .custom-heading-with-buttons .custom-buttons .nav-item .nav-link {
+  padding: 0.375rem 0.75rem;
+}
+@media (min-width: 992px) {
+  body .custom-heading-with-buttons {
+    display: flex;
   }
-  body .top-left-action-buttons-with-title .btn {
-    float: left;
-    margin-right: 1.2rem;
+  body .custom-heading-with-buttons .custom-back-btn {
+    margin-top: 0;
   }
-  body .top-right-action-buttons {
-    display: inline-block;
-    float: right;
-    margin-top: -3.2rem;
+  body .custom-heading-with-buttons .custom-buttons {
+    display: flex;
+    margin: 0;
+  }
+  body .custom-heading-with-buttons .custom-buttons .nav-item {
+    margin: 0 0.5rem 0 0;
   }
 }
 body .action-buttons {
