@@ -25,11 +25,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <div class="top-left-action-buttons-with-title">
-                    <a class="btn btn-primary" th:href="@{/test-results}">
-                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
-                    <h1 class="h3 mb-4 text-gray-800">Test result detail</h1>
-                </div>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back"
+                       th:href="@{/test-results}"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand text-gray-800 custom-heading">Test result detail</h1>
+                </nav>
                 <p><strong>ID:</strong> <span th:text="${testResult.id}"></span></p>
                 <p><strong>Test case:</strong> <span th:text="${testResult.testCase.name}"></span></p>
                 <p><strong>User:</strong>
@@ -43,14 +43,13 @@
                 <p><strong>Finished at:</strong>
                     <span th:text="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
-                <hr>
                 <div class="action-buttons">
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
                        th:href="@{'/test-results/' + ${testResult.id} + '/finish'}">
-                        <i class="fas fa-check fa-sm mr-2 text-gray-400"></i> Finish</a>
+                        <i class="fas fa-check mr-2 text-gray-400"></i> Finish</a>
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-danger"
                        th:href="@{'/test-results/' + ${testResult.id} + '/delete'}">
-                        <i class="fas fa-times fa-sm mr-2 text-gray-400"></i> Cancel</a>
+                        <i class="fas fa-times fa-lg mr-2 text-gray-400"></i> Cancel</a>
                 </div>
 
             </div>

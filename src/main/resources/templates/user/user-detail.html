@@ -31,13 +31,6 @@
                     <h1 class="navbar-brand text-gray-800 custom-heading">User detail</h1>
                     <ul class="navbar-nav ml-auto custom-buttons">
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary"
-                               th:if="${user.username == #authentication.name}"
-                               sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
-                               th:href="@{'/users/' + ${user.id} + '/recharge-credit'}">
-                                <i class="fas fa-dollar-sign fa-sm mr-2 text-gray-400"></i> Recharge credit</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link btn btn-primary" th:href="@{'/users/' + ${user.id} + '/edit'}">
                                 <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
                         </li>
@@ -54,6 +47,13 @@
                 <p><strong>First name:</strong> <span th:text="${user.firstName}"></span></p>
                 <p><strong>Last name:</strong> <span th:text="${user.lastName}"></span></p>
                 <p><strong>Account balance:</strong> <span th:text="${user.accountBalance}"></span> Kr</p>
+                <div class="action-buttons">
+                    <a class="btn btn-primary"
+                       th:if="${user.username == #authentication.name}"
+                       sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
+                       th:href="@{'/users/' + ${user.id} + '/recharge-credit'}">
+                        <i class="fas fa-dollar-sign fa-sm mr-2 text-gray-400"></i> Recharge credit</a>
+                </div>
 
             </div>
         </div>

@@ -25,11 +25,9 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">Test result list</h1>
-                <p class="top-right-action-buttons">
-                    <a class="btn btn-primary" th:href="@{/test-results/add}">
-                        <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add test result</a>
-                </p>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <h1 class="navbar-brand text-gray-800 custom-heading">Test result list</h1>
+                </nav>
                 <div th:switch="${testResults.getNumberOfElements()}">
                     <div th:case="0">There are no test results yet.</div>
                     <div th:case="*">

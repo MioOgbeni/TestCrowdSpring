@@ -135,6 +135,7 @@ public class TestResultController {
 
         // load test result
         TestResultImp testResult = testResultService.findById(id);
+        // TODO: pridat reward to original user
 
         // delete test result and return test result list
         testResultService.delete(testResult);

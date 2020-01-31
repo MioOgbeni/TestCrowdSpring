@@ -94,14 +94,14 @@ body .custom-heading-with-buttons .custom-buttons .nav-item .nav-link {
     margin: 0;
   }
   body .custom-heading-with-buttons .custom-buttons .nav-item {
-    margin: 0 0.5rem 0 0;
+    margin: 0 0 0 0.5rem;
   }
 }
 body .action-buttons {
-  margin: 1.5rem 0 0 -1rem;
+  margin: 0.5rem -0.25rem;
 }
 body .action-buttons .btn {
-  margin: 0 0 0 1rem;
+  margin: 0.5rem 0.25rem;
 }
 body .text-align-right {
   text-align: right;

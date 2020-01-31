@@ -25,11 +25,15 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <h1 class="h3 mb-4 text-gray-800">Test case list</h1>
-                <p class="top-right-action-buttons">
-                    <a class="btn btn-primary" th:href="@{/test-cases/add}">
-                        <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add test case</a>
-                </p>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <h1 class="navbar-brand text-gray-800 custom-heading">Test case list</h1>
+                    <ul class="navbar-nav ml-auto custom-buttons">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" th:href="@{/test-cases/add}">
+                                <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add new test case</a>
+                        </li>
+                    </ul>
+                </nav>
                 <div th:switch="${testCases.getNumberOfElements()}">
                     <div th:case="0">There are no test cases yet.</div>
                     <div th:case="*">

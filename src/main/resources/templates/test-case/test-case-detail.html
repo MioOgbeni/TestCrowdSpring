@@ -25,11 +25,21 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <div class="top-left-action-buttons-with-title">
-                    <a class="btn btn-primary" th:href="@{/test-cases}">
-                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
-                    <h1 class="h3 mb-4 text-gray-800">Test case detail</h1>
-                </div>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back"
+                       th:href="@{/test-cases}"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand text-gray-800 custom-heading">Test case detail</h1>
+                    <ul class="navbar-nav ml-auto custom-buttons">
+                        <li class="nav-item" sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}">
+                            <a class="nav-link btn btn-primary" th:href="@{'/test-cases/' + ${testCase.id} + '/edit'}">
+                                <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}">
+                            <a class="nav-link btn btn-danger" th:href="@{'/test-cases/' + ${testCase.id} + '/delete'}">
+                                <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
+                        </li>
+                    </ul>
+                </nav>
                 <p><strong>ID:</strong> <span th:text="${testCase.id}"></span></p>
                 <p><strong>Name:</strong> <span th:text="${testCase.name}"></span></p>
                 <p><strong>Description:</strong> <span th:text="${testCase.description}"></span></p>
@@ -67,14 +77,7 @@
                     <a th:href="@{'/users/' + ${testCase.createdBy.getId()}}"
                        th:text="${testCase.createdBy.getUsername()}"></a>
                 </p>
-                <hr>
                 <div class="action-buttons">
-                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-primary"
-                       th:href="@{'/test-cases/' + ${testCase.id} + '/edit'}">
-                        <i class="fas fa-edit fa-sm mr-2 text-gray-400"></i> Edit</a>
-                    <a sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}" class="btn btn-danger"
-                       th:href="@{'/test-cases/' + ${testCase.id} + '/delete'}">
-                        <i class="fas fa-trash-alt fa-sm mr-2 text-gray-400"></i> Delete</a>
                     <a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER')}" class="btn btn-primary"
                        th:href="@{'/test-cases/' + ${testCase.id} + '/take'}">
                         <i class="fas fa-arrow-alt-circle-down fa-sm mr-2 text-gray-400"></i> Take test case</a>

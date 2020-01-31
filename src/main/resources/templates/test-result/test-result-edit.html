@@ -26,11 +26,11 @@
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <div class="container-fluid">
 
-                <div class="top-left-action-buttons-with-title">
-                    <a class="btn btn-primary" th:href="@{'/test-results/' + ${id}}">
-                        <i class="fas fa-chevron-left fa-sm mr-2 text-gray-400"></i> Back</a>
-                    <h1 class="h3 mb-4 text-gray-800">Finish test result</h1>
-                </div>
+                <nav class="navbar navbar-expand custom-heading-with-buttons">
+                    <a class="navbar-brand btn btn-primary btn-circle custom-back-btn" title="Go back"
+                       th:href="@{'/test-results/' + ${id}}"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    <h1 class="navbar-brand text-gray-800 custom-heading">Finish test result</h1>
+                </nav>
                 <form th:action="@{'/test-results/' + ${id} + '/finish'}" th:object="${testResult}" method="post"
                       enctype="multipart/form-data">
                     <div class="row">
@@ -39,7 +39,6 @@
                             <label class="custom-file-label" for="file">Choose file</label>
                         </div>
                     </div>
-                    <hr>
                     <div class="form-group action-buttons">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save fa-sm mr-2 text-gray-400"></i> Save
