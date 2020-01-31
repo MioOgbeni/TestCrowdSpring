@@ -8,13 +8,9 @@ public interface File {
 
     void setFileName(String fileName);
 
-    byte[] getData();
+    String getFilePath();
 
-    void setData(byte[] data);
-
-    String getContentType();
-
-    void setContentType(String contentType);
+    void setFilePath(String filePath);
 
     Date getCreatedAt();
 

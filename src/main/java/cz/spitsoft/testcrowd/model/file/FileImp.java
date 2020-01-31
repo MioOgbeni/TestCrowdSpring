@@ -21,14 +21,10 @@ public class FileImp extends BaseEntity implements File {
     @NotEmpty
     private String fileName;
 
-    @Lob
-    @Column(name = "DTA_BLOB")
-    private byte[] data;
-
-    @Column(name = "CONTENT_TYPE")
-    @Size(max = 20, message = "{evidence.contentType.invalid}")
+    @Column(name = "FILE_PATH")
+    @Size(max = 255, message = "{evidence.filePath.invalid}")
     @NotEmpty
-    private String contentType;
+    private String filePath;
 
     @Column(name = "CREATED_AT")
     @NotNull
@@ -38,11 +34,10 @@ public class FileImp extends BaseEntity implements File {
         super();
     }
 
-    public FileImp(String fileName, byte[] data, String contentType, Date createdAt) {
+    public FileImp(String fileName, String filePath, Date createdAt) {
         super();
         this.fileName = fileName;
-        this.data = data;
-        this.contentType = contentType;
+        this.filePath = filePath;
         this.createdAt = createdAt;
     }
 
@@ -57,23 +52,13 @@ public class FileImp extends BaseEntity implements File {
     }
 
     @Override
-    public byte[] getData() {
-        return data;
+    public String getFilePath() {
+        return filePath;
     }
 
     @Override
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
-    @Override
-    public String getContentType() {
-        return contentType;
-    }
-
-    @Override
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

@@ -7,20 +7,21 @@ import cz.spitsoft.testcrowd.model.user.UserImp;
 import cz.spitsoft.testcrowd.service.*;
 import cz.spitsoft.testcrowd.validator.TestCaseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -135,7 +136,7 @@ public class TestCaseController {
         List<FileImp> uploadedFiles = new ArrayList<>();
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
-                uploadedFiles.add(fileStorageService.saveFile(file));
+                uploadedFiles.add(fileStorageService.saveFile(file, testCase.getId()));
             }
         }
         if (!uploadedFiles.isEmpty()) {
@@ -220,7 +221,9 @@ public class TestCaseController {
 
         List<FileImp> uploadedFiles = testCase.getFiles();
         for (MultipartFile file : files) {
-            uploadedFiles.add(fileStorageService.saveFile(file));
+            if (!file.isEmpty()) {
+                uploadedFiles.add(fileStorageService.saveFile(file, testCase.getId()));
+            }
         }
         testCase.setFiles(uploadedFiles);
 
@@ -249,15 +252,21 @@ public class TestCaseController {
 
     }
 
-    @GetMapping("/test-cases/download/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
+    @GetMapping("/test-cases/{testCaseId}/{fileId}")
+    public @ResponseBody
+    void downloadFile(@PathVariable String testCaseId, @PathVariable String fileId, HttpServletResponse response) {
         // Load file from database
         FileImp file = fileStorageService.getFile(fileId);
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(file.getContentType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
-                .body(new ByteArrayResource(file.getData()));
-    }
+        try {
+            // get your file as InputStream
+            InputStream is = new FileInputStream(file.getFilePath() + File.separator + file.getFileName());
 
+            // copy it to response's OutputStream
+            response.addHeader("Content-Disposition", "attachment; filename=" + file.getFileName());
+            FileCopyUtils.copy(is, response.getOutputStream());
+        } catch (IOException ex) {
+            throw new RuntimeException("Error writing file to output stream. Filename was " + file.getFileName(), ex);
+        }
+    }
 }

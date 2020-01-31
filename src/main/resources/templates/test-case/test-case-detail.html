@@ -53,7 +53,8 @@
                             <td><span th:text="${file.fileName}"></span></td>
                             <td><span th:text="${#dates.format(file.createdAt, 'MM/dd/yyyy HH:mm:ss')}"></span></td>
                             <td><a sec:authorize="${hasAnyAuthority('ADMIN', 'TESTER', 'REPORTER')}"
-                                   class="btn btn-primary" th:href="@{'/test-cases/download/' + ${file.id}}"> <i
+                                   class="btn btn-primary"
+                                   th:href="@{'/test-cases/' + ${testCase.id} + '/' + ${file.id}}"> <i
                                     class="fas fa-download fa-sm mr-2 text-gray-400"></i>Download</a></td>
                         </tr>
                         </tbody>
