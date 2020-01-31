@@ -45,6 +45,7 @@
                                     <th scope="col">Test case</th>
                                     <th scope="col" sec:authorize="${hasAuthority('ADMIN')}">User</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col" class="text-align-right">Reward</th>
                                     <th scope="col">Taken at</th>
                                     <th scope="col">Finished at</th>
                                 </tr>
@@ -58,6 +59,7 @@
                                     <td sec:authorize="${hasAuthority('ADMIN')}">
                                         <span th:text="${testResult.user.username}"></span></td>
                                     <td><span th:text="${testResult.testResultStatus}"></span></td>
+                                    <td class="text-align-right"><span th:text="${testResult.reward}"></span> Kr</td>
                                     <td><span th:text="${#dates.format(testResult.takenAt, 'MM/dd/yyyy')}"
                                               th:title="${#dates.format(testResult.takenAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                                     <td><span th:text="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy')}"

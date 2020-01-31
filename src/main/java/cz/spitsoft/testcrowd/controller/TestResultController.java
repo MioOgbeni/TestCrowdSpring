@@ -5,10 +5,7 @@ import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
 import cz.spitsoft.testcrowd.model.test_case.TestResultStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
-import cz.spitsoft.testcrowd.service.FileService;
-import cz.spitsoft.testcrowd.service.SecurityService;
-import cz.spitsoft.testcrowd.service.TestCaseService;
-import cz.spitsoft.testcrowd.service.TestResultService;
+import cz.spitsoft.testcrowd.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +35,9 @@ public class TestResultController {
 
     @Autowired
     private FileService fileStorageService;
+
+    @Autowired
+    private UserService userService;
 
     private void MakePagedTestResults(Model model, Page<TestResultImp> testResults) {
         model.addAttribute("testResults", testResults);
@@ -82,9 +82,6 @@ public class TestResultController {
         testResult.setTestResultStatus(TestResultStatus.TAKEN);
         testResult.setTakenAt(currentDate);
         testResult.setReward(testCase.getReward());
-
-        // TODO: odebrat reward od original user
-
 
         // save test result and redirect to his detail
         TestResultImp result = testResultService.save(testResult);
@@ -163,8 +160,16 @@ public class TestResultController {
         }
 
         testResult.setTestResultStatus(TestResultStatus.DONE);
-        currentUser.setAccountBalance(currentUser.getAccountBalance() + testResult.getReward());
         testResult.setFinishedAt(currentDate);
+
+        // take off reward from author of test case ans add it to current user
+        TestCaseImp testCase = testResult.getTestCase();
+        int testResultReward = testResult.getReward();
+        UserImp testCaseAuthor = testCase.getCreatedBy();
+        testCaseAuthor.setAccountBalance(testCaseAuthor.getAccountBalance() - testResultReward);
+        userService.save(testCaseAuthor);
+        currentUser.setAccountBalance(currentUser.getAccountBalance() + testResultReward);
+        userService.save(currentUser);
 
         testResultService.save(testResult);
         return "redirect:/test-results/" + testResult.getId();
@@ -177,7 +182,6 @@ public class TestResultController {
 
         // load test result
         TestResultImp testResult = testResultService.findById(id);
-        // TODO: pridat reward k original user
 
         // delete test result and return test result list
         testResultService.delete(testResult);

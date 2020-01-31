@@ -37,9 +37,11 @@
                        th:text="${testResult.user.username}"></a>
                 </p>
                 <p><strong>Status:</strong> <span th:text="${testResult.testResultStatus}"></span></p>
+                <p><strong>Reward:</strong> <span th:text="${testResult.reward}"></span> Kr</p>
                 <p><strong>Taken at:</strong>
                     <span th:text="${#dates.format(testResult.takenAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
+                <p><strong>Description:</strong> <span th:text="${testResult.description}"></span></p>
                 <p><strong>Finished at:</strong>
                     <span th:text="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
