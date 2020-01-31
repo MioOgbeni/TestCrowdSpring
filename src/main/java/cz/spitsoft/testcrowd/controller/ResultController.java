@@ -1,23 +1,20 @@
 package cz.spitsoft.testcrowd.controller;
 
 import cz.spitsoft.testcrowd.model.test_case.TestCaseImp;
-import cz.spitsoft.testcrowd.model.test_case.TestStatus;
+import cz.spitsoft.testcrowd.model.test_case.TestResultImp;
+import cz.spitsoft.testcrowd.model.test_case.TestResultStatus;
 import cz.spitsoft.testcrowd.model.user.UserImp;
-import cz.spitsoft.testcrowd.service.*;
-import cz.spitsoft.testcrowd.validator.TestCaseValidator;
+import cz.spitsoft.testcrowd.service.SecurityService;
+import cz.spitsoft.testcrowd.service.TestCaseService;
+import cz.spitsoft.testcrowd.service.TestResultService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 public class ResultController {
@@ -26,17 +23,30 @@ public class ResultController {
     private SecurityService securityService;
 
     @Autowired
-    private TestCaseValidator testCaseValidator;
+    private TestResultService testResultService;
 
     @Autowired
     private TestCaseService testCaseService;
 
-    @Autowired
-    private TestCategoryService testCategoryService;
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
+    @GetMapping("/test-cases/{testCaseId}/take")
+    public String testCaseDetail(Model model, @PathVariable(value = "testCaseId") String testCaseId) {
 
-    @Autowired
-    private SoftwareTypeService softwareTypeService;
+        // create test result
+        TestCaseImp testCase = testCaseService.findById(testCaseId);
+        UserImp currentUser = securityService.getCurrentUser();
+        Date currentDate = new Date();
+        TestResultImp testResult = new TestResultImp();
+        testResult.setTestCase(testCase);
+        testResult.setUser(currentUser);
+        testResult.setTestResultStatus(TestResultStatus.TAKEN);
+        testResult.setTakenAt(currentDate);
 
-    @Autowired
-    private UserService userService;
+        // save test result and return his detail
+        testResultService.save(testResult);
+        model.addAttribute("testResult", testResult);
+        return "test-result/test-result-detail";
+
+    }
+
 }
