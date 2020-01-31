@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Date;
 
 @Controller
-public class ResultController {
+public class TestResultController {
 
     @Autowired
     private SecurityService securityService;
