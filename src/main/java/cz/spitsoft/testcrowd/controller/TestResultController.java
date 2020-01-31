@@ -76,6 +76,10 @@ public class TestResultController {
         testResult.setUser(currentUser);
         testResult.setTestResultStatus(TestResultStatus.TAKEN);
         testResult.setTakenAt(currentDate);
+        testResult.setReward(testCase.getReward());
+
+        // TODO: odebrat reward od original user
+
 
         // save test result and redirect to his detail
         TestResultImp result = testResultService.save(testResult);
@@ -122,7 +126,7 @@ public class TestResultController {
         TestResultImp testResult = testResultService.findById(id);
         testResult.setTestResultStatus(TestResultStatus.DONE);
         testResult.setFinishedAt(currentDate);
-        // TODO: pridat reward to user
+        // TODO: pridat reward k user
 
         testResultService.save(testResult);
         return "redirect:/test-results/" + testResult.getId();
@@ -135,7 +139,7 @@ public class TestResultController {
 
         // load test result
         TestResultImp testResult = testResultService.findById(id);
-        // TODO: pridat reward to original user
+        // TODO: pridat reward k original user
 
         // delete test result and return test result list
         testResultService.delete(testResult);
