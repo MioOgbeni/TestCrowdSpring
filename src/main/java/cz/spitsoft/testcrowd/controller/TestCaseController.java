@@ -50,31 +50,6 @@ public class TestCaseController {
     @Autowired
     private FileService fileStorageService;
 
-    @Autowired
-    private UserService userService;
-
-    /*@PreAuthorize("hasAuthority('REPORTER')")
-    @GetMapping("/test-cases")
-    public String testCaseListForReporter(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
-        // TODO dodělat nějaké vyhledávání a filtrování, alespon vyhledávání podle jména a filtrování podle time a skill difficulty
-
-        //Page<TestCaseImp> testCases = testCaseService.findAllAvailableToBeforeAndCreatedBy(new Date(), securityService.getCurrentUser(), PageRequest.of(page, size));
-        //MakePagedTestCases(model, testCases);
-
-        return "test-case/test-case-list";
-    }*/
-
-    /*@PreAuthorize("hasAuthority('TESTER')")
-    @GetMapping("/test-cases")
-    public String testCaseListForTester(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
-        // TODO dodělat nějaké vyhledávání a filtrování, alespon vyhledávání podle jména a filtrování podle time a skill difficulty
-
-        Page<TestCaseImp> testCases = testCaseService.findAllAvailableToBefore(new Date(), PageRequest.of(page, size));
-        MakePagedTestCases(model, testCases);
-
-        return "test-case/test-case-list";
-    }*/
-
     private void MakePagedTestCases(Model model, Page<TestCaseImp> testCases) {
         model.addAttribute("testCases", testCases);
         int totalPages = testCases.getTotalPages();
@@ -89,7 +64,6 @@ public class TestCaseController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/test-cases")
     public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size, @RequestParam(value = "search", defaultValue = "") String search) {
-
         // get test cases by user role
         UserImp currentUser = securityService.getCurrentUser();
         Page<TestCaseImp> testCases;

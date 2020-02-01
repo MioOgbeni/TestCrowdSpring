@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EntryController {
@@ -36,14 +37,19 @@ public class EntryController {
     }
 
     @PostMapping("/registration/reporter")
-    public String reporterRegistration(@ModelAttribute("user") UserImp user, BindingResult bindingResult) {
+    public String reporterRegistration(@ModelAttribute("user") UserImp user, BindingResult bindingResult, @RequestParam(value = "admin", defaultValue = "") String admin) {
         registrationValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "entry/reporter-registration";
         }
         String passwordEncoded = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(passwordEncoded);
-        user.setRoleType(RoleType.REPORTER);
+        if (Boolean.valueOf(admin)) {
+            user.setRoleType(RoleType.ADMIN);
+        } else {
+            user.setRoleType(RoleType.REPORTER);
+        }
+
         userService.save(user);
         securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
         return "redirect:/";

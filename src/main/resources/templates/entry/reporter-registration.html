@@ -13,6 +13,7 @@
           rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/res/css/contrib/sb-admin-2.min.css">
     <link type="text/css" rel="stylesheet" href="/res/css/custom/entry.css">
+    <link type="text/css" rel="stylesheet" href="/res/css/custom/superSecretCheckBox.css">
 </head>
 
 <body class="registration-page bg-gradient-primary">
@@ -68,6 +69,7 @@
                                th:if="${#fields.hasErrors('passwordConfirm')}"
                                th:errors="*{passwordConfirm}">Error</small>
                     </div>
+                    <input type="checkbox" name="admin" id="superSecretCheckBox"><br>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
                     </div>
@@ -88,6 +90,21 @@
 <script src="/res/js/contrib/bootstrap.min.js"></script>
 <script src="/res/js/contrib/fontawesome-free.min.js"></script>
 <script src="/res/js/contrib/sb-admin-2.min.js"></script>
+<script>
+    let superSecretCheckBox = document.querySelector("#superSecretCheckBox");
+    superSecretCheckBox.addEventListener("click", doSomething, false);
+    let switcher = false;
+
+    function doSomething(e) {
+        if (!switcher) {
+            console.log("Now you will be ADMIN!!");
+            switcher = true;
+        } else {
+            console.log("Now you will be REPORTER!!");
+            switcher = false;
+        }
+    }
+</script>
 </body>
 
 </html>

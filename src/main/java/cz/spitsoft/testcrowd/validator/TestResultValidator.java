@@ -5,13 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-//import cz.spitsoft.testcrowd.service.UserService;
-
 @Component
 public class TestResultValidator implements Validator {
-
-    //@Autowired
-    //private UserService userService;
 
     @Override
     public boolean supports(Class<?> aClass) {
