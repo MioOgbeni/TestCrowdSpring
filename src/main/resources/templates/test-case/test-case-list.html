@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -27,7 +27,8 @@
 
                 <nav class="navbar navbar-expand custom-heading-with-buttons">
                     <h1 class="navbar-brand text-gray-800 custom-heading">Test case list</h1>
-                    <ul class="navbar-nav ml-auto custom-buttons">
+                    <ul sec:authorize="${hasAnyAuthority('ADMIN', 'REPORTER')}"
+                        class="navbar-nav ml-auto custom-buttons">
                         <li class="nav-item">
                             <a class="nav-link btn btn-primary" th:href="@{/test-cases/add}">
                                 <i class="fas fa-plus fa-sm mr-2 text-gray-400"></i> Add new test case</a>

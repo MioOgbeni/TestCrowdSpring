@@ -73,5 +73,4 @@ public class EntryController {
     public String login(Model model) {
         return "entry/login";
     }
-
 }
