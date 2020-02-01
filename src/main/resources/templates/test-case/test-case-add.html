@@ -111,6 +111,7 @@
                             <input class="form-control"
                                    type="number"
                                    id="reward"
+                                   min="1"
                                    th:field="*{reward}"/>
                             <small class="text-danger"
                                    th:if="${#fields.hasErrors('reward')}"

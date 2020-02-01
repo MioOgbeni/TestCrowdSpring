@@ -60,6 +60,7 @@
                                    type="number"
                                    min="1"
                                    max="5"
+                                   value="1"
                                    id="skillDifficulty"
                                    th:field="*{skillDifficulty}"/>
                             <small class="text-danger"
@@ -72,6 +73,7 @@
                                    type="number"
                                    min="1"
                                    max="5"
+                                   value="1"
                                    id="timeDifficulty"
                                    th:field="*{timeDifficulty}"/>
                             <small class="text-danger"
@@ -111,6 +113,8 @@
                             <input class="form-control"
                                    type="number"
                                    id="reward"
+                                   min="1"
+                                   value="1"
                                    th:field="*{reward}"/>
                             <small class="text-danger"
                                    th:if="${#fields.hasErrors('reward')}"
@@ -128,7 +132,7 @@
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="table-responsive-md">
-                                <table class="table">
+                                <table th:if="${testCase.files.size() > 0}" class="table">
                                     <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Name</th>

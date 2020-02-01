@@ -53,6 +53,7 @@ public class SoftwareTypeImp extends BaseEntity implements SoftwareType {
 
     public SoftwareTypeImp() {
         super();
+        this.enabled = true;
     }
 
     public SoftwareTypeImp(String name, String description, Boolean enabled, Date updatedAt, UserImp updatedBy, Date createdAt, UserImp createdBy) {

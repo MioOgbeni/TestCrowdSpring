@@ -48,7 +48,7 @@
                 <p><strong>Finished at:</strong>
                     <span th:text="${#dates.format(testResult.finishedAt, 'MM/dd/yyyy HH:mm:ss')}"></span>
                 </p>
-                <table class="table">
+                <table th:if="${testResult.files.size() > 0}" class="table">
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">Name</th>

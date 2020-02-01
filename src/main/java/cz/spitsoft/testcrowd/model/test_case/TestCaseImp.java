@@ -88,6 +88,10 @@ public class TestCaseImp extends BaseEntity implements TestCase {
 
     public TestCaseImp() {
         super();
+        this.timeDifficulty = 1;
+        this.skillDifficulty = 1;
+        this.reward = 1;
+        this.availableTo = new Date();
     }
 
     public TestCaseImp(String name, String description, int skillDifficulty, int timeDifficulty, TestStatus testStatus, TestCategoryImp testCategory, SoftwareTypeImp softwareType, int reward, List<FileImp> files, Date createdAt, UserImp createdBy, Date availableTo, List<ReviewImp> reviews, int rating) {

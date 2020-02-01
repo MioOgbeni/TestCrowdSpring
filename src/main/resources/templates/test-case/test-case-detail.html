@@ -55,7 +55,7 @@
                 <p><strong>Software type:</strong> <span th:text="${testCase.softwareType.name}"></span></p>
                 <p><strong>Reward:</strong> <span th:text="${testCase.reward}"></span> Kr</p>
 
-                <div class="table-responsive-md">
+                <div th:if="${testCase.files.size() > 0}" class="table-responsive-md">
                     <table class="table">
                         <thead class="thead-light">
                         <tr>
@@ -94,25 +94,30 @@
                 <hr>
                 <h2>Reviews</h2>
                 <div class="reviews">
-                    <div class="row" th:each="review : ${testCase.reviews}">
-                        <div class="col-sm-2">
-                            <div class="thumbnail">
-                                <a th:href="@{'/users/' + ${review.createdBy.id}}">
-                                    <img class="img-responsive user-photo" src="/res/img/user-placeholder.png"/></a>
-                            </div>
-                            <div class="username">
-                                <a th:href="@{'/users/' + ${review.createdBy.id}}"
-                                   th:text="${review.createdBy.username}"></a></div>
-                        </div>
+                    <div th:switch="${testCase.reviews.size()}">
+                        <div th:case="0">There are no reviews yet.</div>
+                        <div th:case="*">
+                            <div class="row" th:each="review : ${testCase.reviews}">
+                                <div class="col-sm-2">
+                                    <div class="thumbnail">
+                                        <a th:href="@{'/users/' + ${review.createdBy.id}}">
+                                            <img class="img-responsive user-photo" src="/res/img/user-placeholder.png"/></a>
+                                    </div>
+                                    <div class="username">
+                                        <a th:href="@{'/users/' + ${review.createdBy.id}}"
+                                           th:text="${review.createdBy.username}"></a></div>
+                                </div>
 
-                        <div class="col-sm-10">
-                            <div class="panel panel-default">
-                                <div><span class="fa fa-star"
-                                           th:each="i : ${#numbers.sequence(1, 5, 1)}"
-                                           th:classappend="${review.rating >= i} ? 'checked' : ''"></span></div>
-                                <div><span th:text="${#dates.format(review.createdAt, 'MM/dd/yyyy HH:mm:ss')}"
-                                           class="text-muted"></span></div>
-                                <div class="panel-body" th:text="${review.content}"></div>
+                                <div class="col-sm-10">
+                                    <div class="panel panel-default">
+                                        <div><span class="fa fa-star"
+                                                   th:each="i : ${#numbers.sequence(1, 5, 1)}"
+                                                   th:classappend="${review.rating >= i} ? 'checked' : ''"></span></div>
+                                        <div><span th:text="${#dates.format(review.createdAt, 'MM/dd/yyyy HH:mm:ss')}"
+                                                   class="text-muted"></span></div>
+                                        <div class="panel-body" th:text="${review.content}"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

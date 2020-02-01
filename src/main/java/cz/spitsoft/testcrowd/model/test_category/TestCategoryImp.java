@@ -53,6 +53,7 @@ public class TestCategoryImp extends BaseEntity implements TestCategory {
 
     public TestCategoryImp() {
         super();
+        this.enabled = true;
     }
 
     public TestCategoryImp(String name, String description, Boolean enabled, Date updatedAt, UserImp updatedBy, Date createdAt, UserImp createdBy) {

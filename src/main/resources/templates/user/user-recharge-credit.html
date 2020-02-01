@@ -34,13 +34,12 @@
                 <form th:action="@{/pay}" method="post">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="sum">Credit count to recharge</label>
-                            <input class="form-control"
-                                   name="sum"
-                                   type="number"
-                                   min="1"
-                                   max="100000000"
-                                   id="sum"/>
+                            <label>Credit count to recharge</label><br>
+                            <div class="col-md-8 ml-3 mt-2 mb-2">
+                                <input type="radio" name="sum" value="100" checked> 100 Credits (1 USD)<br>
+                                <input type="radio" name="sum" value="500"> 500 Credits (5 USD)<br>
+                                <input type="radio" name="sum" value="1000"> 1000 Credits (10 USD)<br>
+                            </div>
                             <small>100 Credits = 1 USD</small>
                         </div>
                     </div>

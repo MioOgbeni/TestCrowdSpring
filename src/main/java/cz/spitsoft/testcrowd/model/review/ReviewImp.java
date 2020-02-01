@@ -39,6 +39,7 @@ public class ReviewImp extends BaseEntity implements Review {
 
     public ReviewImp() {
         super();
+        this.rating = 1;
     }
 
     public ReviewImp(String content, int rating, Date createdAt, UserImp createdBy) {
