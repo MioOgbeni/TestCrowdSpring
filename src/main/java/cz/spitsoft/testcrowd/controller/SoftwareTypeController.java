@@ -33,8 +33,8 @@ public class SoftwareTypeController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/software-types")
-    public String softwareTypeList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
-        Page<SoftwareTypeImp> softwareTypes = softwareTypeService.findAll(PageRequest.of(page, size));
+    public String softwareTypeList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size, @RequestParam(value = "search", defaultValue = "") String search) {
+        Page<SoftwareTypeImp> softwareTypes = softwareTypeService.findAll(PageRequest.of(page, size), search);
         model.addAttribute("softwareTypes", softwareTypes);
 
         int totalPages = softwareTypes.getTotalPages();

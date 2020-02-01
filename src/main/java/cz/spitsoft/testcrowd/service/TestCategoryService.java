@@ -17,7 +17,7 @@ public interface TestCategoryService {
 
     List<TestCategoryImp> findAll();
 
-    Page<TestCategoryImp> findAll(Pageable pageable);
+    Page<TestCategoryImp> findAll(Pageable pageable, String name);
 
     TestCategoryImp findById(String id);
 

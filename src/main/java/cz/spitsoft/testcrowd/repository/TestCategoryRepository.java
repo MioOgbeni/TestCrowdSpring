@@ -19,7 +19,7 @@ public interface TestCategoryRepository extends JpaRepository<TestCategoryImp, U
     List<TestCategoryImp> findAll();
 
     @Nonnull
-    Page<TestCategoryImp> findAll(@Nonnull Pageable pageable);
+    Page<TestCategoryImp> findByNameContaining(String name, @Nonnull Pageable pageable);
 
     TestCategoryImp findById(String id);
 

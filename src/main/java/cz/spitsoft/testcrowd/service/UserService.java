@@ -16,7 +16,7 @@ public interface UserService {
 
     List<UserImp> findAll();
 
-    Page<UserImp> findAll(Pageable pageable);
+    Page<UserImp> findAll(Pageable pageable, String userName);
 
     UserImp findById(String id);
 

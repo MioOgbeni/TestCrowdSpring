@@ -17,7 +17,7 @@ public interface SoftwareTypeService {
 
     List<SoftwareTypeImp> findAll();
 
-    Page<SoftwareTypeImp> findAll(Pageable pageable);
+    Page<SoftwareTypeImp> findAll(Pageable pageable, String name);
 
     SoftwareTypeImp findById(String id);
 

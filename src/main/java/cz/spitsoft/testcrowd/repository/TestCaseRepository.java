@@ -19,9 +19,9 @@ public interface TestCaseRepository extends JpaRepository<TestCaseImp, UUID> {
     List<TestCaseImp> findAll();
 
     @Nonnull
-    Page<TestCaseImp> findAll(@Nonnull Pageable pageable);
+    Page<TestCaseImp> findByNameContaining(String name, @Nonnull Pageable pageable);
 
-    Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable);
+    Page<TestCaseImp> findByCreatedByAndNameContaining(UserImp user, String name, Pageable pageable);
 
     //List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
 

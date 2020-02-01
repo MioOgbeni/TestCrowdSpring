@@ -55,13 +55,13 @@ public class TestCaseServiceImp implements TestCaseService {
     }
 
     @Override
-    public Page<TestCaseImp> findAll(Pageable pageable) {
-        return testCaseRepository.findAll(pageable);
+    public Page<TestCaseImp> findAll(Pageable pageable, String name) {
+        return testCaseRepository.findByNameContaining(name, pageable);
     }
 
     @Override
-    public Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable) {
-        return testCaseRepository.findByCreatedBy(user, pageable);
+    public Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable, String name) {
+        return testCaseRepository.findByCreatedByAndNameContaining(user, name, pageable);
     }
 
     /*@Override

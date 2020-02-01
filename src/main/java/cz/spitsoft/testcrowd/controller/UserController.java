@@ -46,9 +46,9 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users")
-    public String userList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "2") int size) {
+    public String userList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "2") int size, @RequestParam(value = "search", defaultValue = "") String search) {
 
-        Page<UserImp> users = userService.findAll(PageRequest.of(page, size));
+        Page<UserImp> users = userService.findAll(PageRequest.of(page, size), search);
         model.addAttribute("users", users);
         int totalPages = users.getTotalPages();
         if (totalPages > 0) {

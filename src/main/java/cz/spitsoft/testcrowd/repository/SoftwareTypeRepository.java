@@ -19,7 +19,7 @@ public interface SoftwareTypeRepository extends JpaRepository<SoftwareTypeImp, U
     List<SoftwareTypeImp> findAll();
 
     @Nonnull
-    Page<SoftwareTypeImp> findAll(@Nonnull Pageable pageable);
+    Page<SoftwareTypeImp> findByNameContaining(String name, @Nonnull Pageable pageable);
 
     SoftwareTypeImp findById(String id);
 

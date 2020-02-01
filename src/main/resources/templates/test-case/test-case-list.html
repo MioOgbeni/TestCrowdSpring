@@ -34,6 +34,21 @@
                         </li>
                     </ul>
                 </nav>
+                <form class="d-none d-sm-inline-block form-inline mr-auto md-3 my-2 my-md-0 mw-100 navbar-search"
+                      th:action="@{/test-cases(size=${testCases.size}, page=${testCases.number})}">
+                    <div class="input-group">
+                        <input class="form-control bg-white border-0 small" type="text" name="search"
+                               th:value="${#httpServletRequest.getParameter('search')}" placeholder="search">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search fa-sm text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <hr>
+
                 <div th:switch="${testCases.getNumberOfElements()}">
                     <div th:case="0">There are no test cases yet.</div>
                     <div th:case="*">
@@ -76,18 +91,18 @@
                         <ul th:if="${testCases.totalPages > 0}" class="pagination">
                             <li class="page-item" th:classappend="${testCases.number <= 0} ? disabled">
                                 <a class="page-link"
-                                   th:href="@{/test-cases(size=${testCases.size}, page=${testCases.number - 1})}">Previous</a>
+                                   th:href="@{/test-cases(size=${testCases.size}, page=${testCases.number - 1}, search=${#httpServletRequest.getParameter('search')})}">Previous</a>
                             </li>
                             <li class="page-item" th:each="page : ${pages}"
                                 th:classappend="${page==testCases.number} ? active">
                                 <a class="page-link"
-                                   th:href="@{/test-cases(size=${testCases.size}, page=${page})}"
+                                   th:href="@{/test-cases(size=${testCases.size}, page=${page}, search=${#httpServletRequest.getParameter('search')})}"
                                    th:text="${page} + 1"></a>
                             </li>
                             <li class="page-item"
                                 th:classappend="${testCases.number >= testCases.totalPages - 1} ? disabled">
                                 <a class="page-link"
-                                   th:href="@{/test-cases(size=${testCases.size}, page=${testCases.number + 1})}">Next</a>
+                                   th:href="@{/test-cases(size=${testCases.size}, page=${testCases.number + 1}, search=${#httpServletRequest.getParameter('search')})}">Next</a>
                             </li>
                         </ul>
                     </div>

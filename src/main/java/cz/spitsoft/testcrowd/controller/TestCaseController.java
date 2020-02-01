@@ -88,15 +88,15 @@ public class TestCaseController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'REPORTER', 'TESTER')")
     @GetMapping("/test-cases")
-    public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+    public String testCaseList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size, @RequestParam(value = "search", defaultValue = "") String search) {
 
         // get test cases by user role
         UserImp currentUser = securityService.getCurrentUser();
         Page<TestCaseImp> testCases;
         if (securityService.isCurrentUserReporter()) {
-            testCases = testCaseService.findByCreatedBy(currentUser, PageRequest.of(page, size));
+            testCases = testCaseService.findByCreatedBy(currentUser, PageRequest.of(page, size), search);
         } else {
-            testCases = testCaseService.findAll(PageRequest.of(page, size));
+            testCases = testCaseService.findAll(PageRequest.of(page, size), search);
         }
         MakePagedTestCases(model, testCases);
 

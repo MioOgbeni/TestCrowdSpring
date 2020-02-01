@@ -37,8 +37,8 @@ public class TestCategoryServiceImp implements TestCategoryService {
     }
 
     @Override
-    public Page<TestCategoryImp> findAll(Pageable pageable) {
-        return testCategoryRepository.findAll(pageable);
+    public Page<TestCategoryImp> findAll(Pageable pageable, String name) {
+        return testCategoryRepository.findByNameContaining(name, pageable);
     }
 
     @Override

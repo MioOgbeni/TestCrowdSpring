@@ -37,8 +37,8 @@ public class SoftwareTypeServiceImp implements SoftwareTypeService {
     }
 
     @Override
-    public Page<SoftwareTypeImp> findAll(Pageable pageable) {
-        return softwareTypeRepository.findAll(pageable);
+    public Page<SoftwareTypeImp> findAll(Pageable pageable, String name) {
+        return softwareTypeRepository.findByNameContaining(name, pageable);
     }
 
     @Override

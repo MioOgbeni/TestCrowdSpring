@@ -33,8 +33,8 @@ public class TestCategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/test-categories")
-    public String testCategoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
-        Page<TestCategoryImp> testCategories = testCategoryService.findAll(PageRequest.of(page, size));
+    public String testCategoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size, @RequestParam(value = "search", defaultValue = "") String search) {
+        Page<TestCategoryImp> testCategories = testCategoryService.findAll(PageRequest.of(page, size), search);
         model.addAttribute("testCategories", testCategories);
 
         int totalPages = testCategories.getTotalPages();

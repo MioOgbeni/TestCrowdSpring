@@ -22,9 +22,9 @@ public interface TestCaseService {
 
     List<TestCaseImp> findAll();
 
-    Page<TestCaseImp> findAll(Pageable pageable);
+    Page<TestCaseImp> findAll(Pageable pageable, String name);
 
-    Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable);
+    Page<TestCaseImp> findByCreatedBy(UserImp user, Pageable pageable, String name);
 
     //List<TestCaseImp> findAllAvailableToBeforeAndCreatedBy(Date availableTo, UserImp createdBy);
 
