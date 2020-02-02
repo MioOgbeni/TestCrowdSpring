@@ -35,6 +35,8 @@ docker-compose up -d --build
 
 - Go to [localhost:8080](http://localhost:8080/)
 
+- Live demo at [testcrowd-app.westeurope.cloudapp.azure.com](http://testcrowd-app.westeurope.cloudapp.azure.com:8080/)
+
 ## Authors
 - Bc. Tomáš Novák (tomas.novak.3@uhk.cz)
 - Bc. Libor Plíšek (libor.plisek@uhk.cz)
