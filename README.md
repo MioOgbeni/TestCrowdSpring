@@ -35,6 +35,12 @@ docker-compose up -d --build
 
 - Go to [localhost:8080](http://localhost:8080/)
 
+## More
+
+- Docker image at [hub.docker.com/r/mioogbeni/testcrowd-docker](https://hub.docker.com/r/mioogbeni/testcrowd-docker)
+
+- Live demo at [testcrowd-app.westeurope.cloudapp.azure.com](http://testcrowd-app.westeurope.cloudapp.azure.com:8080/)
+
 ## Authors
 - Bc. Tomáš Novák (tomas.novak.3@uhk.cz)
 - Bc. Libor Plíšek (libor.plisek@uhk.cz)
